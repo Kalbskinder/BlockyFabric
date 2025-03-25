@@ -1,0 +1,19 @@
+{
+  "name": "blockyfabric",
+  "version": "1.0.0",
+  "description": "A tool that lets everyone create minecraft mods with no coding experience",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "type": "module"
+}
