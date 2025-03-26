@@ -51,14 +51,17 @@ async function handleFormSubmit(event, isRegister) {
         body: JSON.stringify(requestBody)
     });
 
-    let data = await response.json();
     let errorElement = document.getElementById(isRegister ? "register-error" : "login-error");
 
-    if (response.status === 400) {
-        window.location.reload();
-    } else {
-        errorElement.innerText = data.error;
-        errorElement.classList.remove("hidden");
+    if (!isRegister && response.status === 401) {
+        errorElement.style.display = "block";
+        errorElement.style.marginBottom = "12px";
+        errorElement.textContent = "Invalid credentials";
+    }
+
+    if (isRegister && response.status === 401) {
+        let emailError = document.getElementById("email-error");
+        emailError.style.display = "block";
     }
 }
 
