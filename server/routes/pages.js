@@ -14,6 +14,10 @@ router.get('/docs', (req, res) => {
     res.render('pages/documentation');
 });
 
+router.get('/dashboard', (req, res) => {
+    res.render('pages/dashboard');
+});
+
 // Must be called last
 router.use((req, res) => {
     res.status(404).render('pages/404');

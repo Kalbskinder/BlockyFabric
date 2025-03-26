@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
     const existingUser = await db.get('SELECT * FROM users WHERE username = ? OR email = ?', [username, email]);
 
     if (existingUser) {
-        return res.status(400).json({ error: 'Username or email already exists.' });
+        return res.status(401).json({ error: 'Username or email already exists.' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
