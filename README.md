@@ -1,2 +1,2 @@
 # BlockyFabric
-A tool that lets everyone create minecraft mods with no coding experience
+A tool that lets anybody create minecraft mods with no coding experience
