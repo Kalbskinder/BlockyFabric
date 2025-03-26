@@ -18,6 +18,10 @@ router.get('/dashboard', (req, res) => {
     res.render('pages/dashboard');
 });
 
+router.get('/profile', (req, res) => {
+    res.render('pages/profile');
+});
+
 // Must be called last
 router.use((req, res) => {
     res.status(404).render('pages/404');

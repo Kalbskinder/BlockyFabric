@@ -35,6 +35,7 @@ app.use((req, res, next) => {
     next();
 });
 
+
 app.use('/auth', authRoutes); // Routen for authenticating
 app.use('/', pageRoutes); // Routes for pages
 

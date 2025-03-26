@@ -26,13 +26,18 @@ router.post('/register', async (req, res) => {
         return res.status(401).json({ error: 'Username or email already exists.' });
     }
 
+    const defaultProfileImage = "default.png";
     const hashedPassword = await bcrypt.hash(password, 10);
+
     try {
-        await db.run('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hashedPassword]);
-        res.json({ success: true, message: 'User registered successfully!' });
+        await db.run(
+            "INSERT INTO users (username, email, password, profileImage) VALUES (?, ?, ?, ?)",
+            [username, email, hashedPassword, defaultProfileImage]
+        );
+        res.json({ success: true, message: "User registered successfully!" });
     } catch (err) {
-        res.status(500).json({ error: 'Database error.' });
-    }
+        res.status(500).json({ error: "Database error." });
+    }   
 });
 
 // Login
@@ -47,9 +52,23 @@ router.post('/login', async (req, res) => {
         return res.status(401).json({ error: 'Invalid credentials.' });
     }
 
-    req.session.user = { id: user.id, username: user.username };
+    req.session.user = { 
+        id: user.id, 
+        username: user.username ,
+        profileImage: user.profileImage || "default.png"
+    };
     res.json({ success: true, message: 'Logged in successfully!' });
-    console.log("Logged in successfully as " + user.username)
 });
+
+router.get("/logout", (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Error destroying session:", err);
+            return res.status(500).send("Logout failed");
+        }
+        res.redirect("/login");
+    });
+});
+
 
 export default router;
