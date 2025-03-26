@@ -1,0 +1,25 @@
+.nav-link {
+    color: rgb(233, 233, 233);
+    font-size: 15.5px;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+.nav-item .signup {
+    background-color: white;
+    color: #0275d8;
+    border-radius: 8px;
+    margin-left: 5px;
+}
+
+.nav-item .signup:hover {
+    background-color: #e9e9e9;
+    color: #0275d8;
+    text-decoration: none;
+}
+
+.text-bold {
+    font-weight: bold;
+}

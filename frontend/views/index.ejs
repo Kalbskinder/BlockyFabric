@@ -1,0 +1,24 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlockyFabric - Home</title>
+    <%- include('components/imports') %>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/homepage.css">
+</head>
+<body>
+    <%- include('components/navbar') %>  <!-- Navbar -->
+    <div class="content">
+        <h1>Welcome to BlockyFabric</h1>
+        <p>BlockyFabric is tool that lets anybody create Minecraft Mods with no coding experience.</p>
+        <div class="button-container">
+            <a href="/login"><button type="button" class="btn btn-primary">Get started!</button></a>
+            <a href="/docs"><button type="button" class="btn btn-success">Documentation</button></a>
+            <a href=""><button type="button" class="btn btn-warning">Donate</button></a>
+        </div>
+    </div>
+</body>
+</html>

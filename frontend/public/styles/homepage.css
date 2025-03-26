@@ -1,0 +1,25 @@
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 80px;
+}
+
+.content h1 {
+    font-size: 45px;
+}
+
+.button-container {
+    display: block;
+}
+
+.btn-warning {
+    background-color: rgb(252, 62, 167);
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: rgb(239, 48, 137);
+    color: white;
+}

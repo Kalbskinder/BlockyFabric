@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlockyFabric - Documentation</title>
+    <%- include('../components/imports') %>
+    <link rel="stylesheet" href="/styles/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Layout */
+        .docs-container {
+            display: flex;
+            height: calc(100vh - 50px); /* Adjusted for navbar */
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: #222;
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px;
+            display: block;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            background: #444;
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .content h1 {
+            font-size: 24px;
+        }
+
+        .content p {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('../components/navbar') %>  <!-- Navbar -->
+
+
+    <div class="docs-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Documentation</h2>
+            <ul>
+                <li><a href="#" onclick="showContent('intro')">🔹 Introduction</a></li>
+                <li><a href="#" onclick="showContent('installation')">🔹 Installation</a></li>
+                <li><a href="#" onclick="showContent('blockly')">🔹 Using Blockly</a></li>
+                <li><a href="#" onclick="showContent('custom_blocks')">🔹 Creating Custom Blocks</a></li>
+                <li><a href="#" onclick="showContent('backend')">🔹 Backend API</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div id="intro">
+                <h1>🔹 Introduction</h1>
+                <p>Welcome to the Blockly Mod Creator documentation! Learn how to create your own Minecraft mods using Blockly.</p>
+            </div>
+
+            <div id="installation" style="display: none;">
+                <h1>🔹 Installation</h1>
+                <p>1. Download the project. <br> 2. Install Node.js. <br> 3. Run the server using `node server.js`.</p>
+            </div>
+
+            <div id="blockly" style="display: none;">
+                <h1>🔹 Using Blockly</h1>
+                <p>Drag and connect blocks to create scripts. The code will be generated automatically.</p>
+            </div>
+
+            <div id="custom_blocks" style="display: none;">
+                <h1>🔹 Creating Custom Blocks</h1>
+                <p>Use `Blockly.defineBlocksWithJsonArray` to define new blocks.</p>
+            </div>
+
+            <div id="backend" style="display: none;">
+                <h1>🔹 Backend API</h1>
+                <p>Send the generated code to `/upload` using a POST request.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showContent(section) {
+            let sections = ["intro", "installation", "blockly", "custom_blocks", "backend"];
+            sections.forEach(id => {
+                document.getElementById(id).style.display = (id === section) ? "block" : "none";
+            });
+        }
+    </script>
+
+</body>
+</html>
