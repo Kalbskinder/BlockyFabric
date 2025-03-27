@@ -3,10 +3,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import session from "express-session";
 import bcrypt from "bcryptjs";
-import db from "./db.js";
 import SQLiteStore from "connect-sqlite3";
 import authRoutes from './routes/auth.js';   // Auth Routes
 import pageRoutes from './routes/pages.js';  // Page Routes
+import imageUpload from './routes/imageUpload.js'; // Image Upload Routes
 
 const app = express();
 const PORT = 3000;
@@ -17,6 +17,7 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend', 'public')));
+app.use(express.urlencoded({ extended: true }));
 app.use('/bootstrap', express.static(path.join(__dirname, '../node_modules/bootstrap/dist')));
 
 app.use(session({
@@ -35,8 +36,12 @@ app.use((req, res, next) => {
     next();
 });
 
+console.log("Image upload routes loaded!");
 
 app.use('/auth', authRoutes); // Routen for authenticating
+app.use('/upload', imageUpload);
+
+
 app.use('/', pageRoutes); // Routes for pages
 
 app.listen(PORT, () => {

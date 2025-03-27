@@ -38,8 +38,14 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown"
                             role="button" data-bs-toggle="dropdown">
-                            <img src="/images/users/profileimages/<%= user.profileImage ? user.profileImage : 'default.png' %>"
-                                alt="Profile" class="rounded-circle" width="40" height="40">
+                            <% if (user.profileImage) { %>
+                                <img src="<%= user.profileImage ? user.profileImage : 'default.png' %>"
+                                alt="Profile" class="profile-image">
+                            <% } else { %>
+                                <img src="/images/users/profileimages/default.png"
+                                alt="Profile" class="profile-image">
+
+                            <% } %>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="/profile">Profile</a></li>

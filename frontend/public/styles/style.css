@@ -23,3 +23,37 @@
 .text-bold {
     font-weight: bold;
 }
+
+
+/* profile.ejs */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 80px;
+}
+
+.profile-container img {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+}
+
+.btn-fileupload {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: #0275d8;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+.profile-image {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
