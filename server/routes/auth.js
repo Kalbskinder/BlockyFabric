@@ -67,9 +67,19 @@ router.get("/logout", (req, res) => {
             console.error("Error destroying session:", err);
             return res.status(500).send("Logout failed");
         }
+
+        res.clearCookie("connect.sid", {
+            path: "/", 
+            httpOnly: true,
+            secure: false
+        });
+
+        console.log("User logged out, session & cookie deleted.");
         res.redirect("/login");
     });
 });
+
+
 
 
 export default router;

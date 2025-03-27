@@ -6,119 +6,37 @@
     <title>BlockyFabric - Profile</title>
     <%- include('../components/imports') %>
     <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/profile.css">
 </head>
-<style>
-.profile-image-preview {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.profile-image-preview img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-/* Dateiname Styling */
-#file-name {
-    margin-top: 5px;
-    font-size: 14px;
-    color: #555;
-}
-
-.custom-file-upload {
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 5px;
-    display: inline-block;
-}
-.hidden {
-    display: none;
-}
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-    display: none;
-}
-</style>
 <body>
     <%- include('../components/navbar') %>  <!-- Navbar -->
-    <div class="p-4 text-center mt-5">
-        <h2 class="mb-3">Your Profile</h2>
-        <form id="upload-form" enctype="multipart/form-data">
-            <div class="profile-image-preview">
-                <img id="preview-img" src="<%= (user && user.profileImage) ? user.profileImage : 'default.png' %>">
-                <span id="file-name"></span>  <!-- Datei-Name Anzeige -->
-                <span id="filesize-error" class="error-message hidden"></span>
-            </div>
+    <% if (user && user.username) { %>
+        <div class="p-4 text-center mt-5">
+            <h2 class="mb-3">Your Profile</h2>
+            <form id="upload-form" enctype="multipart/form-data">
+                <div class="profile-image-preview">
+                    <img id="preview-img" src="<%= (user && user.profileImage) ? user.profileImage : 'default.png' %>">
+                    <span id="file-name"></span>  <!-- Datei-Name Anzeige -->
+                    <span id="filesize-error" class="error-message hidden"></span>
+                </div>
 
-            <label for="file-input" class="custom-file-upload btn btn-primary">
-                Choose File
-            </label>
-            <input type="file" id="file-input" name="profileImage" accept="image/*" hidden>
+                <label for="file-input" class="custom-file-upload btn btn-primary">
+                    Choose File
+                </label>
+                <input type="file" id="file-input" name="profileImage" accept="image/*" hidden>
 
-            <button type="submit" class="btn btn-success custom-file-upload">Upload</button>
-        </form>
-        <h3 class="mt-4"><%= user.username %></h3>
-        <%= user.email %>
-    </div>
+                <button type="submit" class="btn btn-success custom-file-upload">Upload</button>
+            </form>
+            <h3 class="mt-4"><%= user.username %></h3>
+            <%= user.email %>
+        </div>
+    <% } else { %>
+        <div class="p-4 text-center mt-5">
+            <h2>Please log in to view your profile.</h2>
+        </div>
+    <% } %>
 </body>
 
-<script>
-document.getElementById("file-input").addEventListener("change", function(event) {
-    const file = event.target.files[0];
-    const fileNameDisplay = document.getElementById("file-name");
-    const previewImg = document.getElementById("preview-img");
-
-    if (file) {
-        fileNameDisplay.textContent = file.name; // Datei-Name anzeigen
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            previewImg.src = e.target.result; // Vorschau aktualisieren
-        };
-        reader.readAsDataURL(file);
-    } else {
-        fileNameDisplay.textContent = "";
-    }
-});
-
-document.getElementById("upload-form").addEventListener("submit", async function(event) {
-    event.preventDefault();
-    
-    const formData = new FormData();
-    const fileInput = document.getElementById("file-input");
-    
-    if (fileInput.files.length === 0) {
-        alert("Bitte eine Datei auswählen!");
-        return;
-    }
-
-    formData.append("profileImage", fileInput.files[0]);
-
-    try {
-        const response = await fetch("/upload/upload-profile-image", {
-            method: "POST",
-            body: formData
-        });
-
-        if (!response.ok) {
-            const data = await response.json();
-            const errorElement = document.getElementById("filesize-error");
-            errorElement.style.display = "block";
-            errorElement.textContent = data.error;
-            console.log(data.error)
-            return;
-        }
-
-        window.location.reload();
-    } catch (error) {
-        console.error("Fehler beim Hochladen:", error);
-    }
-});
-</script>
+<script src="./src/profile.js"></script>
+<script src="./src/authCheck.js"></script>
 </html>

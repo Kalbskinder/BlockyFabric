@@ -63,6 +63,10 @@ async function handleFormSubmit(event, isRegister) {
         let emailError = document.getElementById("email-error");
         emailError.style.display = "block";
     }
+
+    if (response.status === 200) {
+        window.location.href = "/"
+    }
 }
 
 document.getElementById("login-form").addEventListener("submit", function (event) {

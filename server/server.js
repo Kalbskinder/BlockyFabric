@@ -7,6 +7,7 @@ import SQLiteStore from "connect-sqlite3";
 import authRoutes from './routes/auth.js';   // Auth Routes
 import pageRoutes from './routes/pages.js';  // Page Routes
 import imageUpload from './routes/imageUpload.js'; // Image Upload Routes
+import apiRoutes from './routes/api.js'; // API Routes
 
 const app = express();
 const PORT = 3000;
@@ -38,10 +39,9 @@ app.use((req, res, next) => {
 
 console.log("Image upload routes loaded!");
 
-app.use('/auth', authRoutes); // Routen for authenticating
+app.use('/auth', authRoutes); // Routes for authenticating
 app.use('/upload', imageUpload);
-
-
+app.use('/api', apiRoutes);
 app.use('/', pageRoutes); // Routes for pages
 
 app.listen(PORT, () => {
