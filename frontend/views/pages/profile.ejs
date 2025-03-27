@@ -21,7 +21,6 @@
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #ddd;
 }
 
 /* Dateiname Styling */
@@ -33,24 +32,24 @@
 
 .custom-file-upload {
     cursor: pointer;
-    padding: 7px 14px;
+    padding: 5px 10px;
     border-radius: 5px;
     display: inline-block;
 }
 .hidden {
-            display: none;
-        }
-        .error-message {
-            color: red;
-            font-size: 14px;
-            margin-top: 5px;
-            display: none;
-        }
+    display: none;
+}
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+}
 </style>
 <body>
     <%- include('../components/navbar') %>  <!-- Navbar -->
-    <div class="card p-4 text-center">
-        <h4>Your Profile</h4>
+    <div class="p-4 text-center mt-5">
+        <h2 class="mb-3">Your Profile</h2>
         <form id="upload-form" enctype="multipart/form-data">
             <div class="profile-image-preview">
                 <img id="preview-img" src="<%= (user && user.profileImage) ? user.profileImage : 'default.png' %>">
@@ -58,13 +57,15 @@
                 <span id="filesize-error" class="error-message hidden"></span>
             </div>
 
-            <label for="file-input" class="custom-file-upload btn btn-primary mt-3">
+            <label for="file-input" class="custom-file-upload btn btn-primary">
                 Choose File
             </label>
             <input type="file" id="file-input" name="profileImage" accept="image/*" hidden>
 
-            <button type="submit" class="btn btn-success mt-3 custom-file-upload">Upload</button>
+            <button type="submit" class="btn btn-success custom-file-upload">Upload</button>
         </form>
+        <h3 class="mt-4"><%= user.username %></h3>
+        <%= user.email %>
     </div>
 </body>
 

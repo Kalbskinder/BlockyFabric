@@ -55,7 +55,8 @@ router.post('/login', async (req, res) => {
     req.session.user = { 
         id: user.id, 
         username: user.username ,
-        profileImage: user.profileImage || "default.png"
+        profileImage: user.profileImage || "default.png",
+        email: user.email
     };
     res.json({ success: true, message: 'Logged in successfully!' });
 });
