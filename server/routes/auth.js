@@ -1,4 +1,3 @@
-// /routes/authRoutes.js
 import express from 'express';
 import bcrypt from 'bcrypt';
 import { open } from 'sqlite';
@@ -16,21 +15,54 @@ const dbPromise = open({
     driver: sqlite3.Database
 });
 
-// Registrierung
 router.post('/register', async (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
-
-    if (!username || !email || !password || password.length < 8 || password !== confirmPassword) {
-        return res.status(400).json({ error: 'Invalid input data.' });
-    }
-
     const db = await dbPromise;
-    const existingUser = await db.get('SELECT * FROM users WHERE username = ? OR email = ?', [username, email]);
 
-    if (existingUser) {
-        return res.status(401).json({ error: 'Username or email already exists.' });
+    let errors = []; // Save multiple errors
+
+    // Check if fields were provided
+    if (!username || !email || !password || !confirmPassword) {
+        errors.push({ field: 'general', error: 'All fields are required.' });
     }
 
+    // Check username for lenght and format
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
+    if (username.length > 10) {
+        errors.push({ field: 'username', error: 'Username cannot be longer than 10 characters.' });
+    }
+    if (!usernameRegex.test(username)) {
+        errors.push({ field: 'username', error: 'Username can only contain letters and numbers.' });
+    }
+
+    // Check email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        errors.push({ field: 'email', error: 'Invalid email format.' });
+    }
+
+    // Check password length
+    if (password.length < 8) {
+        errors.push({ field: 'password', error: 'Password must be at least 8 characters long.' });
+    }
+
+    // Check if both password math
+    if (password !== confirmPassword) {
+        errors.push({ field: 'confirm-password', error: 'Passwords do not match.' });
+    }
+
+    // Check if username or email already exists
+    const existingUser = await db.get('SELECT * FROM users WHERE username = ? OR email = ?', [username, email]);
+    if (existingUser) {
+        errors.push({ field: 'email', error: 'Username or email is already taken.' });
+    }
+
+    // If there were errors, return them
+    if (errors.length > 0) {
+        return res.status(400).json({ errors });
+    }
+
+    // Set default profilepicture and hash password
     const defaultProfileImage = "/images/users/profileimages/default.png";
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -41,9 +73,11 @@ router.post('/register', async (req, res) => {
         );
         res.json({ success: true, message: "User registered successfully!" });
     } catch (err) {
+        console.error("Database error:", err);
         res.status(500).json({ error: "Database error." });
-    }   
+    }
 });
+
 
 // Login
 router.post('/login', async (req, res) => {
