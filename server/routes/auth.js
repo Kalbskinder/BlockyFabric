@@ -4,6 +4,11 @@ import bcrypt from 'bcrypt';
 import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
 import session from 'express-session';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const router = express.Router();
 const dbPromise = open({
@@ -26,7 +31,7 @@ router.post('/register', async (req, res) => {
         return res.status(401).json({ error: 'Username or email already exists.' });
     }
 
-    const defaultProfileImage = "default.png";
+    const defaultProfileImage = "/images/users/profileimages/default.png";
     const hashedPassword = await bcrypt.hash(password, 10);
 
     try {
@@ -55,7 +60,7 @@ router.post('/login', async (req, res) => {
     req.session.user = { 
         id: user.id, 
         username: user.username ,
-        profileImage: user.profileImage || "default.png",
+        profileImage: user.profileImage || "/images/users/profileimages/default.png",
         email: user.email
     };
     res.json({ success: true, message: 'Logged in successfully!' });
@@ -78,7 +83,6 @@ router.get("/logout", (req, res) => {
         res.redirect("/login");
     });
 });
-
 
 
 

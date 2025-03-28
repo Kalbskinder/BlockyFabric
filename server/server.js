@@ -2,12 +2,13 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import session from "express-session";
-import bcrypt from "bcryptjs";
 import SQLiteStore from "connect-sqlite3";
+
 import authRoutes from './routes/auth.js';   // Auth Routes
 import pageRoutes from './routes/pages.js';  // Page Routes
 import imageUpload from './routes/imageUpload.js'; // Image Upload Routes
 import apiRoutes from './routes/api.js'; // API Routes
+import adminRoutes from './routes/admin.js'; // administration
 
 const app = express();
 const PORT = 3000;
@@ -26,7 +27,10 @@ app.use(session({
     secret: "supersecretkey",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }
+    cookie: {
+        httpOnly: true,
+        secure: false
+    }
 }));
 
 app.set('view engine', 'ejs'); // EJS als Template-Engine
@@ -42,6 +46,7 @@ console.log("Image upload routes loaded!");
 app.use('/auth', authRoutes); // Routes for authenticating
 app.use('/upload', imageUpload);
 app.use('/api', apiRoutes);
+app.use('/admin', adminRoutes);
 app.use('/', pageRoutes); // Routes for pages
 
 app.listen(PORT, () => {

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlockyFabric - Admin Panel</title>
+    <%- include('../components/imports') %>
+    <link rel="stylesheet" href="/styles/style.css">
+    <script defer src="/src/admin.js"></script> <!-- JavaScript Datei -->
+</head>
+<style>
+.modal {    
+    width: 50%;
+    height: auto;
+    display: none;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+.modal-content {
+    font-size: 20px;
+    text-align: center;
+    border: none;
+}
+.modal-buttons button {
+    width: 30%;
+}
+.profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+</style>
+<body>
+    <%- include('../components/navbar') %>  
+    <div class="container mt-5">
+        <h1 class="text-center">Admin Panel</h1>
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Profilbild</th>
+                    <th>Aktionen</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <!-- Hier werden die Benutzer dynamisch geladen -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pop-up zum Bestätigen des Löschens -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <p>Möchtest du diesen Benutzer wirklich löschen?</p>
+            <div class="modal-buttons">
+                <button id="confirmDelete" class="btn btn-danger">Löschen</button>
+                <button id="cancelDelete" class="btn btn-secondary">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

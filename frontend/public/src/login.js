@@ -65,7 +65,7 @@ async function handleFormSubmit(event, isRegister) {
     }
 
     if (response.status === 200) {
-        window.location.href = "/"
+        window.location.href = "/login"
     }
 }
 

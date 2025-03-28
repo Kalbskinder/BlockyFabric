@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
     <div class="container-fluid">
         <!-- Logo -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
             <img src="/images/logo.webp" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
             BlockyFabric
         </a>
@@ -35,11 +35,16 @@
 
             <% if (user && user.username) { %>
                 <ul class="navbar-nav ms-auto">
+                    <% if (user.username === 'simon') { %>
+                        <li class="nav-item">
+                            <a href="/admin" class="nav-link">Admin</a>
+                        </li>
+                    <% } %>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown"
                             role="button" data-bs-toggle="dropdown">
                             <% if (user.profileImage) { %>
-                                <img src="<%= user.profileImage ? user.profileImage : 'default.png' %>"
+                                <img src="<%= user.profileImage ? user.profileImage : '/images/users/profileImages/default.png' %>"
                                 alt="Profile" class="profile-image">
                             <% } else { %>
                                 <img src="/images/users/profileimages/default.png"
