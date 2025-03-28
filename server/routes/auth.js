@@ -79,7 +79,6 @@ router.get("/logout", (req, res) => {
             secure: false
         });
 
-        console.log("User logged out, session & cookie deleted.");
         res.redirect("/login");
     });
 });

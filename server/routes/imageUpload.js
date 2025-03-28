@@ -39,7 +39,6 @@ const upload = multer({
 
 // POST-Route für den Bild-Upload
 router.post("/upload-profile-image", upload.single("profileImage"), (req, res) => {
-    console.log("Upload attempt!");
 
     if (!req.file) {
         return res.status(400).json({ error: "Keine Datei hochgeladen!" });

@@ -41,7 +41,6 @@ app.use((req, res, next) => {
     next();
 });
 
-console.log("Image upload routes loaded!");
 
 app.use('/auth', authRoutes); // Routes for authenticating
 app.use('/upload', imageUpload);
