@@ -1,46 +1,109 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const projectsGrid = document.getElementById("projectsGrid");
+const projectsGrid = document.getElementById("projectsGrid");
+const newProjectModal =  new bootstrap.Modal(document.getElementById("newMod"));
+const deletionModalDiv = document.getElementById("deleteModModal");
 
-    // Simulated API Data (later you can fetch this from a server)
-    const projects = [
-        { id: 1, title: "My First Mod", description: "A cool Minecraft mod", image: "https://i.ytimg.com/vi/PeeV6Eki4IU/maxresdefault.jpg" },
-        { id: 2, title: "Biome Generator", description: "Creates new biomes", image: "https://i.ytimg.com/vi/AMAf-oR6x5I/maxresdefault.jpg" },
-        { id: 3, title: "New Tools", description: "Adds new tools to the game", image: "https://cdn.modrinth.com/data/6lvRWqbA/images/6291ebe10ccf3cfdbf288711a6e7e1e9433505a5.jpeg" },
-        { id: 4, title: "Magic Blocks", description: "Magical blocks with special effects", image: "/images/icons/placeholder.png" }
-    ];
+async function fetchProjects() {
+    try {
+        const response = await fetch(`/projects/get`);
+        const projects = await response.json();
+        if (projects.length === 0) {
+            projectsGrid.innerHTML = '<h4 class="m-auto mt-4">No projects found.</h4>';
+            return;
+        }
 
-    function loadProjects() {
-        projectsGrid.innerHTML = ""; // Clear existing content
+        projectsGrid.innerHTML = "";
         projects.forEach(project => {
             const card = document.createElement("div");
             card.className = "card";
 
             card.innerHTML = `
-                <img src="${project.image}" class="card-img-top" alt="Project Image">
-                <div class="card-body text-center">
-                    <h5 class="card-title">${project.title}</h5>
-                    <p class="card-text">${project.description}</p>
-                    <button class="btn btn-primary" onclick="editProject(${project.id})">Edit</button>
-                    <button class="btn btn-danger" onclick="deleteProject(${project.id})">Delete</button>
+                <img src="${project.banner || './images/icons/placeholder.png'}" class="card-img-top" alt="Project Image">
+                <div class="card-body">
+                    <h5 class="card-title">${project.name}</h5>
+                    <p class="card-text">${project.description || "No description"}</p>
+                    <div class="alg-right">
+                        <button class="btn btn-primary" onclick="editProject(${project.id})">Edit</button>
+                        <button class="btn btn-danger" onclick="deletionModal(${project.id})">Delete</button>
+                    </div>
                 </div>
             `;
 
             projectsGrid.appendChild(card);
         });
+        closeModal('newMod');
+    } catch (error) {
+        console.error("Error fetching projects:", error);
     }
+}
 
-    function editProject(id) {
-        alert("Editing project " + id);
-        // Redirect to an edit page later
-        // window.location.href = `/edit-project.html?id=${id}`;
+async function createNewMod() {
+    const name = document.getElementById("modName").value;
+    const description = document.getElementById("modDescription").value;
+    const banner = "";
+    const minecraft_version = "1.21.5";
+
+    const response = await fetch("/projects/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, description, banner, minecraft_version })
+    });
+
+    const result = await response.json();
+    if (result.success) {
+        fetchProjects(); // Fetch projects to show changes
     }
+}
 
-    function deleteProject(id) {
-        if (confirm("Are you sure you want to delete this project?")) {
-            alert("Project " + id + " deleted!");
-            // Later, send a delete request to the API
-        }
+async function deleteProject(id) {
+    const response = await fetch(`/projects/delete/${id}`, { method: "DELETE" });
+    if (response.ok) {
+        fetchProjects(); // Fetch projects to show changes
+        closeModal('deleteMod'); // Close modal after deletion
+    } else {
+        alert('Something went wrong.')
     }
+}
 
-    loadProjects();
-});
+async function deletionModal(id) {
+    const response = await fetch(`/projects/get/${id}`);
+    const projects = await response.json();
+    deletionModalDiv.innerHTML = `
+    <div class="modal fade" tabindex="-1" id="deleteMod">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete <span class="mod-name">${projects.name}</span>?</p>
+                </div>
+        
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteProject(${id})">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+    const newProjectModal =  new bootstrap.Modal(document.getElementById("deleteMod"));
+    newProjectModal.show();
+}
+
+function closeModal(domId) {
+    const modalElement = document.getElementById(domId);
+    const modalInstance = bootstrap.Modal.getInstance(modalElement);
+
+    if (modalInstance) {
+        modalInstance.hide();
+        setTimeout(() => {
+            document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+            document.body.classList.remove('modal-open');
+        }, 200); // Warte kurz, damit Bootstrap seine Animation abschließen kann
+    }
+}
+
+fetchProjects();
+
+document.addEventListener("DOMContentLoaded", fetchProjects);

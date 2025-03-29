@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlockyFabric - Dashboard</title>
     <%- include('../components/imports') %>
-        <link rel="stylesheet" href="/styles/style.css">
-        <link rel="stylesheet" href="/styles/dashboard.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/dashboard.css">
 </head>
 
 <body>
@@ -29,7 +29,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Create a new mod</h5>
+                    <h5 class="modal-title">Create a new Mod</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -92,8 +92,14 @@
             </div>
         </div>
     </div>
-        
+    
+    <!-- Confirm deletion modal -->
+    <div id="deleteModModal">
+        <!-- Confirmation modal will be placed into here -->
+    </div>
+
 </body>
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="./src/authCheck.js"></script>
 <script src="./src/dashboard.js"></script>
 

@@ -9,6 +9,7 @@ import pageRoutes from './routes/pages.js';  // Page Routes
 import imageUpload from './routes/imageUpload.js'; // Image Upload Routes
 import apiRoutes from './routes/api.js'; // API Routes
 import adminRoutes from './routes/admin.js'; // administration
+import projectsRoutes from './routes/projects.js'; // Projects Routes
 
 const app = express();
 const PORT = 3000;
@@ -46,6 +47,7 @@ app.use('/auth', authRoutes); // Routes for authenticating
 app.use('/upload', imageUpload);
 app.use('/api', apiRoutes);
 app.use('/admin', adminRoutes);
+app.use('/projects', projectsRoutes);
 app.use('/', pageRoutes); // Routes for pages
 
 app.listen(PORT, () => {

@@ -6,7 +6,7 @@ const db = await open({
     driver: sqlite3.Database
 });
 
-// Sicherstellen, dass die Tabelle existiert, und die profileImage-Spalte hinzufügen, wenn sie noch nicht vorhanden ist
+// Benutzer-Tabelle
 await db.exec(`
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -17,14 +17,19 @@ await db.exec(`
     )
 `);
 
-console.log("Connected to SQLite database and ensured users table exists.");
+// Projekte-Tabelle
+await db.exec(`
+    CREATE TABLE IF NOT EXISTS projects (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        name TEXT NOT NULL,
+        description TEXT,
+        banner TEXT,
+        minecraft_version TEXT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )
+`);
 
-// Überprüfe, ob die Spalte 'profileImage' bereits existiert, und wenn nicht, füge sie hinzu
-const result = await db.all("PRAGMA table_info(users);");  // Verwende db.all statt db.get
-const columnNames = result.map((column) => column.name);
-if (!columnNames.includes('profileImage')) {
-    await db.exec("ALTER TABLE users ADD COLUMN profileImage TEXT;");
-    console.log("Added profileImage column to users table.");
-}
+console.log("Connected to SQLite database and ensured tables exist.");
 
 export default db;

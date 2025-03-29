@@ -1,22 +1,23 @@
 .grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Passt sich an Bildschirmbreite an */
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
-    padding: 20px;
+    justify-content: flex-start;
 }
 .card {
-    min-width: calc(100% / 4);
+    flex: 1 1 calc(25% - 20px);
+    max-width: 300px;
 }
 .card img {
-    width: 100%; /* Bild anpassen */
-    height: 180px; /* Feste Höhe für Konsistenz */
-    object-fit: cover; /* Zuschneiden für einheitliche Darstellung */
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
 }
 
 .dashboard-header {
+    margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
-    margin: 20px;
 }
 
 .dashboard-header img {
@@ -31,9 +32,20 @@
     line-height: 2.1;
     display: inline-flex;
     align-items: center;
-    gap: 10px; /* Abstand zwischen Bild und Text */
+    gap: 10px;
 }
 
 .modal {
     text-align: left;
+}
+
+.alg-right {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.mod-name {
+    font-weight: bold;
+    color: #dc3545;
 }
