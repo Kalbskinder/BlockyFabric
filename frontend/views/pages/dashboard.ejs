@@ -1,14 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlockyFabric - Dashboard</title>
     <%- include('../components/imports') %>
-    <link rel="stylesheet" href="/styles/style.css">
+        <link rel="stylesheet" href="/styles/style.css">
+        <link rel="stylesheet" href="/styles/dashboard.css">
 </head>
+
 <body>
-    <%- include('../components/navbar') %>  <!-- Navbar --> 
+    <%- include('../components/navbar') %> <!-- Navbar -->
+    <!-- Main content -->
+    <div class="container mt-4">
+        <div class="dashboard-header" data-bs-toggle="modal" data-bs-target="#newMod">
+            <h2>Your Mods</h2>
+            <button type="button" class="btn btn-primary"><img src="./images/icons/add.png"
+                    class="add-img"> New Mod</button>
+        </div>
+        <div class="grid-container" id="projectsGrid">
+            <!-- Your projects will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Modal for creating a new mod -->
+    <div class="modal fade" tabindex="-1" id="newMod">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create a new mod</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                    <!-- Mod Name -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-4">
+                                <label for="modName" class="form-label">Name:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" id="modName" value="untitled">
+                            </div>
+                        </div>
+    
+                        <!-- Mod Description -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-4">
+                                <label for="modDescription" class="form-label">Description:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" id="modDescription">
+                            </div>
+                        </div>
+
+                        <!-- Mod Banner (File Upload) -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-4">
+                                <label for="file-input" class="form-label">Banner:</label>
+                            </div>
+                            <div class="col-8">
+                                <label for="file-input" class="btn btn-primary w-100">Choose File</label>
+                                <input type="file" id="file-input" name="profileImage" accept="image/*" hidden>
+                            </div>
+                        </div>
+    
+                        <!-- Minecraft Version Dropdown -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-4">
+                                <label class="form-label">Minecraft Version:</label>
+                            </div>
+                            <div class="col-8">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle w-100" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        1.21.5
+                                    </button>
+                                    <ul class="dropdown-menu w-100">
+                                        <li><a class="dropdown-item" href="#">1.21.5</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+        
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="createNewMod()">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        
 </body>
 <script src="./src/authCheck.js"></script>
+<script src="./src/dashboard.js"></script>
+
 </html>

@@ -1,0 +1,39 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Passt sich an Bildschirmbreite an */
+    gap: 20px;
+    padding: 20px;
+}
+.card {
+    min-width: calc(100% / 4);
+}
+.card img {
+    width: 100%; /* Bild anpassen */
+    height: 180px; /* Feste Höhe für Konsistenz */
+    object-fit: cover; /* Zuschneiden für einheitliche Darstellung */
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.dashboard-header img {
+    margin: 0;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.dashboard-header button {
+    line-height: 2.1;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px; /* Abstand zwischen Bild und Text */
+}
+
+.modal {
+    text-align: left;
+}
