@@ -49,3 +49,13 @@
     font-weight: bold;
     color: #dc3545;
 }
+
+.hidden {
+    display: none;
+}
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+}

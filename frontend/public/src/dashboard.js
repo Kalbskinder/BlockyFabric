@@ -1,11 +1,15 @@
 const projectsGrid = document.getElementById("projectsGrid");
-const newProjectModal =  new bootstrap.Modal(document.getElementById("newMod"));
+const newProjectModal = new bootstrap.Modal(document.getElementById("newMod"));
 const deletionModalDiv = document.getElementById("deleteModModal");
+const fileInput = document.getElementById("file-input");
+const fileNameDisplay = document.getElementById("file-name");
+const errorElement = document.getElementById("filesize-error");
 
 async function fetchProjects() {
     try {
         const response = await fetch(`/projects/get`);
         const projects = await response.json();
+        
         if (projects.length === 0) {
             projectsGrid.innerHTML = '<h4 class="m-auto mt-4">No projects found.</h4>';
             return;
@@ -39,50 +43,55 @@ async function fetchProjects() {
 async function createNewMod() {
     const name = document.getElementById("modName").value;
     const description = document.getElementById("modDescription").value;
-    const fileInput = document.getElementById("file-input");
     const minecraft_version = "1.21.5";
 
     if (!name || !minecraft_version) {
-        alert("Bitte gib einen Namen und eine Minecraft-Version an.");
         return;
     }
 
-    // FormData-Objekt erstellen, um Datei und JSON-Daten zu senden
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
     formData.append("minecraft_version", minecraft_version);
 
     if (fileInput.files.length > 0) {
-        formData.append("banner", fileInput.files[0]); // Bild hinzufügen
+        formData.append("banner", fileInput.files[0]);
     }
 
-    const response = await fetch("/projects/create", {
-        method: "POST",
-        body: formData, // FormData statt JSON senden
-    });
+    try {
+        const response = await fetch("/projects/create", {
+            method: "POST",
+            body: formData,
+        });
 
-    const result = await response.json();
-    if (result.success) {
-        fetchProjects(); // Aktualisiere die Liste der Projekte
-    } else {
-        console.error("Fehler:", result.error);
+        const result = await response.json();
+
+        if (response.ok) {
+            fetchProjects();
+        } else {
+            throw new Error(result.error || "Fehler beim Erstellen des Projekts.");
+        }
+    } catch (error) {
+        console.error("Fehler:", error.message);
+        errorElement.style.display = "block";
+        errorElement.textContent = error.message;
     }
 }
 
 async function deleteProject(id) {
     const response = await fetch(`/projects/delete/${id}`, { method: "DELETE" });
     if (response.ok) {
-        fetchProjects(); // Fetch projects to show changes
-        closeModal('deleteMod'); // Close modal after deletion
+        fetchProjects();
+        closeModal('deleteMod');
     } else {
-        alert('Something went wrong.')
+        alert('Something went wrong.');
     }
 }
 
 async function deletionModal(id) {
     const response = await fetch(`/projects/get/${id}`);
-    const projects = await response.json();
+    const project = await response.json();
+
     deletionModalDiv.innerHTML = `
     <div class="modal fade" tabindex="-1" id="deleteMod">
         <div class="modal-dialog">
@@ -92,7 +101,7 @@ async function deletionModal(id) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to delete <span class="mod-name">${projects.name}</span>?</p>
+                    <p>Are you sure you want to delete <span class="mod-name">${project.name}</span>?</p>
                 </div>
         
                 <div class="modal-footer">
@@ -103,8 +112,9 @@ async function deletionModal(id) {
         </div>
     </div>
     `;
-    const newProjectModal =  new bootstrap.Modal(document.getElementById("deleteMod"));
-    newProjectModal.show();
+
+    const deleteModalInstance = new bootstrap.Modal(document.getElementById("deleteMod"));
+    deleteModalInstance.show();
 }
 
 function closeModal(domId) {
@@ -116,10 +126,27 @@ function closeModal(domId) {
         setTimeout(() => {
             document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
             document.body.classList.remove('modal-open');
-        }, 200); // Warte kurz, damit Bootstrap seine Animation abschließen kann
+        }, 200);
     }
 }
 
-fetchProjects();
+fileInput.addEventListener("change", function(event) {
+    const file = event.target.files[0];
+
+    errorElement.style.display = "none";
+    errorElement.textContent = "";
+
+    if (file) {
+        if (file.size > 1 * 1024 * 1024) { // 1MB Limit
+            errorElement.style.display = "block";
+            errorElement.textContent = "File to large. Up to 1MB allowed.";
+            fileInput.value = "";
+            return;
+        }
+        fileNameDisplay.textContent = file.name;
+    } else {
+        fileNameDisplay.textContent = "";
+    }
+});
 
 document.addEventListener("DOMContentLoaded", fetchProjects);

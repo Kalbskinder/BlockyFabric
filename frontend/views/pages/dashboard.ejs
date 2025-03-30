@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlockyFabric - Dashboard</title>
-    <%- include('../components/imports') %>
+    <link rel="icon" href="/images/logo.webp" type="png" class="favicon">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="/styles/dashboard.css">
 </head>
@@ -60,6 +61,8 @@
                                 <label for="file-input" class="form-label">Banner:</label>
                             </div>
                             <div class="col-8">
+                                <span id="file-name" class="mb-3"></span>  <!-- File name display  -->
+                                <span id="filesize-error" class="error-message hidden mb-3"></span> 
                                 <label for="file-input" class="btn btn-primary w-100">Choose File</label>
                                 <input type="file" id="file-input" name="profileImage" accept="image/*" hidden>
                             </div>

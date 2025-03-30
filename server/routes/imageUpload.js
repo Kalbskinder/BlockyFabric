@@ -13,7 +13,6 @@ const baseUploadDir = path.join(__dirname, "../../frontend/public/images/users/"
 const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1 MB
 const ALLOWED_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
 
-// Prüfen, ob der Basis-Upload-Ordner existiert
 if (!fs.existsSync(baseUploadDir)) {
     fs.mkdirSync(baseUploadDir, { recursive: true });
     console.log(`Base folder created: ${baseUploadDir}`);
@@ -27,10 +26,9 @@ const storage = multer.diskStorage({
         }
 
         const userId = req.session.user.id;
-        const username = req.session.user.username.replace(/[^a-zA-Z0-9-_]/g, "_"); // Sichere Dateinamen
+        const username = req.session.user.username.replace(/[^a-zA-Z0-9-_]/g, "_");
         const userDir = path.join(baseUploadDir, `${userId}_${username}`);
 
-        // Erstelle den User-Ordner, falls er nicht existiert
         if (!fs.existsSync(userDir)) {
             fs.mkdirSync(userDir, { recursive: true });
             console.log(`User folder created: ${userDir}`);
@@ -40,7 +38,7 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
         const ext = path.extname(file.originalname).toLowerCase();
-        cb(null, `profilimage${ext}`); // Speichert als "profilimage.png/jpg/..."
+        cb(null, `profilimage${ext}`);
     }
 });
 
@@ -80,7 +78,6 @@ router.post("/upload-profile-image", upload.single("profileImage"), (req, res) =
     const ext = path.extname(req.file.originalname).toLowerCase();
     const imageUrl = `/images/users/${userId}_${username}/profilimage${ext}`;
 
-    // Profilbild-URL in die Session & Datenbank schreiben
     req.session.user.profileImage = imageUrl;
 
     db.run("UPDATE users SET profileImage = ? WHERE id = ?", [imageUrl, userId], (err) => {
@@ -91,7 +88,6 @@ router.post("/upload-profile-image", upload.single("profileImage"), (req, res) =
 
 });
 
-// Global error handler for multer errors
 router.use((err, req, res, next) => {
     if (err instanceof multer.MulterError) {
         if (err.code === "LIMIT_FILE_SIZE") {
