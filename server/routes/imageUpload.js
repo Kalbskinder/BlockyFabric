@@ -9,25 +9,38 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const router = express.Router();
 
-const uploadDir = path.join(__dirname, "../../frontend/public/images/users/profileimages");
+const baseUploadDir = path.join(__dirname, "../../frontend/public/images/users/");
 const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1 MB
-
-// Allowed file extensions
 const ALLOWED_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
 
-// Create directory if not exists
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-    console.log(`Folder created: ${uploadDir}`);
+// Prüfen, ob der Basis-Upload-Ordner existiert
+if (!fs.existsSync(baseUploadDir)) {
+    fs.mkdirSync(baseUploadDir, { recursive: true });
+    console.log(`Base folder created: ${baseUploadDir}`);
 }
 
 // Multer Storage Configuration
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, uploadDir);
+        if (!req.session.user) {
+            return cb(new Error("User not authenticated"), false);
+        }
+
+        const userId = req.session.user.id;
+        const username = req.session.user.username.replace(/[^a-zA-Z0-9-_]/g, "_"); // Sichere Dateinamen
+        const userDir = path.join(baseUploadDir, `${userId}_${username}`);
+
+        // Erstelle den User-Ordner, falls er nicht existiert
+        if (!fs.existsSync(userDir)) {
+            fs.mkdirSync(userDir, { recursive: true });
+            console.log(`User folder created: ${userDir}`);
+        }
+
+        cb(null, userDir);
     },
     filename: (req, file, cb) => {
-        cb(null, `user_${req.session.user.id}${path.extname(file.originalname)}`);
+        const ext = path.extname(file.originalname).toLowerCase();
+        cb(null, `profilimage${ext}`); // Speichert als "profilimage.png/jpg/..."
     }
 });
 
@@ -50,20 +63,31 @@ const upload = multer({
 
 // Profile image upload route
 router.post("/upload-profile-image", upload.single("profileImage"), (req, res) => {
-
     if (!req.file) {
         return res.status(400).json({ error: "No file selected" });
     }
 
-    const imageUrl = `/images/users/profileimages/${req.file.filename}`;
-    req.session.user.profileImage = imageUrl;
-    console.log("File saved as:", imageUrl);
+    let userId
+    let username;
 
-    db.run("UPDATE users SET profileImage = ? WHERE id = ?", [imageUrl, req.session.user.id], (err) => {
+    if (req.session.user) {
+        userId = req.session.user.id;
+        username = req.session.user.username.replace(/[^a-zA-Z0-9-_]/g, "_");
+    } else {
+        return res.status(401).json({ error: "Not authorized" });
+    }
+
+    const ext = path.extname(req.file.originalname).toLowerCase();
+    const imageUrl = `/images/users/${userId}_${username}/profilimage${ext}`;
+
+    // Profilbild-URL in die Session & Datenbank schreiben
+    req.session.user.profileImage = imageUrl;
+
+    db.run("UPDATE users SET profileImage = ? WHERE id = ?", [imageUrl, userId], (err) => {
         if (err) return res.status(500).json({ error: "Database error" });
-        req.session.user.profileImage = imageUrl; // Update session
-        res.json({ success: true, imageUrl });
     });
+
+    res.status(200).json({ success: true, imageUrl });
 
 });
 

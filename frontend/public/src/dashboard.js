@@ -39,18 +39,34 @@ async function fetchProjects() {
 async function createNewMod() {
     const name = document.getElementById("modName").value;
     const description = document.getElementById("modDescription").value;
-    const banner = "";
+    const fileInput = document.getElementById("file-input");
     const minecraft_version = "1.21.5";
+
+    if (!name || !minecraft_version) {
+        alert("Bitte gib einen Namen und eine Minecraft-Version an.");
+        return;
+    }
+
+    // FormData-Objekt erstellen, um Datei und JSON-Daten zu senden
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("minecraft_version", minecraft_version);
+
+    if (fileInput.files.length > 0) {
+        formData.append("banner", fileInput.files[0]); // Bild hinzufügen
+    }
 
     const response = await fetch("/projects/create", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, description, banner, minecraft_version })
+        body: formData, // FormData statt JSON senden
     });
 
     const result = await response.json();
     if (result.success) {
-        fetchProjects(); // Fetch projects to show changes
+        fetchProjects(); // Aktualisiere die Liste der Projekte
+    } else {
+        console.error("Fehler:", result.error);
     }
 }
 

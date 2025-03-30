@@ -40,12 +40,12 @@ document.getElementById("upload-form").addEventListener("submit", async function
     const formData = new FormData();
     formData.append("profileImage", fileInput.files[0]);
 
-    try {
-        const response = await fetch("/upload/upload-profile-image", {
-            method: "POST",
-            body: formData
-        });
+    const response = await fetch("/upload/upload-profile-image", {
+        method: "POST",
+        body: formData
+    });
 
+    try {
         const data = await response.json(); // Parse response
 
         if (!response.ok) {
@@ -55,7 +55,6 @@ document.getElementById("upload-form").addEventListener("submit", async function
             return;
         }
 
-        console.log("Upload successful:", data);
         window.location.reload();
     } catch (error) {
         console.error("Upload failed:", error);

@@ -1,5 +1,7 @@
 import express from "express";
 import db from '../db.js';
+import multer from 'multer';
+
 const router = express.Router();
 
 router.post("/create", async (req, res) => {

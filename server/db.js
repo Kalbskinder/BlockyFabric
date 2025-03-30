@@ -6,7 +6,6 @@ const db = await open({
     driver: sqlite3.Database
 });
 
-// Benutzer-Tabelle
 await db.exec(`
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -17,7 +16,6 @@ await db.exec(`
     )
 `);
 
-// Projekte-Tabelle
 await db.exec(`
     CREATE TABLE IF NOT EXISTS projects (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
