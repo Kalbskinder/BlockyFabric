@@ -4,6 +4,8 @@ const deletionModalDiv = document.getElementById("deleteModModal");
 const fileInput = document.getElementById("file-input");
 const fileNameDisplay = document.getElementById("file-name");
 const errorElement = document.getElementById("filesize-error");
+const errorSlideInText = document.getElementById("error-slidein-text");
+const errorSlideInElement = document.getElementById("error-slidein");
 
 async function fetchProjects() {
     try {
@@ -73,9 +75,34 @@ async function createNewMod() {
         }
     } catch (error) {
         console.error("Fehler:", error.message);
+        if (error.message === "You can't have more than 4 projects.") {
+            errorSlideInText.textContent = error.message;
+            
+            // Animation vollständig zurücksetzen
+            errorSlideInElement.style.visibility = "hidden";
+            errorSlideInElement.style.opacity = "0"; 
+            errorSlideInElement.style.animation = "none"; 
+    
+            // Kurze Verzögerung, um die Animation zurückzusetzen
+            setTimeout(() => {
+                // WICHTIG: Browser zwingt jetzt, die Animation neu zu starten
+                errorSlideInElement.style.animation = "slidein 3s ease-in-out";
+    
+                // Jetzt Fehler sichtbar machen
+                errorSlideInElement.style.visibility = "visible";
+                errorSlideInElement.style.opacity = "1";
+            }, 50); // Kleine Verzögerung, damit die Animation zurückgesetzt wird
+            
+            setTimeout(() => {
+                errorSlideInElement.style.visibility = "hidden";
+                errorSlideInElement.style.opacity = "0";
+                errorSlideInElement.style.animation = "none"; // Animation wieder entfernen
+            }, 3000);
+            return;
+        }
         errorElement.style.display = "block";
         errorElement.textContent = error.message;
-    }
+    }    
 }
 
 async function deleteProject(id) {

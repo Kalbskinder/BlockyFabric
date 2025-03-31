@@ -23,3 +23,8 @@
     background-color: rgb(239, 48, 137);
     color: white;
 }
+
+span.primary {
+    color: #0275d8;
+    font-weight: bold;
+}

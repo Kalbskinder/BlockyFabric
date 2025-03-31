@@ -60,7 +60,7 @@ const bannerUpload = multer({
 }).single("banner");
 
 // Create new mod
-router.post("/create", (req, res) => {
+router.post("/create", async (req, res) => {
     bannerUpload(req, res, async function (err) {
         if (err instanceof multer.MulterError) {
             if (err.code === "LIMIT_FILE_SIZE") {
@@ -70,12 +70,23 @@ router.post("/create", (req, res) => {
             return res.status(400).json({ error: err.message });
         }
 
+
         const { name, description, minecraft_version } = req.body;
         let user_id;
+
         if (req.session.user) {
             user_id = req.session.user.id;
         } else {
             return res.status(401).json({ error: "Not authorized" });
+        }
+
+        try {
+            const projects = await db.all("SELECT * FROM projects WHERE user_id = ?", [user_id]);
+            if (projects.length >= 4) {
+               return res.status(400).json({ error: "You can't have more than 4 projects." })
+            }
+        } catch (error) {
+            res.status(500).json({ error: "Database error", details: error.message });
         }
 
         if (!name || !minecraft_version) {

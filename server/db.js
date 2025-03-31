@@ -28,6 +28,6 @@ await db.exec(`
     )
 `);
 
-console.log("Connected to SQLite database and ensured tables exist.");
+console.log('\x1b[36m%s\x1b[0m', "[Server] Connected to SQLite database and ensured tables exist.");
 
 export default db;
