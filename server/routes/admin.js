@@ -23,7 +23,6 @@ router.get("/users", async (req, res) => {
     res.status(200).json(users);
 });
 
-// Benutzer löschen
 router.delete('/users/:id', async (req, res) => {
     try {
         const userId = req.params.id;

@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     let selectedUserId = null;
 
-    // 🔹 1. Benutzer abrufen & in die Tabelle einfügen
     async function loadUsers() {
         const response = await fetch('/admin/users');
         const users = await response.json();
@@ -24,30 +23,26 @@ document.addEventListener("DOMContentLoaded", async function () {
             userTableBody.appendChild(row);
         });
 
-        // 🔹 2. Löschen-Button Event Listener hinzufügen
         document.querySelectorAll(".delete-btn").forEach(button => {
             button.addEventListener("click", function () {
                 selectedUserId = this.getAttribute("data-id");
-                deleteModal.style.display = "block"; // Popup anzeigen
+                deleteModal.style.display = "block";
             });
         });
     }
 
-    // 🔹 3. Benutzer löschen nach Bestätigung
     confirmDeleteButton.addEventListener("click", async function () {
         if (selectedUserId) {
             await fetch(`/admin/users/${selectedUserId}`, { method: "DELETE" });
             deleteModal.style.display = "none";
-            loadUsers(); // Tabelle neu laden
+            loadUsers();
         }
     });
 
-    // 🔹 4. Löschen abbrechen
     cancelDeleteButton.addEventListener("click", function () {
         deleteModal.style.display = "none";
         selectedUserId = null;
     });
 
-    // 🔹 5. Benutzerliste beim Laden der Seite holen
     loadUsers();
 });
