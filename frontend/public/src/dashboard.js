@@ -78,25 +78,20 @@ async function createNewMod() {
         if (error.message === "You can't have more than 4 projects.") {
             errorSlideInText.textContent = error.message;
             
-            // Animation vollständig zurücksetzen
             errorSlideInElement.style.visibility = "hidden";
             errorSlideInElement.style.opacity = "0"; 
             errorSlideInElement.style.animation = "none"; 
     
-            // Kurze Verzögerung, um die Animation zurückzusetzen
             setTimeout(() => {
-                // WICHTIG: Browser zwingt jetzt, die Animation neu zu starten
                 errorSlideInElement.style.animation = "slidein 3s ease-in-out";
     
-                // Jetzt Fehler sichtbar machen
                 errorSlideInElement.style.visibility = "visible";
                 errorSlideInElement.style.opacity = "1";
-            }, 50); // Kleine Verzögerung, damit die Animation zurückgesetzt wird
+            }, 50);
             
             setTimeout(() => {
                 errorSlideInElement.style.visibility = "hidden";
                 errorSlideInElement.style.opacity = "0";
-                errorSlideInElement.style.animation = "none"; // Animation wieder entfernen
             }, 3000);
             return;
         }
