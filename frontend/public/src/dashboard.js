@@ -157,6 +157,11 @@ function closeModal(domId) {
     }
 }
 
+function deleteModalContent() {
+    fileNameDisplay.innerHTML = "";
+    errorElement.innerHTML = "";
+}
+
 fileInput.addEventListener("change", function(event) {
     const file = event.target.files[0];
 
