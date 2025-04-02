@@ -22,4 +22,8 @@ router.get('/profile', (req, res) => {
     res.render('pages/profile');
 });
 
+router.get('/settings', (req, res) => {
+    res.render('pages/settings');
+});
+
 export default router;
