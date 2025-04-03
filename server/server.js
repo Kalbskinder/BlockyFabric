@@ -15,6 +15,7 @@ const app = express();
 const PORT = 3000;
 const SQLiteStoreInstance = SQLiteStore(session);
 
+// Filename and dirname fix for not working
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -23,6 +24,8 @@ app.use(express.static(path.join(__dirname, '../frontend', 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use('/bootstrap', express.static(path.join(__dirname, '../node_modules/bootstrap/dist')));
 
+// Session Setup with SQLite
+// Session gets saved in database/session.sqlite
 app.use(session({
     store: new SQLiteStoreInstance({ db: "./database/sessions.sqlite" }),
     secret: "supersecretkey",
@@ -34,15 +37,16 @@ app.use(session({
     }
 }));
 
-app.set('view engine', 'ejs'); // EJS als Template-Engine
-app.set('views', path.join(__dirname, '../frontend/views')); // Ordner für Views
+// EJS Setup
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../frontend/views'));
 
 app.use((req, res, next) => {
     res.locals.user = req.session.user || null;
     next();
 });
 
-
+// Routing
 app.use('/auth', authRoutes); // Routes for authenticating
 app.use('/upload', imageUpload);
 app.use('/api', apiRoutes);
@@ -50,6 +54,7 @@ app.use('/admin', adminRoutes);
 app.use('/projects', projectsRoutes);
 app.use('/', pageRoutes); // Routes for pages
 
+// Start server
 app.listen(PORT, () => {
     console.log('\x1b[36m%s\x1b[0m', `[Server]  Node-Server running on port ${PORT} (http://localhost:${PORT})`);
 });
