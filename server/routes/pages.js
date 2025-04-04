@@ -26,4 +26,8 @@ router.get('/settings', (req, res) => {
     res.render('pages/settings');
 });
 
+router.get('/explore', (req, res) => {
+    res.render('pages/explore');
+});
+
 export default router;

@@ -56,5 +56,5 @@ app.use('/', pageRoutes); // Routes for pages
 
 // Start server
 app.listen(PORT, () => {
-    console.log('\x1b[36m%s\x1b[0m', `[Server]  Node-Server running on port ${PORT} (http://localhost:${PORT})`);
+    console.log('\x1b[36m%s\x1b[0m', `[Server] Node-Server running on port ${PORT} (http://localhost:${PORT})`);
 });
