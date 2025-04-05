@@ -133,12 +133,20 @@ router.get("/get/:id", async (req, res) => {
     }
 });
 
+router.get("/public", async (req, res) => {
+    try {
+        const projects = await db.all("SELECT * FROM projects WHERE visibility = 'public'");
+        res.json(projects);
+    } catch (error) {
+        res.status(500).json({ error: "Database error", details: error.message });
+    }
+});
+
 router.get("/get", async (req, res) => {
     let user_id;
     if (req.session.user) {
         user_id = req.session.user.id;
     } else {
-        console.log(req.session.user)
         return res.status(401).json({ error: "Unauthorized" });
     }
     try {

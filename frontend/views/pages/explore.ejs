@@ -6,8 +6,31 @@
     <title>BlockyFabric - Login</title>
     <%- include('../components/imports') %>
     <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/dashboard.css">
 </head>
 <body>
-<%- include('../components/navbar') %>  <!-- Navbar -->
+    <%- include('../components/navbar') %>  <!-- Navbar -->
+    <!-- Main content -->
+    <div class="container mt-4">
+        <div class="dashboard-header">
+            <h2>Explor Projects</h2>
+
+            <!-- Filter -->
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Filter
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Most Viewed</a></li>
+                  <li><a class="dropdown-item" href="#">Newest</a></li>
+                  <li><a class="dropdown-item" href="#">Oldest</a></li>
+                </ul>
+              </div>
+        </div>
+        <div class="grid-container" id="projectsGrid">
+            <!-- Your projects will be dynamically added here -->
+        </div>
+    </div>
+    <script src="/src/explore.js"></script>
 </body>
 </html>

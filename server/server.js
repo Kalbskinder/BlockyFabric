@@ -52,6 +52,7 @@ app.use('/upload', imageUpload);
 app.use('/api', apiRoutes);
 app.use('/admin', adminRoutes);
 app.use('/projects', projectsRoutes);
+
 app.use('/', pageRoutes); // Routes for pages
 
 // Start server

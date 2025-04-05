@@ -117,3 +117,13 @@
     75% { right: 8px; opacity: 1; }
     100% { right: -200px; opacity: 0; }
 }
+
+
+.card-voter {
+    display: flex;
+    justify-content: space-between;
+}
+
+.view-count {
+    color: #616161;
+}
