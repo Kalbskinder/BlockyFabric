@@ -6,6 +6,8 @@ const fileNameDisplay = document.getElementById("file-name");
 const errorElement = document.getElementById("filesize-error");
 const errorSlideInText = document.getElementById("error-slidein-text");
 const errorSlideInElement = document.getElementById("error-slidein");
+const radioPrivate = document.getElementById("radio-private");
+const radioPublic = document.getElementById("radio-public");
 
 async function fetchProjects() {
     try {
@@ -47,6 +49,16 @@ async function createNewMod() {
     const description = document.getElementById("modDescription").value;
     const minecraft_version = "1.21.5";
 
+    console.log('Private', radioPrivate.checked, 'Public', radioPublic.checked);
+
+    if (radioPrivate.checked) {
+        visibility = "private";
+    } else if (radioPublic.checked) {
+        visibility = "public";
+    } else {
+        visibility = "private";
+    }
+
     if (!name || !minecraft_version) {
         return;
     }
@@ -55,6 +67,7 @@ async function createNewMod() {
     formData.append("name", name);
     formData.append("description", description);
     formData.append("minecraft_version", minecraft_version);
+    formData.append("visibility", visibility);
 
     if (fileInput.files.length > 0) {
         formData.append("banner", fileInput.files[0]);

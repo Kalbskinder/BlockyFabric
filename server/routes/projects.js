@@ -71,7 +71,8 @@ router.post("/create", async (req, res) => {
         }
 
 
-        const { name, description, minecraft_version } = req.body;
+        // Read from the request body (provided as form data by src/dashboard.js)
+        const { name, description, minecraft_version, visibility } = req.body;
         let user_id;
 
         if (req.session.user) {
@@ -102,8 +103,8 @@ router.post("/create", async (req, res) => {
 
         try {
             const result = await db.run(
-                "INSERT INTO projects (user_id, name, description, banner, minecraft_version) VALUES (?, ?, ?, ?, ?)",
-                [user_id, name, description, bannerUrl, minecraft_version]
+                "INSERT INTO projects (user_id, name, description, banner, minecraft_version, visibility) VALUES (?, ?, ?, ?, ?, ?)",
+                [user_id, name, description, bannerUrl, minecraft_version, visibility]
             );
 
             res.json({ success: true, id: result.lastID, bannerUrl });

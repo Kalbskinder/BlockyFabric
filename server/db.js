@@ -24,6 +24,7 @@ await db.exec(`
         description TEXT,
         banner TEXT,
         minecraft_version TEXT NOT NULL,
+        visibility TEXT CHECK(visibility IN ('public', 'private')),
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     )
 `);
