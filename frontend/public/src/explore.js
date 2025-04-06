@@ -1,8 +1,10 @@
 const projectsGrid = document.getElementById("projectsGrid");
+const filterButton = document.getElementById("filterButton");
 
-async function fetchProjects() {
+async function fetchProjects(filter) {
+    filterButton.innerHTML = `Filter: ${filter.charAt(0).toUpperCase() + filter.slice(1)}`;
     try {
-        const response = await fetch(`/projects/public`);
+        const response = await fetch(`/projects/public?filter=${filter}`);
 
         if (!response.ok) {
             const error = await response.json();
@@ -13,13 +15,12 @@ async function fetchProjects() {
 
         const projects = await response.json();
 
-        
         if (!Array.isArray(projects)) {
             console.error("Unerwartete Antwort vom Server:", projects);
             projectsGrid.innerHTML = '<h4 class="m-auto mt-4">Fehler beim Laden der Projekte.</h4>';
             return;
         }
-        
+
         projectsGrid.innerHTML = "";
         projects.forEach(project => {
             const card = document.createElement("div");
@@ -34,9 +35,9 @@ async function fetchProjects() {
                         <div>
                             <span class="view-count">${project.views || 0} views</span>
                         </div>
-                    <div>
-                        <button class="btn btn-primary" onclick="previewProject(${project.id}, ${project.user_id})">Preview</button>
-                    </div>
+                        <div>
+                            <button class="btn btn-primary" onclick="previewProject(${project.id}, ${project.user_id})">Preview</button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -48,7 +49,8 @@ async function fetchProjects() {
     }
 }
 
-fetchProjects();
+fetchProjects('latest');
+
 
 function previewProject(projectId, user_id) {
     console.log(user_id);

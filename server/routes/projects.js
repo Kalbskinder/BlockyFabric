@@ -134,13 +134,31 @@ router.get("/get/:id", async (req, res) => {
 });
 
 router.get("/public", async (req, res) => {
+    let { filter } = req.query;
+
+    let orderBy;
+    switch (filter) {
+        case "latest":
+            orderBy = "created_at DESC";
+            break;
+        case "oldest":
+            orderBy = "created_at ASC";
+            break;
+        case "views":
+            orderBy = "views DESC";
+            break;
+        default:
+            orderBy = "created_at DESC";
+    }
+
     try {
-        const projects = await db.all("SELECT * FROM projects WHERE visibility = 'public'");
+        const projects = await db.all(`SELECT * FROM projects WHERE visibility = 'public' ORDER BY ${orderBy}`);
         res.json(projects);
     } catch (error) {
         res.status(500).json({ error: "Database error", details: error.message });
     }
 });
+
 
 router.get("/get", async (req, res) => {
     let user_id;
