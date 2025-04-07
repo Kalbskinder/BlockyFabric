@@ -10,6 +10,7 @@ import imageUpload from './routes/imageUpload.js'; // Image Upload Routes
 import apiRoutes from './routes/api.js'; // API Routes
 import adminRoutes from './routes/admin.js'; // administration
 import projectsRoutes from './routes/projects.js'; // Projects Routes
+import settingsRoutes from './routes/settings.js'; // Settings Routes
 
 const app = express();
 const PORT = 3000;
@@ -52,6 +53,7 @@ app.use('/upload', imageUpload);
 app.use('/api', apiRoutes);
 app.use('/admin', adminRoutes);
 app.use('/projects', projectsRoutes);
+app.use('/settings', settingsRoutes); // Routes for settings page
 
 app.use('/', pageRoutes); // Routes for pages
 

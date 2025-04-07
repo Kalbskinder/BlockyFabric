@@ -19,8 +19,12 @@ router.get("/", (req, res) => {
 
 
 router.get("/users", async (req, res) => {
-    const users = await db.all('SELECT id, username, email, profileImage FROM users');
-    res.status(200).json(users);
+    try {
+        const users = await db.all('SELECT id, username, email, profileImage FROM users WHERE id != 1');
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ error: "Databaseerror", details: error.message });
+    }
 });
 
 router.delete('/users/:id', async (req, res) => {

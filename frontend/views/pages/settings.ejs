@@ -6,7 +6,8 @@
     <title>BlockyFabric - Settings</title>
     <%- include('../components/imports') %>
     <link rel="stylesheet" href="/styles/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/src/authCheck.js"></script>
+
 </head>
 <body>
     <%- include('../components/navbar') %>  <!-- Navbar -->
@@ -20,34 +21,35 @@
                 <div class="card mb-4 shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Change Username</h5>
-                        <form action="/settings/username" method="POST">
+                        <form id="changeUsernameForm">
                             <div class="mb-3">
                                 <label for="newUsername" class="form-label">New Username</label>
-                                <input type="text" class="form-control" id="newUsername" name="newUsername" required pattern="^[a-zA-Z0-9_]{3,16}$" title="Only letters, numbers, and underscores allowed (3-16 characters).">
+                                <input type="text" class="form-control" id="newUsername" name="newUsername" required>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Change Username</button>
+                            <p id="usernameMsg" class="status-msg"></p>
+                            <button type="button" onclick="changeUsername()" class="btn btn-primary w-100">Change Username</button>
                         </form>
                     </div>
                 </div>
 
-                <!-- 🔑 Passwort ändern -->
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Change Password</h5>
-                        <form action="/settings/password" method="POST">
+                        <form id="changePasswordForm">
                             <div class="mb-3">
                                 <label for="currentPassword" class="form-label">Current Password</label>
                                 <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
                             </div>
                             <div class="mb-3">
                                 <label for="newPassword" class="form-label">New Password</label>
-                                <input type="password" class="form-control" id="newPassword" name="newPassword" required minlength="8">
+                                <input type="password" class="form-control" id="newPassword" name="newPassword" required>
                             </div>
                             <div class="mb-3">
                                 <label for="confirmPassword" class="form-label">Confirm New Password</label>
-                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required minlength="8">
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
                             </div>
-                            <button type="submit" class="btn btn-danger w-100">Change Password</button>
+                            <p id="passwordMsg" class="status-msg"></p>
+                            <button type="button" onclick="changePassword()" class="btn btn-danger w-100">Change Password</button>
                         </form>
                     </div>
                 </div>
@@ -55,6 +57,6 @@
             </div>
         </div>
     </div>
-
+<script src="/src/settings.js"></script>
 </body>
 </html>

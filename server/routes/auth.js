@@ -28,8 +28,8 @@ router.post('/register', async (req, res) => {
 
     // Check username for lenght and format
     const usernameRegex = /^[a-zA-Z0-9]+$/;
-    if (username.length > 10) {
-        errors.push({ field: 'username', error: 'Username cannot be longer than 10 characters.' });
+    if (username.length > 12) {
+        errors.push({ field: 'username', error: 'Username cannot be longer than 12 characters.' });
     }
     if (!usernameRegex.test(username)) {
         errors.push({ field: 'username', error: 'Username can only contain letters and numbers.' });

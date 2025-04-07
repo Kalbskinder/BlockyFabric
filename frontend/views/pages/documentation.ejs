@@ -18,7 +18,7 @@
             <h2>Documentation</h2>
             <ul>
                 <li><a href="#" onclick="showContent('intro')">🔹 Introduction</a></li>
-                <li><a href="#" onclick="showContent('installation')">🔹 Installation</a></li>
+                <li><a href="#" onclick="showContent('start')">🔹 Getting started</a></li>
                 <li><a href="#" onclick="showContent('blockly')">🔹 Using Blockly</a></li>
                 <li><a href="#" onclick="showContent('custom_blocks')">🔹 Creating Custom Blocks</a></li>
                 <li><a href="#" onclick="showContent('backend')">🔹 Backend API</a></li>
@@ -30,11 +30,32 @@
             <div id="intro">
                 <h1>🔹 Introduction</h1>
                 <p>Welcome to the Blockly Mod Creator documentation! Learn how to create your own Minecraft mods using Blockly.</p>
+                <h4>Technologies</h4>
+                <p>Fabric</p>
             </div>
 
-            <div id="installation" style="display: none;">
-                <h1>🔹 Installation</h1>
-                <p>1. Download the project. <br> 2. Install Node.js. <br> 3. Run the server using `node server.js`.</p>
+            <div id="start" style="display: none;">
+                <h1>🔹 Creating a new Project</h1>
+                <div class="content-container">
+                    <p>When creating a new <a href="/dashboard">project</a> you have to</p>
+                    <div class="content-overview">
+                        <h3>Overview</h4>
+                        <ul>
+                            <li><a href="#title-and-desc">Title and Descreption</a></li>
+                            <li><a href="#banner">Banner</a></li>
+                            <li><a href="#visibility">Project Visibility</a></li>
+                            <li><a href="#mc-version">Minecraft Version</a></li>
+                        </ul>
+                    </div>
+                    <h4 id="title-and-desc">Title and Description</h4>
+                    <p>Give your Project a Title and a short Descreption of your Project. A Description is not required but recommended.</p>
+                    <h4 id="banner">Banner</h4>
+                    <p>When creating a new Project you can Provide any image file as a banner for your Project. If no image was provided you will get the default banner image.</p>
+                    <h4 id="Visibility">Project Visibility</h4>
+                    <p>Select if your Project should be publicly visible or only visible to you. When selecting Public, everybody will be able to see your Project in the <a href="/explore">Exploration Page</a>.</p>
+                    <h4 id="mc-version">Minecraft Version</h4>
+                    <p>We only support Minecraft version 1.21.5 and later. As soon as Fabric updates to a new version of Minecraft we try our best to update our tool within a day.</p>
+                </div>
             </div>
 
             <div id="blockly" style="display: none;">
@@ -56,7 +77,7 @@
 
     <script>
         function showContent(section) {
-            let sections = ["intro", "installation", "blockly", "custom_blocks", "backend"];
+            let sections = ["intro", "start", "blockly", "custom_blocks", "backend"];
             sections.forEach(id => {
                 document.getElementById(id).style.display = (id === section) ? "block" : "none";
             });

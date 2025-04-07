@@ -127,3 +127,19 @@
 .view-count {
     color: #616161;
 }
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.space-between .visibility-tag {
+    font-size: 12px;
+    padding: 3px 8px;
+    background-color: #0180ff;
+    border: 1px solid #1a62a9;
+    border-radius: 20px;
+    color: white;
+    margin-left: 5px;
+}

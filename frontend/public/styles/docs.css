@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    scroll-behavior: smooth;
+}
+
 /* Layout */
 .docs-container {
     display: flex;
@@ -54,10 +58,24 @@
 }
 
 .content h1 {
-    font-size: 24px;
+    font-size: 32px;
 }
 
 .content p {
     font-size: 16px;
     margin-top: 10px;
+}
+
+.content-container {
+    margin-left: 40px;
+}
+
+.content-container h4 {
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+.content-overview {
+    margin-bottom: 20px;
+    margin-top: 20px;
 }

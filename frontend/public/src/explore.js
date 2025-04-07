@@ -49,7 +49,7 @@ async function fetchProjects(filter) {
     }
 }
 
-fetchProjects('latest');
+fetchProjects('newest');
 
 
 function previewProject(projectId, user_id) {

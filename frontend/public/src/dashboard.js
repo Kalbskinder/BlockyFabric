@@ -23,11 +23,15 @@ async function fetchProjects() {
         projects.forEach(project => {
             const card = document.createElement("div");
             card.className = "card";
+            const visibility = project.visibility === "private" ? "Private" : "Public";
 
             card.innerHTML = `
                 <img src="${project.banner || './images/icons/placeholder.png'}" class="card-img-top" alt="Project Image">
                 <div class="card-body">
-                    <h5 class="card-title">${project.name}</h5>
+                    <div class="space-between">
+                        <h5 class="card-title">${project.name}</h5>
+                        <span class="visibility-tag">${visibility}</span>
+                    </div>
                     <p class="card-text">${project.description || "No description"}</p>
                     <div class="alg-right">
                         <button class="btn btn-primary" onclick="editProject(${project.id})">Edit</button>
