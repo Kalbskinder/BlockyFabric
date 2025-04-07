@@ -24,13 +24,15 @@ async function fetchProjects() {
             const card = document.createElement("div");
             card.className = "card";
             const visibility = project.visibility === "private" ? "Private" : "Public";
+            const tagClass = project.visibility === "private" ? "tag-private" : "tag-public";
+
 
             card.innerHTML = `
                 <img src="${project.banner || './images/icons/placeholder.png'}" class="card-img-top" alt="Project Image">
                 <div class="card-body">
                     <div class="space-between">
                         <h5 class="card-title">${project.name}</h5>
-                        <span class="visibility-tag">${visibility}</span>
+                        <span class="visibility-tag ${tagClass}">${visibility}</span>
                     </div>
                     <p class="card-text">${project.description || "No description"}</p>
                     <div class="alg-right">
@@ -39,6 +41,7 @@ async function fetchProjects() {
                     </div>
                 </div>
             `;
+
 
             projectsGrid.appendChild(card);
         });
@@ -91,29 +94,8 @@ async function createNewMod() {
             throw new Error(result.error || "Fehler beim Erstellen des Projekts.");
         }
     } catch (error) {
-        console.error("Fehler:", error.message);
-        if (error.message === "You can't have more than 4 projects.") {
-            errorSlideInText.textContent = error.message;
-            
-            errorSlideInElement.style.visibility = "hidden";
-            errorSlideInElement.style.opacity = "0"; 
-            errorSlideInElement.style.animation = "none"; 
-    
-            setTimeout(() => {
-                errorSlideInElement.style.animation = "slidein 3s ease-in-out";
-    
-                errorSlideInElement.style.visibility = "visible";
-                errorSlideInElement.style.opacity = "1";
-            }, 50);
-            
-            setTimeout(() => {
-                errorSlideInElement.style.visibility = "hidden";
-                errorSlideInElement.style.opacity = "0";
-            }, 3000);
-            return;
-        }
-        errorElement.style.display = "block";
-        errorElement.textContent = error.message;
+        displayError(error.message);
+
     }    
 }
 
@@ -192,5 +174,25 @@ fileInput.addEventListener("change", function(event) {
         fileNameDisplay.textContent = "";
     }
 });
+
+function displayError(msg) {
+    errorSlideInText.textContent = msg;
+            
+    errorSlideInElement.style.visibility = "hidden";
+    errorSlideInElement.style.opacity = "0"; 
+    errorSlideInElement.style.animation = "none"; 
+    
+    setTimeout(() => {
+        errorSlideInElement.style.animation = "slidein 3s ease-in-out";
+        errorSlideInElement.style.visibility = "visible";
+        errorSlideInElement.style.opacity = "1";
+    }, 50);
+            
+    setTimeout(() => {
+        errorSlideInElement.style.visibility = "hidden";
+        errorSlideInElement.style.opacity = "0";
+    }, 3500);
+    return;
+}
 
 document.addEventListener("DOMContentLoaded", fetchProjects);

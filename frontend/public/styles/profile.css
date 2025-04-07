@@ -35,3 +35,13 @@
     margin-top: 5px;
     display: none;
 }
+
+img.settings {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    position: absolute;
+    top: 85px;
+    right: 8px;
+    cursor: pointer;
+}

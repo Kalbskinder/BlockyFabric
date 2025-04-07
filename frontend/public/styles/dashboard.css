@@ -137,9 +137,21 @@
 .space-between .visibility-tag {
     font-size: 12px;
     padding: 3px 8px;
-    background-color: #0180ff;
-    border: 1px solid #1a62a9;
     border-radius: 20px;
     color: white;
     margin-left: 5px;
+}
+
+.dropdown-item {
+    cursor: pointer;
+}
+
+.tag-public {
+    background-color: #34a64f;
+    border: 1px solid #1f6f32;
+}
+
+.tag-private {
+    background-color: #a1a1a1;
+    border: 1px solid #7b7b7b;
 }

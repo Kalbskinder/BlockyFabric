@@ -81,6 +81,14 @@ router.post("/create", async (req, res) => {
             return res.status(401).json({ error: "Not authorized" });
         }
 
+        if (name.length > 20) {
+            return res.status(400).json({ error: "Name cannot be longer than 20 characters." });
+        }
+
+        if (description.length > 120) {
+            return res.status(400).json({ error: "Description cannot be longer than 120 characters." });
+        }
+
         try {
             const projects = await db.all("SELECT * FROM projects WHERE user_id = ?", [user_id]);
             if (projects.length >= 4) {
@@ -97,7 +105,7 @@ router.post("/create", async (req, res) => {
         let bannerUrl = null;
         if (req.file) {
             const userId = req.session.user.id;
-            const username = req.session.user.username.replace(/[^a-zA-Z0-9-_]/g, "_");
+            const username = req.session.user.username;
             bannerUrl = `/images/users/${userId}_${username}/banners/${req.file.filename}`;
         }
 
