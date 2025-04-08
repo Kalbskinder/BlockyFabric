@@ -74,3 +74,22 @@ function showTab(tabId) {
     document.getElementById(`content-${tabId}`).style.display = "block";
     document.getElementById(`tab-${tabId}`).classList.add("active");
 }
+
+
+async function setTheme(theme) {
+    try {
+        const response = await fetch("/settings/themes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ theme })
+        });
+
+        if (response.ok) {
+            window.location.reload();
+        }
+    } catch (err) {
+        console.error("Error updating theme:", err);
+    }
+}

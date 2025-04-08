@@ -95,7 +95,8 @@ router.post('/login', async (req, res) => {
         id: user.id, 
         username: user.username ,
         profileImage: user.profileImage || "/images/users/profileimages/default.png",
-        email: user.email
+        email: user.email,
+        theme: user.theme || 'default'
     };
     res.json({ success: true, message: 'Logged in successfully!' });
 });

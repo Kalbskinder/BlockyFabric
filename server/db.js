@@ -12,7 +12,8 @@ await db.exec(`
         username TEXT UNIQUE NOT NULL,
         email TEXT UNIQUE NOT NULL,
         password TEXT NOT NULL,
-        profileImage TEXT
+        profileImage TEXT,
+        theme TEXT DEFAULT 'default'
     )
 `);
 

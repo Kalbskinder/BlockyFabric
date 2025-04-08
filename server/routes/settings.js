@@ -66,4 +66,30 @@ router.post("/password", async (req, res) => {
     }
 });
 
+router.post("/themes", (req, res) => {
+    const userId = req.session.user.id;
+    const { theme } = req.body;
+
+    if (!userId) {
+        return res.status(401).json({ error: "Not authorized" });
+    }
+
+    if (!theme) {
+        return res.status(400).json({ error: "Theme is required" });
+    }
+
+    try {
+        req.session.user.theme = theme;
+        db.run("UPDATE users SET theme = ? WHERE id = ?", [theme, userId], (err) => {
+            if (err) {
+                return res.status(500).json({ error: "Database error", details: err.message });
+            }
+        });
+        return res.status(200).json({ message: "Theme updated" });
+    } catch (error) {
+        return res.status(500).json({ error: "Server error", details: error.message });
+    }
+
+});
+
 export default router;

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="/styles/settings.css">
     <script src="/src/authCheck.js"></script>
+    <%- include('../components/themes') %> <!-- Theme -->
 </head>
 <body>
     <%- include('../components/navbar') %>
@@ -71,15 +72,15 @@
                         <img src="/images/icons/themes/blue-light.png" alt="Default">
                         <p>Default</p>
                     </div>
-                    <div class="theme-option" onclick="setTheme('dark')">
+                    <div class="theme-option" onclick="setTheme('default-dark')">
                         <img src="/images/icons/themes/blue-dark.png" alt="Dark">
                         <p>Default Dark</p>
                     </div>
-                    <div class="theme-option" onclick="setTheme('light')">
+                    <div class="theme-option" onclick="setTheme('green-light')">
                         <img src="/images/icons/themes/green-light.png" alt="Green Light">
                         <p>Green Light</p>
                     </div>
-                    <div class="theme-option" onclick="setTheme('blue')">
+                    <div class="theme-option" onclick="setTheme('green-dark')">
                         <img src="/images/icons/themes/green-dark.png" alt="Green Dark">
                         <p>Green Dark</p>
                     </div>

@@ -1,0 +1,83 @@
+:root {
+    --primary-color: #189e42;
+    --bg-color: #232323;
+    --text-color: #ffffff;
+    --card-bg-color: #2c2c2c;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.card {
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+}
+
+div.settings-sidebar li.active {
+    background-color: var(--primary-color) !important;
+}
+
+div.settings-sidebar li:hover {
+    background-color: #222222 !important;
+    color: rgb(255, 255, 255);
+}
+
+div.settings-sidebar .active:hover {
+    background-color: var(--primary-color) !important;
+}
+
+div.settings-sidebar li.active {
+    color: rgb(255, 255, 255);
+}
+
+.card span.view-count {
+    color: #a1a1a1;
+}
+
+.docs-container div.sidebar {
+    background-color: #161616;
+}
+
+.docs-container ul li a:hover {
+    background-color: #2c2c2c;
+}
+
+div.settings-sidebar {
+    background-color: #161616;
+    border: none;
+}
+
+nav.navbar.navbar-expand-lg.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+div.settings-sidebar li.active {
+    background-color: var(--primary-color) !important;
+}
+
+input.form-control {
+    background-color: #2c2c2c;
+    color: #ffffff;
+    border: 1px solid #444444;
+}
+
+input.form-control:focus {
+    background-color: #2c2c2c;
+    color: #ffffff;
+    border: 1px solid var(--primary-color);
+}
+
+div.theme-option {
+    border: 1px solid #444444;
+}
+
+div.theme-option:hover {
+    background-color: #2c2c2c;
+}

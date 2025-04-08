@@ -1,0 +1,48 @@
+:root {
+    --primary-color: #189e42;
+    --bg-color: #ffffff;
+    --text-color: #000000;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+div#navbarNav {
+    background-color: var(--primary-color);
+}
+
+div.container-fluid {
+    background-color: var(--primary-color);
+}
+
+nav.navbar.navbar-expand-lg.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+div.settings-sidebar li.active {
+    background-color: var(--primary-color) !important;
+}
+
+div.settings-sidebar li:hover {
+    background-color: #e6e6e6 !important;
+    color: black;
+}
+
+div.settings-sidebar .active:hover {
+    background-color: var(--primary-color) !important;
+}
+
+div.settings-sidebar li.active {
+    color: rgb(255, 255, 255);
+}
+
+li a.dropdown-item:active {
+    background-color: var(--primary-color) !important;
+}

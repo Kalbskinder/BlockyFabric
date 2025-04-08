@@ -7,12 +7,11 @@
     <%- include('../components/imports') %>
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="/styles/profile.css">
+    <%- include('../components/themes') %> <!-- Theme -->
 </head>
 <body>
     <%- include('../components/navbar') %>  <!-- Navbar -->
     <% if (user && user.username) { %>
-        <!-- TODO: Chage this to own icon or remove -->
-        <a href="/settings"><img src="/images/icons/setting.png" class="settings" alt="settings"></a>
         <div class="p-4 text-center mt-5">
             <h2 class="mb-3">Your Profile</h2>
             <form id="upload-form" enctype="multipart/form-data">
