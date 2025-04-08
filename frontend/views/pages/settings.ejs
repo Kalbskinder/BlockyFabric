@@ -6,12 +6,15 @@
     <title>BlockyFabric - Settings</title>
     <%- include('../components/imports') %>
     <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/settings.css">
     <script src="/src/authCheck.js"></script>
 
 </head>
 <body>
     <%- include('../components/navbar') %>  <!-- Navbar -->
 
+    <div class="theme-toggle" onclick="openThemeSidebar()">
+        <img src="images/icons/theme.png" alt="Theme Toggle" id="theme-icon">
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -55,6 +58,31 @@
                 </div>
 
             </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="theme-sidebar" id="themeSidebar">
+        <div class="sidebar-header">
+            <img src="images/icons/close.png" alt="Close" onclick="closeThemeSidebar()">
+            <h2>Themes</h2>
+        </div>
+        <div class="sidebar-body">
+            <div class="theme-option" onclick="setTheme('default')">
+                <img src="images/icons/themes/blue-light.png" alt="Default Theme">
+                <p>Default</p>
+            </div>
+            <div class="theme-option" onclick="setTheme('dark')">
+                <img src="images/icons/themes/blue-dark.png" alt="Dark Theme">
+                <p>Default Dark</p>
+            </div>
+            <div class="theme-option" onclick="setTheme('light')">
+                <img src="images/icons/themes/green-light.png" alt="Light Theme">
+                <p>Green Light</p>
+            </div>
+            <div class="theme-option" onclick="setTheme('blue')">
+                <img src="images/icons/themes/green-dark.png" alt="Blue Theme">
+                <p>Green Dark</p>
         </div>
     </div>
 <script src="/src/settings.js"></script>

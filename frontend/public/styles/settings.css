@@ -1,0 +1,83 @@
+.theme-sidebar {
+    width: 300px;
+    height: calc(100%);
+    padding: 20px;
+    position: absolute;
+    right: -400px;
+    top: 72px;
+    opacity: 0;
+    box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.308);
+    z-index: 9999;
+}
+
+#theme-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    position: absolute;
+    top: 80px;
+    right: 8px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.sidebar-header img {
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.sidebar-body {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.theme-option img {
+    width: auto;
+    height: 80px;
+}
+
+.theme-option {
+    border: 1px solid #dadada; /* Light gray border */
+    margin: 0;
+    padding: 8px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+}
+
+.theme-option:hover {
+    cursor: pointer;
+    background-color: #e7e7e7; /* Light gray on hover */
+}
+
+
+@keyframes slidein {
+    0% { right: -200px; opacity: 0; }
+    100% { right: 0px; opacity: 1; }   
+}
+
+@keyframes slideout {
+    0% { right: 0px; opacity: 1; }
+    100% { right: -200px; opacity: 0; }   
+}
+
+.open {
+    animation: slidein 0.5s forwards;
+}
+
+.close {
+    animation: slideout 0.5s forwards;
+}

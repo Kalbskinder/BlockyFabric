@@ -65,3 +65,31 @@ async function changePassword() {
         msg.textContent = "Servererror: " + err.message;
     }
 }
+
+
+function openThemeSidebar() {
+    const sidebar = document.getElementById("themeSidebar");
+    const themeIcon = document.getElementById("theme-icon");
+
+    themeIcon.style.display = "none";
+    sidebar.style.display = "block";
+    sidebar.classList.remove("close");
+    sidebar.classList.add("open");
+    sidebar.style.animation = "slidein 0.5s forwards";
+}
+
+function closeThemeSidebar() {
+    const sidebar = document.getElementById("themeSidebar");
+    const themeIcon = document.getElementById("theme-icon");
+
+    sidebar.classList.remove("open");
+    sidebar.classList.add("close");
+    sidebar.style.animation = "slideout 0.5s forwards";
+
+    // Wenn Animation fertig ist, Sidebar wirklich ausblenden
+    sidebar.addEventListener("animationend", function handler() {
+        sidebar.style.display = "none";
+        themeIcon.style.display = "block"; // Jetzt erst anzeigen
+        sidebar.removeEventListener("animationend", handler); // Nur einmal
+    });
+}

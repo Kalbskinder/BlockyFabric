@@ -113,10 +113,8 @@ router.get("/logout", (req, res) => {
             secure: false
         });
 
-        res.redirect("/login");
+        res.redirect("/");
     });
 });
-
-
 
 export default router;
