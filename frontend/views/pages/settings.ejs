@@ -8,19 +8,24 @@
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="/styles/settings.css">
     <script src="/src/authCheck.js"></script>
-
 </head>
 <body>
-    <%- include('../components/navbar') %>  <!-- Navbar -->
+    <%- include('../components/navbar') %>
 
-    <div class="theme-toggle" onclick="openThemeSidebar()">
-        <img src="images/icons/theme.png" alt="Theme Toggle" id="theme-icon">
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                
-                <h2 class="text-center mb-4">Settings</h2>
+    <div class="settings-container">
+        <!-- Sidebar -->
+        <div class="settings-sidebar">
+            <h4>Settings</h4>
+            <ul>
+                <li onclick="showTab('account')" id="tab-account" class="active">Account</li>
+                <li onclick="showTab('appearance')" id="tab-appearance">Appearance</li>
+            </ul>
+        </div>
 
+        <!-- Content Area -->
+        <div class="settings-content">
+            <!-- Account Tab -->
+            <div id="content-account" class="settings-tab">
                 <div class="card mb-4 shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Change Username</h5>
@@ -56,35 +61,33 @@
                         </form>
                     </div>
                 </div>
+            </div>
 
+            <!-- Appearance Tab -->
+            <div id="content-appearance" class="settings-tab" style="display:none;">
+                <h5 class="mb-3">Select a Theme</h5>
+                <div class="theme-options">
+                    <div class="theme-option" onclick="setTheme('default')">
+                        <img src="/images/icons/themes/blue-light.png" alt="Default">
+                        <p>Default</p>
+                    </div>
+                    <div class="theme-option" onclick="setTheme('dark')">
+                        <img src="/images/icons/themes/blue-dark.png" alt="Dark">
+                        <p>Default Dark</p>
+                    </div>
+                    <div class="theme-option" onclick="setTheme('light')">
+                        <img src="/images/icons/themes/green-light.png" alt="Green Light">
+                        <p>Green Light</p>
+                    </div>
+                    <div class="theme-option" onclick="setTheme('blue')">
+                        <img src="/images/icons/themes/green-dark.png" alt="Green Dark">
+                        <p>Green Dark</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
-    <div class="theme-sidebar" id="themeSidebar">
-        <div class="sidebar-header">
-            <img src="images/icons/close.png" alt="Close" onclick="closeThemeSidebar()">
-            <h2>Themes</h2>
-        </div>
-        <div class="sidebar-body">
-            <div class="theme-option" onclick="setTheme('default')">
-                <img src="images/icons/themes/blue-light.png" alt="Default Theme">
-                <p>Default</p>
-            </div>
-            <div class="theme-option" onclick="setTheme('dark')">
-                <img src="images/icons/themes/blue-dark.png" alt="Dark Theme">
-                <p>Default Dark</p>
-            </div>
-            <div class="theme-option" onclick="setTheme('light')">
-                <img src="images/icons/themes/green-light.png" alt="Light Theme">
-                <p>Green Light</p>
-            </div>
-            <div class="theme-option" onclick="setTheme('blue')">
-                <img src="images/icons/themes/green-dark.png" alt="Blue Theme">
-                <p>Green Dark</p>
-        </div>
-    </div>
 <script src="/src/settings.js"></script>
 </body>
 </html>

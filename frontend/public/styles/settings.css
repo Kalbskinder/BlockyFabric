@@ -1,83 +1,72 @@
-.theme-sidebar {
-    width: 300px;
-    height: calc(100%);
-    padding: 20px;
-    position: absolute;
-    right: -400px;
-    top: 72px;
-    opacity: 0;
-    box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.308);
-    z-index: 9999;
-}
-
-#theme-icon {
-    width: 32px;
-    height: 32px;
-    margin-right: 10px;
-    position: absolute;
-    top: 80px;
-    right: 8px;
-    cursor: pointer;
-    z-index: 1;
-}
-
-.sidebar-header {
+.settings-container {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    height: 100vh;
 }
 
-.sidebar-header img {
-    width: 20px;
-    height: 20px;
-    margin-right: 20px;
+.settings-sidebar {
+    width: 240px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.settings-sidebar h4 {
+    margin-bottom: 20px;
+}
+
+.settings-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.settings-sidebar li {
+    padding: 10px 15px;
     cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
-.sidebar-body {
-    margin-top: 30px;
+.settings-sidebar li.active,
+.settings-sidebar li:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.settings-content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.theme-options {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-}
-
-.theme-option img {
-    width: auto;
-    height: 80px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
 }
 
 .theme-option {
-    border: 1px solid #dadada; /* Light gray border */
-    margin: 0;
-    padding: 8px;
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
 }
 
 .theme-option:hover {
-    cursor: pointer;
-    background-color: #e7e7e7; /* Light gray on hover */
+    background-color: #f0f0f0;
 }
 
-
-@keyframes slidein {
-    0% { right: -200px; opacity: 0; }
-    100% { right: 0px; opacity: 1; }   
+.theme-option img {
+    height: 80px;
+    width: auto;
 }
 
-@keyframes slideout {
-    0% { right: 0px; opacity: 1; }
-    100% { right: -200px; opacity: 0; }   
+.status-msg {
+    font-size: 0.9rem;
+    margin-top: 5px;
 }
 
-.open {
-    animation: slidein 0.5s forwards;
-}
-
-.close {
-    animation: slideout 0.5s forwards;
+.card {
+    width: 40%;
 }

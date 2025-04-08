@@ -67,29 +67,10 @@ async function changePassword() {
 }
 
 
-function openThemeSidebar() {
-    const sidebar = document.getElementById("themeSidebar");
-    const themeIcon = document.getElementById("theme-icon");
+function showTab(tabId) {
+    document.querySelectorAll(".settings-tab").forEach(el => el.style.display = "none");
+    document.querySelectorAll(".settings-sidebar li").forEach(li => li.classList.remove("active"));
 
-    themeIcon.style.display = "none";
-    sidebar.style.display = "block";
-    sidebar.classList.remove("close");
-    sidebar.classList.add("open");
-    sidebar.style.animation = "slidein 0.5s forwards";
-}
-
-function closeThemeSidebar() {
-    const sidebar = document.getElementById("themeSidebar");
-    const themeIcon = document.getElementById("theme-icon");
-
-    sidebar.classList.remove("open");
-    sidebar.classList.add("close");
-    sidebar.style.animation = "slideout 0.5s forwards";
-
-    // Wenn Animation fertig ist, Sidebar wirklich ausblenden
-    sidebar.addEventListener("animationend", function handler() {
-        sidebar.style.display = "none";
-        themeIcon.style.display = "block"; // Jetzt erst anzeigen
-        sidebar.removeEventListener("animationend", handler); // Nur einmal
-    });
+    document.getElementById(`content-${tabId}`).style.display = "block";
+    document.getElementById(`tab-${tabId}`).classList.add("active");
 }
