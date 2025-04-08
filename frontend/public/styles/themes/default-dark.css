@@ -38,7 +38,59 @@ div.settings-sidebar li.active {
     color: rgb(255, 255, 255);
 }
 
+
+/* modal and erros */
+.btn-secondary {
+    background-color: #444444 !important;
+    border-color: #444444 !important;
+}
+ 
+div.modal-content ul.dropdown-menu {
+    background-color: var(--card-bg-color) !important;
+}
+
+div.modal-content a.dropdown-item {
+    color: rgb(255, 255, 255) !important;
+}
+
+div.modal-content a.dropdown-item:hover {
+    background-color: #424242 !important;
+    color: rgb(255, 255, 255) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color-hover);
+    border-color: var(--primary-color-hover);
+}
+
+.btn-primary:active {
+    background-color: var(--primary-color-hover) !important;
+    border-color: var(--primary-color-hover) !important;
+}
+
+.modal-content button.btn-close {
+    filter: invert(100);
+}
+
+div.modal-content {
+    background-color: var(--bg-color) !important;
+}
+
+div.modal-header {
+    border-bottom: 1px solid #444444;
+}
+
+div.modal-footer {
+    border-top: 1px solid #444444;
+}
+
+.error-slidein {
+    background-color: var(--card-bg-color) !important;
+    color: var(--text-color) !important;
+}
+
 /* other stuff */
+
 .card span.view-count {
     color: #a1a1a1;
 }
