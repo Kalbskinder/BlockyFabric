@@ -31,6 +31,20 @@ span.primary {
 }
 
 
+.btn.btn-primary:hover,
+.btn.btn-primary:focus,
+.btn.btn-primary:active {
+    background-color: var(--primary-color-hover) !important;
+    border-color: var(--primary-color-hover) !important;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+
+
 /* Modal */
 
 div.modal-content ul.dropdown-menu {
@@ -44,16 +58,6 @@ div.modal-content a.dropdown-item {
 div.modal-content a.dropdown-item:hover {
     background-color: #424242 !important;
     color: rgb(255, 255, 255) !important;
-}
-
-.btn-primary:hover {
-    background-color: var(--primary-color-hover);
-    border-color: var(--primary-color-hover);
-}
-
-.btn-primary:active {
-    background-color: var(--primary-color-hover) !important;
-    border-color: var(--primary-color-hover) !important;
 }
 
 .modal-content button.btn-close {
