@@ -9,11 +9,22 @@ body {
     color: var(--text-color);
 }
 
+/* Overwrite docs button because its also green */
+.btn-success {
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+}
+
+span.primary {
+    color: var(--primary-color);
+}
+
 .btn-primary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
 }
 
+/* Navbar */
 div#navbarNav {
     background-color: var(--primary-color);
 }
@@ -26,6 +37,7 @@ nav.navbar.navbar-expand-lg.bg-primary {
     background-color: var(--primary-color) !important;
 }
 
+/* Settings sidebar */
 div.settings-sidebar li.active {
     background-color: var(--primary-color) !important;
 }
@@ -45,4 +57,19 @@ div.settings-sidebar li.active {
 
 li a.dropdown-item:active {
     background-color: var(--primary-color) !important;
+}
+
+/* Dropdown menus overwrite for bootstrap */
+ul.dropdown-menu  {
+    background-color: rgb(254, 254, 254) !important;
+    box-shadow: 1px 1px 12px 0px rgba(0, 0, 0, 0.178);
+}
+
+ul.dropdown-menu a.dropdown-item {
+    color: var(--text-color);
+}
+
+ul.dropdown-menu a.dropdown-item:hover {
+    background-color: var(--primary-color);
+    color: white;
 }

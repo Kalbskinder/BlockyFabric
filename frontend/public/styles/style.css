@@ -3,6 +3,10 @@
     font-size: 15.5px;
 }
 
+a.navbar-brand {
+    color: rgb(233, 233, 233);
+}
+
 .nav-link:hover {
     text-decoration: underline;
 }

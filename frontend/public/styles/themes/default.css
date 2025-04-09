@@ -30,3 +30,19 @@ div.settings-sidebar .active:hover {
 div.settings-sidebar li.active {
     color: rgb(255, 255, 255);
 }
+
+/* Dropdown menus overwrite for bootstrap */
+
+ul.dropdown-menu  {
+    background-color: rgb(254, 254, 254) !important;
+    box-shadow: 1px 1px 12px 0px rgba(0, 0, 0, 0.178);
+}
+
+ul.dropdown-menu a.dropdown-item {
+    color: var(--text-color);
+}
+
+ul.dropdown-menu a.dropdown-item:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
