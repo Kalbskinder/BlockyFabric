@@ -147,3 +147,27 @@ div.theme-option {
 div.theme-option:hover {
     background-color: #2c2c2c;
 }
+
+/* Tables */
+
+.table {
+    background-color: #1f1f1f !important;
+    color: #e0e0e0;
+}
+
+table.table th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+table.table tr:hover {
+    background-color: #444;
+}
+
+table.table tr:nth-child(even) {
+    background-color: #2a2a2a !important;
+}
+
+table.table tr:nth-child(odd) {
+    background-color: #1f1f1f !important;
+} 
