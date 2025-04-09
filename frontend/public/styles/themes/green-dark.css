@@ -6,6 +6,11 @@
     --card-bg-color: #2c2c2c;
 }
 
+::selection {
+    color: #fff;
+    background: var(--primary-color);
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -146,6 +151,18 @@ div.theme-option {
 
 div.theme-option:hover {
     background-color: #2c2c2c;
+}
+
+ul.dropdown-menu {
+    background-color: #444444 !important;
+}
+
+a.dropdown-item {
+    color: var(--text-color) !important;
+}
+
+a.dropdown-item:hover, a.dropdown-item:active, a.dropdown-item:focus {
+    background-color: var(--primary-color) !important;
 }
 
 /* Tables */
