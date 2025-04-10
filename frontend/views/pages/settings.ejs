@@ -26,7 +26,9 @@
 
         <!-- Content Area -->
         <div class="settings-content">
-            <!-- Profile image -->
+            <!-- Account Tab -->
+            <div id="content-account" class="settings-tab">
+                <!-- Profile image -->
             <% if (user && user.username) { %>
                 <div class="card mb-4 shadow-sm">
                     <div class="profile-settings-container">
@@ -52,8 +54,6 @@
             <% } else { %>
                 <h2>Please log in to view your profile.</h2>
             <% } %>
-            <!-- Account Tab -->
-            <div id="content-account" class="settings-tab">
                 <div class="card mb-4 shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Change Username</h5>
@@ -68,7 +68,7 @@
                     </div>
                 </div>
 
-                <div class="card shadow-sm">
+                <div class="card shadow-sm" style="margin-bottom: 50px;">
                     <div class="card-body">
                         <h5 class="card-title">Change Password</h5>
                         <form id="changePasswordForm">
@@ -96,19 +96,19 @@
                 <h5 class="mb-3">Select a Theme</h5>
                 <div class="theme-options">
                     <div class="theme-option" onclick="setTheme('default')">
-                        <img src="/images/icons/themes/blue-light.png" alt="Default">
+                        <img src="/images/icons/themes/blue-light.png" alt="Default" class="light">
                         <p>Default</p>
                     </div>
                     <div class="theme-option" onclick="setTheme('default-dark')">
-                        <img src="/images/icons/themes/blue-dark.png" alt="Dark">
+                        <img src="/images/icons/themes/blue-dark.png" alt="Dark" class="dark">
                         <p>Default Dark</p>
                     </div>
                     <div class="theme-option" onclick="setTheme('green-light')">
-                        <img src="/images/icons/themes/green-light.png" alt="Green Light">
+                        <img src="/images/icons/themes/green-light.png" alt="Green Light" class="light">
                         <p>Green Light</p>
                     </div>
                     <div class="theme-option" onclick="setTheme('green-dark')">
-                        <img src="/images/icons/themes/green-dark.png" alt="Green Dark">
+                        <img src="/images/icons/themes/green-dark.png" alt="Green Dark" class="dark">
                         <p>Green Dark</p>
                     </div>
                 </div>

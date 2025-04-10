@@ -23,8 +23,6 @@ async function fetchProfile(userId, container) {
             <div class="profile-image-preview">
                 <img id="preview-img" src="${profileImage}" alt="Profile Image">
             </div>
-            <h3 class="mt-4">${username}</h3>
-            <br>
             <h2>Projects</h2>
         `;
     } catch (error) {

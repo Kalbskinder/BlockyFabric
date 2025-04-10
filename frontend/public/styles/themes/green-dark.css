@@ -8,7 +8,7 @@
 
 ::selection {
     color: #fff;
-    background: var(--primary-color);
+    background: var(--primary-color-hover);
 }
 
 body {
@@ -195,4 +195,8 @@ span#file-name {
 
 .card-user {
     background: #393939;
+}
+
+div.theme-option img.dark {
+    border: 1px solid #686868;
 }

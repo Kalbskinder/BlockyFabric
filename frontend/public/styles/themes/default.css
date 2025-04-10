@@ -50,3 +50,7 @@ ul.dropdown-menu a.dropdown-item:hover {
 .card-user {
     background: #868686;
 }
+
+div.theme-option img.light {
+    border: 1px solid #595959;
+}

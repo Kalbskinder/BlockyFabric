@@ -7,7 +7,7 @@
 
 ::selection {
     color: #fff;
-    background: var(--primary-color);
+    background: var(--primary-color-hover);
 }
 
 body {
@@ -99,4 +99,8 @@ table.table th {
 
 .card-user {
     background: #868686;
+}
+
+div.theme-option img.light {
+    border: 1px solid #595959;
 }
