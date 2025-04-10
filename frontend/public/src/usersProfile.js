@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 async function fetchProfile(userId, container) {
-    console.log(userId);
     try {
         const response = await fetch(`/api/users/${userId}`);
 

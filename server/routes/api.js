@@ -13,10 +13,14 @@ router.get('/loggedIn', (req, res) => {
 });
 
 router.get('/users/:id', async (req, res) => { 
-    const userId = parseInt(req.params.id, 10);
+    let userId = parseInt(req.params.id, 10);
 
     if (isNaN(userId)) {
-        return res.status(400).json({ error: 'Invalid user ID format' });
+        if (req.session.user) {
+            userId = req.session.user.id;
+        } else {
+            return res.status(401).json({ error: "You must be logged in to view your Profile" });
+        }
     }
 
     try {
@@ -25,7 +29,7 @@ router.get('/users/:id', async (req, res) => {
             [userId]
         );
 
-        if (!user) {
+        if (!user) {    
             return res.status(404).json({ error: 'User not found' });
         }
 
@@ -35,6 +39,5 @@ router.get('/users/:id', async (req, res) => {
         res.status(500).json({ error: 'Database error', details: error.message });
     }
 });
-
 
 export default router;
