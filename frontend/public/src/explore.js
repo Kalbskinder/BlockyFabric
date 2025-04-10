@@ -13,7 +13,9 @@ async function fetchProjects(filter) {
             return;
         }
 
-        const projects = await response.json();
+        const content = await response.json();
+        const projects = content.projects;
+        const users = content.users;
 
         if (!Array.isArray(projects)) {
             console.error("Unerwartete Antwort vom Server:", projects);
@@ -25,11 +27,17 @@ async function fetchProjects(filter) {
         projects.forEach(project => {
             const card = document.createElement("div");
             card.className = "card";
-
+        
+            const user = users.find(user => user.id === project.user_id);
+            const userImg = user?.profileImage || './images/users/profileimages/default.png';
+        
             card.innerHTML = `
                 <img src="${project.banner || './images/icons/placeholder.png'}" class="card-img-top" alt="Project Image">
                 <div class="card-body">
-                    <h5 class="card-title">${project.name}</h5>
+                    <div class="space-between">
+                        <h5 class="card-title">${project.name}</h5>
+                        <img src="${userImg}" class="card-user" alt="User Profile Picture">
+                    </div>
                     <p class="card-text">${project.description || "No description"}</p>
                     <div class="card-voter">
                         <div>
@@ -41,9 +49,9 @@ async function fetchProjects(filter) {
                     </div>
                 </div>
             `;
-
+        
             projectsGrid.appendChild(card);
-        });
+        });        
     } catch (error) {
         console.error("Error fetching projects:", error);
     }

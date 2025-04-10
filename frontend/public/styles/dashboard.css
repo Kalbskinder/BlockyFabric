@@ -155,3 +155,10 @@
     background-color: #a1a1a1;
     border: 1px solid #7b7b7b;
 }
+
+img.card-user {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
