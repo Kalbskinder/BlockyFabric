@@ -18,10 +18,6 @@ router.get('/dashboard', (req, res) => {
     res.render('pages/dashboard');
 });
 
-router.get('/profile', (req, res) => {
-    res.render('pages/profile');
-});
-
 router.get('/settings', (req, res) => {
     res.render('pages/settings');
 });
@@ -31,7 +27,7 @@ router.get('/explore', (req, res) => {
 });
 
 router.get('/users', (req, res) => {
-    res.render('pages/usersProfile');
+    res.render('pages/profile');
 }) 
 
 export default router;
