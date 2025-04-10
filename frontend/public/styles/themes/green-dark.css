@@ -187,4 +187,8 @@ table.table tr:nth-child(even) {
 
 table.table tr:nth-child(odd) {
     background-color: #1f1f1f !important;
-} 
+}
+
+span#file-name {
+    color: #ffffff;
+}
