@@ -33,6 +33,10 @@ async function fetchProfile(userId, container) {
             </div>
         `).join("");
 
+        if (!projectCards) {
+            projectCards = '<p class="no-projects-found">No public projects found for this user</p>';
+        }        
+
         container.innerHTML = `
             <h2 class="mb-3">${username}'s Profile</h2>
             <div class="profile-image-preview mb-4">
