@@ -93,3 +93,23 @@ async function setTheme(theme) {
         console.error("Error updating theme:", err);
     }
 }
+
+/* Save page on realod or load */
+
+function showTab(tab) {
+    const tabs = document.querySelectorAll('.settings-tab');
+    tabs.forEach(t => t.style.display = 'none');
+    document.getElementById(`content-${tab}`).style.display = 'block';
+    
+    const tabsInSidebar = document.querySelectorAll('.settings-sidebar li');
+    tabsInSidebar.forEach(tabElement => tabElement.classList.remove('active'));
+    document.getElementById(`tab-${tab}`).classList.add('active');
+    
+    localStorage.setItem('activeTab', tab);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const activeTab = localStorage.getItem('activeTab') || 'account';
+
+    showTab(activeTab);
+});
