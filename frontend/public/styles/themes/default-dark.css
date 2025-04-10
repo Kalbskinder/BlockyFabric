@@ -1,5 +1,6 @@
 :root {
     --primary-color: #007bff;
+    --primary-color-hover: #0069d9;
     --bg-color: #232323;
     --text-color: #ffffff;
     --card-bg-color: #2c2c2c;
@@ -130,4 +131,8 @@ div.theme-option:hover {
 
 span#file-name {
     color: #ffffff;
+}
+
+.card-user{
+    background: #393939;
 }

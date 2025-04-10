@@ -36,7 +36,9 @@ async function fetchProjects(filter) {
                 <div class="card-body">
                     <div class="space-between">
                         <h5 class="card-title">${project.name}</h5>
-                        <img src="${userImg}" class="card-user" alt="User Profile Picture">
+                        <a href="/users?id=${project.user_id}">
+                            <img src="${userImg}" class="card-user" alt="User Profile Picture">
+                        </a>
                     </div>
                     <p class="card-text">${project.description || "No description"}</p>
                     <div class="card-voter">

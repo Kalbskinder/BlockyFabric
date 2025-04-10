@@ -30,4 +30,8 @@ router.get('/explore', (req, res) => {
     res.render('pages/explore');
 });
 
+router.get('/users', (req, res) => {
+    res.render('pages/usersProfile');
+}) 
+
 export default router;

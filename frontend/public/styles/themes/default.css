@@ -46,3 +46,7 @@ ul.dropdown-menu a.dropdown-item:hover {
     background-color: var(--primary-color);
     color: white;
 }
+
+.card-user {
+    background: #868686;
+}

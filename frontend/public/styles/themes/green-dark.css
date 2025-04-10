@@ -192,3 +192,7 @@ table.table tr:nth-child(odd) {
 span#file-name {
     color: #ffffff;
 }
+
+.card-user {
+    background: #393939;
+}

@@ -161,7 +161,7 @@ router.get("/public", async (req, res) => {
 
     try {
         const projects = await db.all(`SELECT * FROM projects WHERE visibility = 'public' ORDER BY ${orderBy}`);
-        const users = await db.all("SELECT id, profileImage FROM users");
+        const users = await db.all("SELECT id, username, profileImage FROM users");
         res.json({ projects, users });
     } catch (error) {
         res.status(500).json({ error: "Database error", details: error.message });
