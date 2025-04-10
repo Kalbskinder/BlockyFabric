@@ -40,4 +40,23 @@ router.get('/users/:id', async (req, res) => {
     }
 });
 
+router.get('/getproject/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const projects = await db.all("SELECT * FROM projects WHERE visibility = 'public' AND user_id = ?", [id]);
+
+        if (!projects) {
+            if (!projects || projects.length === 0) {
+                return res.json([]);
+            }
+        }
+
+        res.json(projects);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).json({ error: 'Database error', details: error.message });
+    }
+});
+
 export default router;
