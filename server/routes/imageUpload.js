@@ -38,7 +38,24 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
         const ext = path.extname(file.originalname).toLowerCase();
-        cb(null, `profilimage${ext}`);
+        const userId = req.session.user.id;
+        const username = req.session.user.username.replace(/[^a-zA-Z0-9-_]/g, "_");
+        const userDir = path.join(baseUploadDir, `${userId}_${username}`);
+
+        // Lösche alle vorhandenen Profilbilder mit dem Namen 'profilimage.*'
+        fs.readdir(userDir, (err, files) => {
+            if (err) return cb(err);
+
+            files.forEach(f => {
+                if (f.startsWith("profilimage")) {
+                    fs.unlink(path.join(userDir, f), (err) => {
+                        if (err) console.error("Fehler beim Löschen:", err);
+                    });
+                }
+            });
+
+            cb(null, `profilimage${ext}`);
+        });
     }
 });
 
@@ -65,7 +82,7 @@ router.post("/upload-profile-image", upload.single("profileImage"), (req, res) =
         return res.status(400).json({ error: "No file selected" });
     }
 
-    let userId
+    let userId;
     let username;
 
     if (req.session.user) {
@@ -85,9 +102,9 @@ router.post("/upload-profile-image", upload.single("profileImage"), (req, res) =
     });
 
     res.status(200).json({ success: true, imageUrl });
-
 });
 
+// Multer & general error handler
 router.use((err, req, res, next) => {
     if (err instanceof multer.MulterError) {
         if (err.code === "LIMIT_FILE_SIZE") {
