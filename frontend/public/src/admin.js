@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <td>${user.id}</td>
                 <td>${user.username}</td>
                 <td>${user.email}</td>
-                <td><img src="${user.profileImage}" alt="Profilbild" class="profile-img"></td>
+                <td><a href="/users?id=${user.id}"><img src="${user.profileImage}" alt="Profilbild" class="profile-img"></a></td>
                 <td><button class="btn btn-danger delete-btn" data-id="${user.id}">Löschen</button></td>
             `;
             userTableBody.appendChild(row);
