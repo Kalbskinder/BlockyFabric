@@ -1,6 +1,8 @@
 :root {
     --primary-color: #189e42;
     --primary-color-hover: #168f3c;
+    --success-color: #007bff;
+    --success-color-hover: #0069d9;
     --bg-color: #232323;
     --text-color: #ffffff;
     --card-bg-color: #2c2c2c;
@@ -27,8 +29,13 @@ body {
 }
 
 .btn-success {
-    background-color: #007bff !important;
-    border-color: #007bff !important;
+    background-color: var(--success-color) !important;
+    border-color: var(--success-color) !important;
+}
+
+.btn-success:hover {
+    background-color: var(--success-color-hover) !important;
+    border-color: var(--success-color-hover) !important;
 }
 
 span.primary {
@@ -199,4 +206,8 @@ span#file-name {
 
 div.theme-option img.dark {
     border: 1px solid #686868;
+}
+
+img.settings-icon {
+    filter: invert(100%) sepia(0%) saturate(7435%) hue-rotate(18deg) brightness(97%) contrast(97%);
 }

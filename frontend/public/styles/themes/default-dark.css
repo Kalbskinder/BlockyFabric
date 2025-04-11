@@ -140,3 +140,7 @@ span#file-name {
 div.theme-option img.dark {
     border: 1px solid #686868;
 }
+
+img.settings-icon {
+    filter: invert(100%) sepia(0%) saturate(7435%) hue-rotate(18deg) brightness(97%) contrast(97%);
+}

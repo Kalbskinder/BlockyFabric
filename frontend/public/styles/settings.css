@@ -70,8 +70,13 @@ html, body {
 }
 
 .theme-option img {
+    margin-bottom: 12px;
     height: 80px;
     width: auto;
+}
+
+.theme-option p {
+    margin-bottom: 5px;
 }
 
 .status-msg {
@@ -89,4 +94,21 @@ html, body {
     align-items: center;
     flex-direction: column;
     padding: 16px;
+}
+
+
+img.settings-icon {
+    height: 16px;
+    width: 16px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
+
+div.settings-sidebar li.active img.settings-icon {
+    filter: invert(100%) sepia(0%) saturate(7435%) hue-rotate(18deg) brightness(97%) contrast(97%);
+}
+
+img.settings-icon.icon-larger {
+    height: 18px;
+    width: 18px;
 }

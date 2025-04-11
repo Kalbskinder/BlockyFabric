@@ -36,8 +36,8 @@ async function fetchProjects() {
                     </div>
                     <p class="card-text">${project.description || "No description"}</p>
                     <div class="alg-right">
-                        <button class="btn btn-primary" onclick="editProject(${project.id})">Edit</button>
-                        <button class="btn btn-danger" onclick="deletionModal(${project.id})">Delete</button>
+                        <button class="btn btn-primary" onclick="editProject(${project.id})"><img src="/images/icons/pencil.svg" class="icon icon-light"></button>
+                        <button class="btn btn-danger" onclick="deletionModal(${project.id})"><img src="/images/icons/trash.svg" alt="Delete" class="icon icon-light"></button>
                     </div>
                 </div>
             `;
