@@ -11,6 +11,7 @@ import apiRoutes from './routes/api.js'; // API Routes
 import adminRoutes from './routes/admin.js'; // administration
 import projectsRoutes from './routes/projects.js'; // Projects Routes
 import settingsRoutes from './routes/settings.js'; // Settings Routes
+import editorRoutes from './routes/editor.js'; // Editor Routes
 
 const app = express();
 const PORT = 3000;
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, '../frontend', 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use('/bootstrap', express.static(path.join(__dirname, '../node_modules/bootstrap/dist')));
 app.use('/blockly', express.static(path.join(__dirname, '../node_modules/blockly')));
+app.use('/@blockly', express.static(path.join(__dirname, '../node_modules/@blockly')));
 
 
 // Session Setup with SQLite
@@ -56,6 +58,7 @@ app.use('/api', apiRoutes);
 app.use('/admin', adminRoutes);
 app.use('/projects', projectsRoutes);
 app.use('/settings', settingsRoutes); // Routes for settings page
+app.use('/editor', editorRoutes);
 
 app.use('/', pageRoutes); // Routes for pages
 

@@ -1,0 +1,89 @@
+/* Error Element */
+.hidden {
+    display: none;
+}
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+}
+
+.error-slidein {
+    opacity: 0;
+    visibility: hidden;
+    z-index: 9999;
+    position: absolute;
+    bottom: 12px;
+    right: 8px;
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+    flex-direction: column;
+    animation: slidein 1s ease-in-out;
+    animation-duration: 4s;
+    padding-top: 20px;
+    color: rgb(0, 0, 0);
+    background-color: #f9f9f9;
+    width: 25%;
+    border-radius: 8px;
+    box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.477);
+}
+
+.error-slidein .error-line {
+    display: flex;
+    margin-top: 25px;
+    border-radius: 0px 0px 8px 8px;
+    width: 100%;
+    background-color: #dc3545;
+    padding: 4px;
+}
+
+.error-slidein .success-line {
+    display: flex;
+    margin-top: 25px;
+    border-radius: 0px 0px 8px 8px;
+    width: 100%;
+    background-color: #5dcc56;
+    padding: 4px;
+}
+
+.error-text {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+@keyframes slidein {
+    0% { right: -200px; opacity: 0; }
+    15% { right: 8px; opacity: 1; }
+    75% { right: 8px; opacity: 1; }
+    100% { right: -200px; opacity: 0; }
+}
+
+/* styles/editor/editor.css */
+.floating-save-btn {
+    position: fixed;
+    top: 84px;
+    right: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding-top: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+.floating-save-btn:hover {
+    background-color: #45a049;
+}
+
+#saveButton img {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 5px;
+}

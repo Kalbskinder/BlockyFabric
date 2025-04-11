@@ -194,4 +194,8 @@ function displayError(msg) {
     return;
 }
 
+function editProject(id) {
+    window.location.href = `/editor?id=${id}`;
+}
+
 document.addEventListener("DOMContentLoaded", fetchProjects);

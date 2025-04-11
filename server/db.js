@@ -28,6 +28,8 @@ await db.exec(`
         visibility TEXT CHECK(visibility IN ('public', 'private')),
         views INTEGER DEFAULT 0,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        workspace TEXT,
+
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     )
 `);

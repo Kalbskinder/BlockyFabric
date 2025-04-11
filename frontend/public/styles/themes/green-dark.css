@@ -211,3 +211,14 @@ div.theme-option img.dark {
 img.settings-icon {
     filter: invert(100%) sepia(0%) saturate(7435%) hue-rotate(18deg) brightness(97%) contrast(97%);
 }
+
+
+/* Editor Page */
+
+rect.blocklyMainBackground {
+    background-color: var(--bg-color) !important;
+}
+
+path.blocklyFlyoutBackground {
+    background-color: #161616 !important;
+}
