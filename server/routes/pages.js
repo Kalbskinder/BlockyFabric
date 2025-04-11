@@ -28,6 +28,10 @@ router.get('/explore', (req, res) => {
 
 router.get('/users', (req, res) => {
     res.render('pages/profile');
-}) 
+});
+
+router.get('/editor', (req, res) => {
+    res.render('pages/editor')
+});
 
 export default router;

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlockyFabric - Editor</title>
+    <%- include('../components/imports') %>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/editor/editor.css">
+    <%- include('../components/themes') %> <!-- Theme -->
+</head>
+<body>
+    <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+
+<script src="/src/authCheck.js"></script>
+<script src="/blockly/blockly_compressed.js"></script>
+<script>
+const workspace = Blockly.inject(
+    document.getElementById('blocklyDiv'), { /* config */ });
+</script>
+</body>
+</html>

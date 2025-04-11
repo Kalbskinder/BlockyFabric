@@ -24,6 +24,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend', 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use('/bootstrap', express.static(path.join(__dirname, '../node_modules/bootstrap/dist')));
+app.use('/blockly', express.static(path.join(__dirname, '../node_modules/blockly')));
+
 
 // Session Setup with SQLite
 // Session gets saved in database/session.sqlite

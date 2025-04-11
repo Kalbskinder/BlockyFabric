@@ -56,7 +56,6 @@ async function createNewMod() {
     const description = document.getElementById("modDescription").value;
     const minecraft_version = "1.21.5";
 
-    console.log('Private', radioPrivate.checked, 'Public', radioPublic.checked);
 
     if (radioPrivate.checked) {
         visibility = "private";
