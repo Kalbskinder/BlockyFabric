@@ -1,21 +1,105 @@
 [
     {
-      "type": "play_sound",
-      "message0": "Play sound %1",
-      "args0": [
-        {
-          "type": "field_dropdown",
-          "name": "SOUND",
-          "options": [
+        "type": "play_sound",
+        "tooltip": "Play a sound a sound",
+        "helpUrl": "",
+        "message0": "%1 %2 Volume: %3 Pitch: %4 %5",
+        "args0": [
+          {
+            "type": "field_label_serializable",
+            "text": "Play sound",
+            "name": "NAME"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "SOUND",
+            "options": [
             ["Explosion", "explosion"],
             ["Bell", "bell"]
           ]
-        }
-      ],
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": 230,
-      "tooltip": "Plays a sound.",
-      "helpUrl": ""
-    }
-  ]
+          },
+          {
+            "type": "field_number",
+            "name": "VOLUME",
+            "value": 1,
+            "min": 0,
+            "max": 2
+          },
+          {
+            "type": "field_number",
+            "name": "PITCH",
+            "value": 1,
+            "min": 0,
+            "max": 2
+          },
+          {
+            "type": "input_dummy",
+            "name": "NAME"
+          }
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": "#c206b8"
+    },
+
+    {
+        "type": "key_pressed",
+        "message0": "When key %1 is pressed",
+        "args0": [
+          {"type": "field_dropdown", "name": "KEY", "options": [
+            ["A", "A"],
+            ["B", "B"],
+            ["C", "C"],
+            ["D", "D"],
+            ["E", "E"],
+            ["F", "F"],
+            ["G", "G"],
+            ["H", "H"],
+            ["I", "I"],
+            ["J", "J"],
+            ["K", "K"],
+            ["L", "L"],
+            ["M", "M"],
+            ["N", "N"],
+            ["O", "O"],
+            ["P", "P"],
+            ["Q", "Q"],
+            ["R", "R"],
+            ["S", "S"],
+            ["T", "T"],
+            ["U", "U"],
+            ["V", "V"],
+            ["W", "W"],
+            ["X", "X"],
+            ["Y", "Y"],
+            ["Z", "Z"],
+            ["Space", "SPACE"],
+            ["Enter", "ENTER"],
+            ["L-Shift", "LSHIFT"],
+            ["R-Shift", "RSHIFT"],
+            ["L-Ctrl", "LCTRL"],
+            ["R-Ctrl", "RCTRL"],
+            ["Alt", "ALT"],
+            ["Arrow Up", "ARROW_UP"],
+            ["Arrow Down", "ARROW_DOWN"],
+            ["Arrow Left", "ARROW_LEFT"],
+            ["Arrow Right", "ARROW_RIGHT"],
+            ["0", "0"],
+            ["1", "1"],
+            ["2", "2"],
+            ["3", "3"],
+            ["4", "4"],
+            ["5", "5"],
+            ["6", "6"],
+            ["7", "7"],
+            ["8", "8"],
+            ["9", "9"]
+          ]}
+        ],
+        "message1": "do %1",
+        "args1": [
+          {"type": "input_statement", "name": "DO"}
+        ],
+        "colour": "#456bd6"
+      }        
+]

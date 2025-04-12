@@ -3,10 +3,114 @@
     "contents": [
       {
         "kind": "category",
-        "name": "Sound",
-        "colour": "#FFAB19",
+        "name": "Loops & Conditions",
+        "colour": "#f54949",
         "contents": [
+            { "kind": "LABEL", "text": "Conditions", "web-class": "ioLabel" },
+
+            { "kind": "BLOCK", "type": "controls_if" },
+            { "kind": "BLOCK", "type": "logic_compare" },
+            { "kind": "BLOCK", "type": "logic_operation" },
+            { "kind": "BLOCK", "type": "logic_negate" },
+            { "kind": "BLOCK", "type": "logic_boolean" },
+
+            { "kind": "LABEL", "text": "Loops", "web-class": "ioLabel" },
+
+            { "kind": "BLOCK", "type": "controls_repeat_ext" },
+            { "kind": "BLOCK", "type": "controls_whileUntil" },
+            { "kind": "BLOCK", "type": "controls_for" },
+            { "kind": "BLOCK", "type": "controls_forEach" },
+            { "kind": "BLOCK", "type": "controls_flow_statements" }
+        ]
+      },
+      {
+        "kind": "category",
+        "name": "Math",
+        "colour": "#54a852",
+        "contents": [
+            { "kind": "LABEL", "text": "Math", "web-class": "ioLabel" },
+
+            { "kind": "BLOCK", "type": "math_number", "gap": "32" },
+            { "kind": "BLOCK", "type": "math_arithmetic" },
+            { "kind": "BLOCK", "type": "math_single" },
+            { "kind": "BLOCK", "type": "math_trig" },
+            { "kind": "BLOCK", "type": "math_number_property" },
+            { "kind": "BLOCK", "type": "math_round" },
+            { "kind": "BLOCK", "type": "math_on_list" },
+            { "kind": "BLOCK", "type": "math_modulo" },
+            { "kind": "BLOCK", "type": "math_random_int" }
+        ]
+      },
+      {
+        "kind": "category",
+        "name": "Strings",
+        "colour": 165,
+        "contents": [
+            { "kind": "LABEL", "text": "Strings", "web-class": "ioLabel" },
+
+            { "kind": "BLOCK", "type": "text" },
+            { "kind": "BLOCK", "type": "text_join" },
+            { "kind": "BLOCK", "type": "text_length" },
+            { "kind": "BLOCK", "type": "text_getSubstring" },
+            { "kind": "BLOCK", "type": "text_changeCase" },
+            { "kind": "BLOCK", "type": "text_trim" },
+            { "kind": "BLOCK", "type": "text_count" },
+            { "kind": "BLOCK", "type": "text_replace" },
+            { "kind": "BLOCK", "type": "text_reverse" }
+        ]
+      },
+      {
+        "kind": "category",
+        "name": "Lists",
+        "colour": 255,
+        "contents": [
+            { "kind": "LABEL", "text": "Lists", "web-class": "ioLabel" },
+
+            { "kind": "BLOCK", "type": "lists_create_with" },
+            { "kind": "BLOCK", "type": "lists_repeat" },
+            { "kind": "BLOCK", "type": "lists_length" },
+            { "kind": "BLOCK", "type": "lists_isEmpty" },
+            { "kind": "BLOCK", "type": "lists_indexOf" },
+            { "kind": "BLOCK", "type": "lists_getIndex" },
+            { "kind": "BLOCK", "type": "lists_setIndex" },
+            { "kind": "BLOCK", "type": "lists_sort" },
+            { "kind": "BLOCK", "type": "lists_reverse" }
+        ]
+      },
+      {
+        "kind": "CATEGORY",
+        "name": "Variables",
+        "colour": 285
+      },
+      {
+        "kind": "category",
+        "name": "Functions",
+        "colour": 330
+      },
+
+
+
+
+      {
+        "kind": "SEP"
+      },
+      {
+        "kind": "category",
+        "name": "Sound",
+        "colour": "#c206b8",
+        "contents": [
+          { "kind": "LABEL", "text": "Sounds", "web-class": "ioLabel" },
+
           { "kind": "block", "type": "play_sound" }
+        ]
+      },
+      {
+        "kind": "category",
+        "name": "Events",
+        "colour": "#456bd6",
+        "contents": [
+            { "kind": "LABEL", "text": "Events", "web-class": "ioLabel" },
+            { "kind": "block", "type": "key_pressed" }
         ]
       }
     ]
