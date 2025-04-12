@@ -18,29 +18,74 @@
             ["Bell", "bell"]
           ]
           },
-          {
-            "type": "field_number",
-            "name": "VOLUME",
-            "value": 1,
-            "min": 0,
-            "max": 2
-          },
-          {
-            "type": "field_number",
-            "name": "PITCH",
-            "value": 1,
-            "min": 0,
-            "max": 2
-          },
-          {
-            "type": "input_dummy",
-            "name": "NAME"
-          }
+          { "type": "field_number", "name": "VOLUME", "value": 1, "min": 0, "max": 2 },
+          { "type": "field_number", "name": "PITCH", "value": 1, "min": 0, "max": 2 },
+          { "type": "input_dummy", "name": "NAME" }
         ],
         "previousStatement": null,
         "nextStatement": null,
         "colour": "#c206b8"
     },
+    {
+        "type": "display_title",
+        "tooltip": "Display a title",
+        "helpUrl": "",
+        "message0": "Display title %1 Fade in: %2 Stay: %3 Fade out: %4",
+        "args0": [
+          { "type": "input_value", "name": "TEXT" },
+          { "type": "field_number", "name": "FADEIN", "value": 1, "min": 0, "max": 9 },
+          { "type": "field_number", "name": "STAY", "value": 1, "min": 0, "max": 9 },
+          { "type": "field_number", "name": "FADEOUT", "value": 1, "min": 0, "max": 9 }
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": "#c206b8"
+    },
+    {
+        "type": "display_subtitle",
+        "tooltip": "Display a subtitle",
+        "helpUrl": "",
+        "message0": "Display subtitle %1 Fade in: %2 Stay: %3 Fade out: %4",
+        "args0": [
+          { "type": "input_value", "name": "TEXT" },
+          { "type": "field_number", "name": "FADEIN", "value": 1, "min": 0, "max": 9 },
+          { "type": "field_number", "name": "STAY", "value": 1, "min": 0, "max": 9 },
+          { "type": "field_number", "name": "FADEOUT", "value": 1, "min": 0, "max": 9 }
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": "#c206b8"
+    },
+    {
+        "type": "execute_command",
+        "tooltip": "Executes the given command ingame",
+        "helpUrl": "",
+        "message0": "%1 %2",
+        "args0": [
+          { "type": "field_label_serializable", "text": "Execute command:", "name": "NAME" },
+          { "type": "input_value", "name": "COMMAND", "check": "String" }
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": "#c206b8"
+    },
+    {
+        "type": "send_message",
+        "tooltip": "Sends a chat message. When 'Send Globally' is checked, the message will be sent by you in the game chat for everyone to see. Otherwise only you will see the message.",
+        "helpUrl": "",
+        "message0": "%1 %2 %3 Send Globally %4 %5",
+        "args0": [
+          { "type": "field_label_serializable", "text": "Send Message", "name": "NAME" },
+          { "type": "input_value", "name": "MESSAGE" },
+          { "type": "input_end_row" },
+          { "type": "field_checkbox", "name": "GLOBAL", "checked": "FALSE" },
+          { "type": "input_end_row" }
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": "#c206b8"
+    },
+
 
     {
         "type": "key_pressed",
@@ -97,6 +142,18 @@
           ]}
         ],
         "message1": "do %1",
+        "args1": [
+          {"type": "input_statement", "name": "DO"}
+        ],
+        "colour": "#456bd6"
+      },
+      {
+        "type": "new_command",
+        "message0": "Register a new command %1",
+        "args0": [
+          {"type": "input_value", "name": "COMMAND", "check": "String" }
+        ],
+        "message1": "do when executed %1",
         "args1": [
           {"type": "input_statement", "name": "DO"}
         ],

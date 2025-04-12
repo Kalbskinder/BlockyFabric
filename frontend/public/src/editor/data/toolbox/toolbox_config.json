@@ -101,7 +101,11 @@
         "contents": [
           { "kind": "LABEL", "text": "Sounds", "web-class": "ioLabel" },
 
-          { "kind": "block", "type": "play_sound" }
+          { "kind": "block", "type": "play_sound" },
+          { "kind": "block", "type": "display_title" },
+          { "kind": "block", "type": "display_subtitle" },
+          { "kind": "block", "type": "execute_command" },
+          { "kind": "block", "type": "send_message" }
         ]
       },
       {
@@ -110,7 +114,9 @@
         "colour": "#456bd6",
         "contents": [
             { "kind": "LABEL", "text": "Events", "web-class": "ioLabel" },
-            { "kind": "block", "type": "key_pressed" }
+            { "kind": "block", "type": "key_pressed" },
+            { "kind": "block", "type": "new_command" }
+            
         ]
       }
     ]
