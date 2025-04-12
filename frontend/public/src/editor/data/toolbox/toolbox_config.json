@@ -1,0 +1,13 @@
+{
+    "kind": "categoryToolbox",
+    "contents": [
+      {
+        "kind": "category",
+        "name": "Sound",
+        "colour": "#FFAB19",
+        "contents": [
+          { "kind": "block", "type": "play_sound" }
+        ]
+      }
+    ]
+  }

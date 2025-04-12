@@ -13,19 +13,13 @@
 <body>
     <%- include('../components/navbar') %> <!-- Navbar -->
 
-    <xml id="toolbox" style="display: none">
-        <category name="Alle Blöcke" expanded="true" colour="#333">
-            <label text="Logik"></label>
-            <block type="controls_if"></block>
-            <block type="logic_compare"></block>
-          
-            <label text="Mathematik"></label>
-            <block type="math_number"></block>
-        </category>
-    </xml>
-    
     <button id="saveButton" class="floating-save-btn"><img class="icon-light" src="/images/icons/save.svg" alt="Save"> Save</button>
+
+    <!-- Editor Area with Blockly -->
     <div id="blocklyDiv"></div>
+
+
+    <!-- Slide in Messages -->
 
     <!-- Error Element -->
     <div class="error-slidein" id="error-slidein">
@@ -36,23 +30,26 @@
         <div class="error-line"></div>
     </div>
 
+    <!-- Success Element -->
     <div class="error-slidein" id="success-slidein">
         <div class="error-text">
             <b>Success!</b>
             <span class="error" id="success-slidein-text"> Test success</span>
         </div>
         <div class="success-line"></div>
-    </div>  
+    </div>
 
+<!-- Scripts -->
 <script src="/src/authCheck.js"></script>
 
-<!-- Blockly core & extras -->
+<!-- Blockly core -->
 <script src="/blockly/blockly_compressed.js"></script>
 <script src="/blockly/blocks_compressed.js"></script>
 <script src="/blockly/javascript_compressed.js"></script>
 <script src="/blockly/msg/en.js"></script>
 <script src="https://unpkg.com/blockly/blockly.min.js"></script>
 
+<!-- Editor js files -->
 <script src="/src/editor/editor.js"></script>
 
 </body>

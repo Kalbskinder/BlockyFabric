@@ -1,5 +1,7 @@
 import express from 'express';
 import db from '../db.js';
+import path from 'path'
+import fs from 'fs';
 
 const router = express.Router();
 
@@ -46,5 +48,20 @@ router.get('/load-workspace/:projectId', async (req, res) => {
         res.status(500).json({ error: 'Error while loading the workspace', details: error.message });
     }
 });
+
+
+router.get('/get-blocks', async (req, res) => {
+    const filePath = path.join(__dirname, '../../frontend/public/src/editor/data/blocks/blocks.json');
+
+    try {
+        const jsonData = await fs.readFile(filePath, 'utf-8');
+        const blocks = JSON.parse(jsonData);
+        res.json(blocks);
+    } catch (error) {
+        console.error("Fehler beim Laden der Blöcke:", error);
+        res.status(500).json({ message: "Error while loading custom blocks", error: error.message });
+    }
+});
+
 
 export default router;

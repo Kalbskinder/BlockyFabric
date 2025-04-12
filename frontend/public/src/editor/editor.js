@@ -1,3 +1,5 @@
+// Theme
+// TODO: Move themes to an external file
 const darkTheme = Blockly.Theme.defineTheme('darkTheme', {
     base: Blockly.Themes.Classic,
     componentStyles: {
@@ -28,48 +30,21 @@ const darkTheme = Blockly.Theme.defineTheme('darkTheme', {
     }
 });
 
-const toolboxJson = {
-    kind: 'categoryToolbox',
-    contents: [
-      {
-        kind: 'category',
-        name: 'Logic',
-        colour: '#5C81A6',
-        contents: [
-          { kind: 'block', type: 'controls_if' },
-          { kind: 'block', type: 'logic_compare' }
-        ]
-      },
-      {
-        kind: 'category',
-        name: 'Math',
-        colour: '#5CA65C',
-        'contents': [
-          { kind: 'block', type: 'math_number' },
-          { kind: 'block', type: 'math_arithmetic' }
-        ]
-      },
-      {
-        kind: 'category',
-        name: 'Text',
-        colour: '#5CA65C',
-        contents: [
-          { kind: 'block', type: 'text' },
-          { kind: 'block', type: 'text_join' }
-        ]
-      },
-    ]
-  };
-  
+
+/* =============================
+   Blockly Setup
+   ============================= */
 
 let workspace;
 
 document.addEventListener("DOMContentLoaded", async function () {
     const params = new URLSearchParams(window.location.search);
     const projectId = parseInt(params.get("id"));
+
+    const toolbox = await loadBlockly(); // Load toolbox and blocks from json file
     
     workspace = Blockly.inject('blocklyDiv', {
-        toolbox: toolboxJson,
+        toolbox: toolbox,
         theme: darkTheme,
         grid: { spacing: 20, length: 3, colour: '#555', snap: false },
         trashcan: true,
@@ -88,6 +63,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     await fetchWorkspace(projectId);
 });
 
+// Load the workspace state
 async function fetchWorkspace(projectId) {
     try {
         const response = await fetch(`/editor/load-workspace/${projectId}`);
@@ -104,13 +80,14 @@ async function fetchWorkspace(projectId) {
         }
     } catch (error) {
         console.error('Error while loading the workspace: ', error);
-        if (error === 'Projekt nicht gefunden') { return; }
+        if (error === 'Project was not found') { return; }
         newError(error.message || error);
     }
 }
 
 document.getElementById('saveButton').addEventListener('click', saveWorkspace);
 
+// Save the workspace state in the database
 async function saveWorkspace() {
     const state = Blockly.serialization.workspaces.save(workspace);
     const params = new URLSearchParams(window.location.search);
@@ -135,7 +112,27 @@ async function saveWorkspace() {
     }
 }
 
-/* Slide in Messages */ /* Animation not working properly */
+// Load toolbox and blocks from json file
+async function loadBlockly() {
+    try {
+        const blocksResponse = await fetch('/src/editor/data/blocks/blocks_config.json');
+        const blocks = await blocksResponse.json();
+        Blockly.defineBlocksWithJsonArray(blocks);
+
+        const tooboxResponse = await fetch('/src/editor/data/toolbox/toolbox_config.json');
+        const toolbox = await tooboxResponse.json();
+        return toolbox;
+    } catch (error) {
+        console.error("Error while loading blocks and toolbox:", error);
+    }
+}
+
+
+
+/* =============================================
+   Notifications for Error and Success Messages
+   ============================================= */
+
 const errorSlideInElement = document.getElementById("error-slidein");
 const errorSlideInText = document.getElementById("error-slidein-text");
 
@@ -179,18 +176,4 @@ function newSuccess(msg) {
         successSlideInElement.style.visibility = "hidden";
         successSlideInElement.style.opacity = "0";
     }, 3500);
-}
-
-function scrollToCategory(labelText) {
-    const flyout = workspace.getFlyout();
-    const metrics = flyout.getMetrics();
-    const flyoutDom = flyout.getWorkspace().getTopBlocks(false);
-
-    for (const block of flyoutDom) {
-        if (block.type === 'label' && block.getFieldValue('TEXT') === labelText) {
-            const y = block.getRelativeToSurfaceXY().y;
-            flyout.scrollbar.set(y);
-            break;
-        }
-    }
 }
