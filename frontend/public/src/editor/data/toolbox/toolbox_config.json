@@ -97,7 +97,7 @@
       },
       {
         "kind": "category",
-        "name": "Sound",
+        "name": "General",
         "colour": "#c206b8",
         "contents": [
           { "kind": "LABEL", "text": "Sounds", "web-class": "ioLabel" },
@@ -139,6 +139,24 @@
             { "kind": "BLOCK", "type": "player_position_x" },
             { "kind": "BLOCK", "type": "player_position_y" },
             { "kind": "BLOCK", "type": "player_position_z" }
+        ]
+      },
+      {
+        "kind": "category",
+        "name": "Display Entities",
+        "colour": "#edb940",
+        "contents": [
+            { "kind": "LABEL", "text": "Display Entities", "web-class": "ioLabel" },
+            { "kind": "BLOCK", "type": "create_display_entity" },
+            { "kind": "BLOCK", "type": "set_display_position" },
+            { "kind": "BLOCK", "type": "set_display_rotation" },
+            { "kind": "BLOCK", "type": "set_display_scale" },
+            { "kind": "BLOCK", "type": "set_display_entity_model" },
+            { "kind": "BLOCK", "type": "set_display_item" },
+            { "kind": "BLOCK", "type": "set_display_text" },
+            { "kind": "BLOCK", "type": "set_display_visibility" },
+            { "kind": "BLOCK", "type": "on_click_display" },
+            { "kind": "BLOCK", "type": "delete_display_entity" }
         ]
       }
     ]
