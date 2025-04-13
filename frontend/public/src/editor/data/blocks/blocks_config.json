@@ -1,5 +1,24 @@
 [
     {
+        "type": "break",
+        "tooltip": "",
+        "helpUrl": "",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_label_serializable",
+            "text": "exit",
+            "name": "NAME"
+          },
+          {
+            "type": "input_end_row",
+            "name": "NAME"
+          }
+        ],
+        "previousStatement": null,
+        "colour": "#ff6f61"
+    },
+    {
         "type": "play_sound",
         "tooltip": "Play a sound a sound",
         "helpUrl": "",
@@ -84,7 +103,7 @@
         "previousStatement": null,
         "nextStatement": null,
         "colour": "#c206b8"
-    },
+    },  
 
 
     {
@@ -153,10 +172,103 @@
         "args0": [
           {"type": "input_value", "name": "COMMAND", "check": "String" }
         ],
-        "message1": "do when executed %1",
+        "message1": "do on execute %1",
         "args1": [
           {"type": "input_statement", "name": "DO"}
         ],
         "colour": "#456bd6"
-      }        
+      },
+      {
+        "type": "check_command_argument",
+        "message0": "Argument %1 = %2",
+        "args0": [
+          {
+            "type": "field_number",
+            "name": "NUMBER",
+            "value": 1,
+            "min": 1,
+            "precision": 1
+          },
+          {
+            "type": "input_value",
+            "name": "ARGUMENT"
+          }
+        ],
+        "output": "Boolean",
+        "tooltip": "Returns true if the specified argument equals the given value.",
+        "colour": "#456bd6",
+        "helpUrl": "https://wiki.fabricmc.net/tutorial:command_argument_types"
+      },      
+      {
+        "type": "command_argument",
+        "message0": "Command argument %1",
+        "args0": [
+          {
+            "type": "field_number",
+            "name": "NUMBER",
+            "value": 1,
+            "min": 1,
+            "precision": 1
+          }
+        ],
+        "output": "String",
+        "tooltip": "Returns the value of the nth command argument.",
+        "colour": "#456bd6",
+        "helpUrl": "https://wiki.fabricmc.net/tutorial:command_argument_types"
+      },     
+      {
+        "type": "event_triggered",
+        "message0": "When %1",
+        "helpUrl": "https://wiki.fabricmc.net/tutorial:event_index",
+        "args0": [
+          {"type": "field_dropdown", "name": "KEY", "options": [
+            ["Fish on the Line", "FishOnTheLineEvent"],
+            ["ServerMessage.CHAT_MESSAGE", "ServerMessageEvents.CHAT_MESSAGE"],
+            ["ServerMessage.COMMAND_MESSAGE", "ServerMessageEvents.COMMAND_MESSAGE"],
+            ["AttackBlock", "AttackBlockCallback.EVENT"],
+            ["AttackEntity", "AttackEntityCallback.EVENT"],
+            ["PlayerBreakBlock.AFTER", "PlayerBreakBlockEvents.AFTER"],
+            ["PlayerBreakBlock.BEFORE", "PlayerBreakBlockEvents.BEFORE"],
+            ["PlayerBreakBlock.CANCELED", "PlayerBreakBlockEvents.CANCELED"],
+            ["UseBlock", "UseBlockCallback.EVENT"],
+            ["UseEntity", "UseEntityCallback.EVENT"],
+            ["UseItem", "UseItemCallback.EVENT"]
+          ]}
+        ],
+        "message1": "do %1",
+        "args1": [
+          {"type": "input_statement", "name": "DO"}
+        ],
+        "colour": "#456bd6"
+      },
+
+
+      {
+        "type": "player_username",
+        "message0": "Player username",
+        "output": "String",
+        "colour": "#03a366",
+        "tooltip": "Returns the current player's name"
+      },
+      {
+        "type": "player_position_x",
+        "message0": "Player's X position",
+        "output": "String",
+        "colour": "#03a366",
+        "tooltip": "Returns the current player's X position"
+      },
+      {
+        "type": "player_position_y",
+        "message0": "Player's Y position",
+        "output": "String",
+        "colour": "#03a366",
+        "tooltip": "Returns the current player's Y position"
+      },
+      {
+        "type": "player_position_z",
+        "message0": "Player's Z position",
+        "output": "String",
+        "colour": "#03a366",
+        "tooltip": "Returns the current player's Z position"
+      }   
 ]

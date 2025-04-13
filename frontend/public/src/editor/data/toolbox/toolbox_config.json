@@ -13,6 +13,7 @@
             { "kind": "BLOCK", "type": "logic_operation" },
             { "kind": "BLOCK", "type": "logic_negate" },
             { "kind": "BLOCK", "type": "logic_boolean" },
+            { "kind": "BLOCK", "type": "break" },
 
             { "kind": "LABEL", "text": "Loops", "web-class": "ioLabel" },
 
@@ -100,11 +101,16 @@
         "colour": "#c206b8",
         "contents": [
           { "kind": "LABEL", "text": "Sounds", "web-class": "ioLabel" },
-
           { "kind": "block", "type": "play_sound" },
+
+          { "kind": "LABEL", "text": "Title", "web-class": "ioLabel" },
           { "kind": "block", "type": "display_title" },
           { "kind": "block", "type": "display_subtitle" },
+
+          { "kind": "LABEL", "text": "Commands", "web-class": "ioLabel" },
           { "kind": "block", "type": "execute_command" },
+
+          { "kind": "LABEL", "text": "Messages", "web-class": "ioLabel" },
           { "kind": "block", "type": "send_message" }
         ]
       },
@@ -115,8 +121,24 @@
         "contents": [
             { "kind": "LABEL", "text": "Events", "web-class": "ioLabel" },
             { "kind": "block", "type": "key_pressed" },
-            { "kind": "block", "type": "new_command" }
-            
+            { "kind": "block", "type": "event_triggered" },
+
+            { "kind": "LABEL", "text": "Commands", "web-class": "ioLabel" },
+            { "kind": "block", "type": "new_command" },
+            { "kind": "block", "type": "check_command_argument" },
+            { "kind": "block", "type": "command_argument" }            
+        ]
+      },
+      {
+        "kind": "category",
+        "name": "Player",
+        "colour": "#03a366",
+        "contents": [
+            { "kind": "LABEL", "text": "Player", "web-class": "ioLabel" },
+            { "kind": "BLOCK", "type": "player_username" },
+            { "kind": "BLOCK", "type": "player_position_x" },
+            { "kind": "BLOCK", "type": "player_position_y" },
+            { "kind": "BLOCK", "type": "player_position_z" }
         ]
       }
     ]
