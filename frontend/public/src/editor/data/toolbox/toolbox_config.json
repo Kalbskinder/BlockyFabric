@@ -39,7 +39,8 @@
             { "kind": "BLOCK", "type": "math_round" },
             { "kind": "BLOCK", "type": "math_on_list" },
             { "kind": "BLOCK", "type": "math_modulo" },
-            { "kind": "BLOCK", "type": "math_random_int" }
+            { "kind": "BLOCK", "type": "math_random_int" },
+            { "kind": "BLOCK", "type": "parse_int" }
         ]
       },
       {
@@ -57,7 +58,8 @@
             { "kind": "BLOCK", "type": "text_trim" },
             { "kind": "BLOCK", "type": "text_count" },
             { "kind": "BLOCK", "type": "text_replace" },
-            { "kind": "BLOCK", "type": "text_reverse" }
+            { "kind": "BLOCK", "type": "text_reverse" },
+            { "kind": "BLOCK", "type": "string_contains" }
         ]
       },
       {
@@ -122,6 +124,10 @@
             { "kind": "LABEL", "text": "Events", "web-class": "ioLabel" },
             { "kind": "block", "type": "key_pressed" },
             { "kind": "block", "type": "event_triggered" },
+            { "kind": "block", "type": "event_message" },
+            { "kind": "block", "type": "event_block" },
+            { "kind": "block", "type": "event_item" },
+            { "kind": "block", "type": "event_entity" },
 
             { "kind": "LABEL", "text": "Commands", "web-class": "ioLabel" },
             { "kind": "block", "type": "new_command" },
@@ -138,7 +144,9 @@
             { "kind": "BLOCK", "type": "player_username" },
             { "kind": "BLOCK", "type": "player_position_x" },
             { "kind": "BLOCK", "type": "player_position_y" },
-            { "kind": "BLOCK", "type": "player_position_z" }
+            { "kind": "BLOCK", "type": "player_position_y" },
+            { "kind": "BLOCK", "type": "player_biome" },
+            { "kind": "BLOCK", "type": "player_xp" }
         ]
       },
       {

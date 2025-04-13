@@ -18,6 +18,37 @@
         "previousStatement": null,
         "colour": "#ff6f61"
     },
+
+    {
+        "type": "parse_int",
+        "message0": "turn %1 into a number",
+        "args0": [
+          {
+            "type": "input_value",
+            "name": "VALUE",
+            "check": "String"
+          }
+        ],
+        "output": "Number",
+        "colour": 230,
+        "tooltip": "Parses a string and returns an integer number",
+        "helpUrl": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt"
+    },
+    
+    {
+        "type": "string_contains",
+        "message0": "%1 contains %2",
+        "args0": [
+          { "type": "input_value", "name": "MAIN_STRING", "check": "String" },
+          { "type": "input_value", "name": "SECONDARYS_STRING", "check": "String" }
+        ],
+        "inputsInline": true,
+        "colour": 165,
+        "tooltip": "Check if a string is part of another string",
+        "output": "Boolean",
+        "helpUrl": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes"
+    },      
+
     {
         "type": "play_sound",
         "tooltip": "Play a sound a sound",
@@ -268,6 +299,34 @@
         ],
         "colour": "#456bd6"
       },
+      {
+        "type": "event_message",
+        "message0": "message",
+        "output": "String",
+        "colour": "#456bd6",
+        "tooltip": "Contains the message for the ServerMessage event"
+      },
+      {
+        "type": "event_block",
+        "message0": "block",
+        "output": "String",
+        "colour": "#456bd6",
+        "tooltip": "Contains the type of block for any Block event"
+      },
+      {
+        "type": "event_item",
+        "message0": "block",
+        "output": "String",
+        "colour": "#456bd6",
+        "tooltip": "Contains the item for any Item event"
+      },
+      {
+        "type": "event_entity",
+        "message0": "entity",
+        "output": "String",
+        "colour": "#456bd6",
+        "tooltip": "Contains the entity for any Entity event"
+      },
 
 
       {
@@ -297,6 +356,20 @@
         "output": "String",
         "colour": "#03a366",
         "tooltip": "Returns the current player's Z position"
+      },
+      {
+        "type": "player_xp",
+        "message0": "Player XP",
+        "output": "String",
+        "colour": "#03a366",
+        "tooltip": "Returns the amount of experience levels a player has. (Returns as a String)"
+      },
+      {
+        "type": "player_biome",
+        "message0": "Player Biome",
+        "output": "String",
+        "colour": "#03a366",
+        "tooltip": "Returns the biome the player's currently in"
       },
       
       
