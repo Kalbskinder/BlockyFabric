@@ -76,6 +76,7 @@ async function fetchWorkspace(projectId) {
 
         if (result.workspaceState) {
             const state = result.workspaceState;
+            console.log(state)
             Blockly.serialization.workspaces.load(state, workspace);
         }
     } catch (error) {

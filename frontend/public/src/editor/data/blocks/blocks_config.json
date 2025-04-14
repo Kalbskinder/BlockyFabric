@@ -161,7 +161,19 @@
         "previousStatement": null,
         "nextStatement": null,
         "colour": "#c206b8"
-    },  
+    },
+    {
+      "type": "print",
+      "tooltip": "Prints a message to the console",
+      "helpUrl": "",
+      "message0": "Print %1",
+      "args0": [
+        { "type": "input_value", "name": "MESSAGE" }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#c206b8"
+  },  
 
 
     {
@@ -315,7 +327,7 @@
       },
       {
         "type": "event_item",
-        "message0": "block",
+        "message0": "item",
         "output": "String",
         "colour": "#456bd6",
         "tooltip": "Contains the item for any Item event"
@@ -331,10 +343,17 @@
 
       {
         "type": "player_username",
-        "message0": "Player username",
+        "message0": "Player Username",
         "output": "String",
         "colour": "#03a366",
-        "tooltip": "Returns the current player's name"
+        "tooltip": "Returns the player's name"
+      },
+      {
+        "type": "player_uuid",
+        "message0": "Player UUID",
+        "output": "String",
+        "colour": "#03a366",
+        "tooltip": "Returns the player's uuid"
       },
       {
         "type": "player_position_x",
@@ -528,7 +547,5 @@
         "tooltip": "Deletes the display entity with the given ID",
         "helpUrl": ""
       }
-                                      
-      
-      
+ 
 ]

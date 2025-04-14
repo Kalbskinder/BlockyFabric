@@ -20,9 +20,8 @@
             { "kind": "BLOCK", "type": "controls_repeat_ext" },
             { "kind": "BLOCK", "type": "controls_whileUntil" },
             { "kind": "BLOCK", "type": "controls_for" },
-            { "kind": "BLOCK", "type": "controls_forEach" },
-            { "kind": "BLOCK", "type": "controls_flow_statements" }
-        ]
+            { "kind": "BLOCK", "type": "controls_forEach" }
+       ]
       },
       {
         "kind": "category",
@@ -113,7 +112,10 @@
           { "kind": "block", "type": "execute_command" },
 
           { "kind": "LABEL", "text": "Messages", "web-class": "ioLabel" },
-          { "kind": "block", "type": "send_message" }
+          { "kind": "block", "type": "send_message" },
+
+          { "kind": "LABEL", "text": "Other", "web-class": "ioLabel" },
+          { "kind": "block", "type": "print" }
         ]
       },
       {
@@ -142,6 +144,7 @@
         "contents": [
             { "kind": "LABEL", "text": "Player", "web-class": "ioLabel" },
             { "kind": "BLOCK", "type": "player_username" },
+            { "kind": "BLOCK", "type": "player_uuid" },
             { "kind": "BLOCK", "type": "player_position_x" },
             { "kind": "BLOCK", "type": "player_position_y" },
             { "kind": "BLOCK", "type": "player_position_z" },
@@ -168,4 +171,4 @@
         ]
       }
     ]
-  }
+}

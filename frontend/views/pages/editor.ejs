@@ -15,6 +15,9 @@
 
     <button id="saveButton" class="floating-save-btn"><img class="icon-light" src="/images/icons/save.svg" alt="Save"> Save</button>
 
+    <button onclick="exportCode()">Export</button>
+
+
     <!-- Editor Area with Blockly -->
     <div id="blocklyDiv"></div>
 
@@ -39,6 +42,7 @@
         <div class="success-line"></div>
     </div>
 
+
 <!-- Scripts -->
 <script src="/src/authCheck.js"></script>
 
@@ -51,6 +55,7 @@
 
 <!-- Editor js files -->
 <script src="/src/editor/editor.js"></script>
+<script src="/src/editor/codegen/main.js"></script>
 
 </body>
 </html>
