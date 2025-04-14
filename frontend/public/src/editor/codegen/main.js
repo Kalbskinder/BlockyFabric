@@ -23,6 +23,10 @@ function generateJava(json) {
 
 function handleBlock(block) {
     switch (block.type) {
+        /* =====================
+           Conditions
+           ===================== */
+        
         case "controls_if": {
             const conditionBlock = block.inputs?.IF0?.block;
             const doBlock = block.inputs?.DO0?.block;
@@ -61,6 +65,15 @@ function handleBlock(block) {
             const B = block.inputs?.B?.block ? handleBlock(block.inputs.B.block) : "true";
         
             return `${A} ${op} ${B}`;
+        }
+
+        case "logic_negate": {
+            const value = block.inputs?.BOOL?.block ? handleBlock(block.inputs.BOOL.block) : "false";
+            return `!(${value})`; // Need brackets here
+        }
+        
+        case "logic_boolean": {
+            return block.fields?.BOOL ? block.fields.BOOL.toLowerCase() : "false";
         }
         
 
