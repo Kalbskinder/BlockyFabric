@@ -1,13 +1,13 @@
 [
     {
         "type": "break",
-        "tooltip": "",
+        "tooltip": "Leaves a Loop or If statement. DON'T USE THIS FOR FUNCTIONS. Use return instead",
         "helpUrl": "",
         "message0": "%1 %2",
         "args0": [
           {
             "type": "field_label_serializable",
-            "text": "exit",
+            "text": "break",
             "name": "NAME"
           },
           {
@@ -18,6 +18,26 @@
         "previousStatement": null,
         "colour": "#ff6f61"
     },
+    {
+      "type": "return",
+      "tooltip": "Leaves a function",
+      "helpUrl": "",
+      "message0": "%1 %2",
+      "args0": [
+        {
+          "type": "field_label_serializable",
+          "text": "return",
+          "name": "NAME"
+        },
+        {
+          "type": "input_end_row",
+          "name": "NAME"
+        }
+      ],
+      "previousStatement": null,
+      "colour": "#ff6f61"
+  },
+    
 
     {
         "type": "parse_int",

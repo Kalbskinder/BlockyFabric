@@ -75,6 +75,58 @@ function handleBlock(block) {
         case "logic_boolean": {
             return block.fields?.BOOL ? block.fields.BOOL.toLowerCase() : "false";
         }
+
+
+        /* =====================
+           Loops
+           ===================== */
+
+        case "controls_repeat_ext": {
+            const timesBlock = block.inputs?.TIMES?.block;
+            const times = timesBlock ? handleBlock(timesBlock) : "0";
+        
+            const doBlock = block.inputs?.DO?.block;
+            const body = doBlock ? indent(handleStatements(doBlock)) : "";
+        
+            return `for (int i = 0; i < ${times}; i++) {\n${body}\n}`;
+        }
+        
+        case "controls_whileUntil": {
+            const mode = block.fields?.MODE || "WHILE"; // "WHILE" or "UNTIL"
+            const conditionBlock = block.inputs?.BOOL?.block;
+            const bodyBlock = block.inputs?.DO?.block;
+        
+            let condition = conditionBlock ? handleBlock(conditionBlock) : "true";
+            const body = bodyBlock ? indent(handleStatements(bodyBlock)) : "";
+        
+            if (mode === "UNTIL") {
+                condition = `!(${condition})`;
+            }
+        
+            return `while (${condition}) {\n${body}\n}`;
+        }
+        
+
+        // May need to adjust after adding translation for lists to be able to read them properly
+        case "controls_forEach": {
+            const varName = block.fields?.VAR || "item";
+            const listBlock = block.inputs?.LIST?.block;
+            const bodyBlock = block.inputs?.DO?.block;
+        
+            const list = listBlock ? handleBlock(listBlock) : "new ArrayList<>()";
+            const body = bodyBlock ? indent(handleStatements(bodyBlock)) : "";
+        
+            return `for (var ${varName} : ${list}) {\n${body}\n}`;
+        }
+        
+        
+
+
+        case "break":
+            return "break;"
+
+        case "return":
+            return "return;"
         
 
         case "math_number":
@@ -85,7 +137,6 @@ function handleBlock(block) {
 
         case "print":
             const textBlock = block.inputs?.MESSAGE?.block?.fields?.TEXT;
-            console.log("TextBlock:", textBlock); 
             const value = textBlock ? `"${textBlock}"` : '""';  // If undefined replace with empty string
             return `System.out.println(${value});`;
 
@@ -96,7 +147,7 @@ function handleBlock(block) {
 
 
 function handleStatements(block) {
-    let code = handleBlock(block) + '\n';
+    let code = handleBlock(block);
     if (block.next?.block) {
         code += handleStatements(block.next.block);
     }

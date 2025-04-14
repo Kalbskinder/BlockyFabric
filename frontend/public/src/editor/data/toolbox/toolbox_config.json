@@ -14,12 +14,12 @@
             { "kind": "BLOCK", "type": "logic_negate" },
             { "kind": "BLOCK", "type": "logic_boolean" },
             { "kind": "BLOCK", "type": "break" },
+            { "kind": "BLOCK", "type": "return" },
 
             { "kind": "LABEL", "text": "Loops", "web-class": "ioLabel" },
 
             { "kind": "BLOCK", "type": "controls_repeat_ext" },
             { "kind": "BLOCK", "type": "controls_whileUntil" },
-            { "kind": "BLOCK", "type": "controls_for" },
             { "kind": "BLOCK", "type": "controls_forEach" }
        ]
       },
