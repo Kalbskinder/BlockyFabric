@@ -6,14 +6,9 @@ function exportCode() {
     generateJava(json);
 }
 
-/*
-async function generateJava(json) {
-    const javaCode = [];
-
     // Run each block trough a switch statement. Each switch statement outputs a java string and appends it to the array.
     // We need to validate some code. Some parts need to be turned into a String or integer. (This is only for some blocks tho where the input is a number but gets then treated as a string)
 
-}*/
 
 function generateJava(json) {
     const javaCode = [];
@@ -23,7 +18,7 @@ function generateJava(json) {
         javaCode.push(code);
     }
 
-    console.log(javaCode);
+    console.log(javaCode.join('\n'));
 }
 
 function handleBlock(block) {
@@ -55,6 +50,20 @@ function handleBlock(block) {
             return `${A} ${opMap[op] || "=="} ${B}`;
         }
 
+        case "logic_operation": {
+            const opMap = {
+                "AND": "&&",
+                "OR": "||"
+            };
+        
+            const op = opMap[block.fields?.OP] || "&&";
+            const A = block.inputs?.A?.block ? handleBlock(block.inputs.A.block) : "true";
+            const B = block.inputs?.B?.block ? handleBlock(block.inputs.B.block) : "true";
+        
+            return `${A} ${op} ${B}`;
+        }
+        
+
         case "math_number":
             return block.fields?.NUM || "0";
 
@@ -62,8 +71,9 @@ function handleBlock(block) {
             return `"${block.fields?.TEXT || ''}"`;
 
         case "print":
-            const textBlock = block.inputs?.TEXT?.block;
-            const value = textBlock ? handleBlock(textBlock) : '""';
+            const textBlock = block.inputs?.MESSAGE?.block?.fields?.TEXT;
+            console.log("TextBlock:", textBlock); 
+            const value = textBlock ? `"${textBlock}"` : '""';  // If undefined replace with empty string
             return `System.out.println(${value});`;
 
         default:
@@ -86,9 +96,4 @@ function indent(str, spaces = 4) {
         .split('\n')
         .map(line => (line.trim() ? pad + line : line))
         .join('\n');
-}
-
-if ("a" == "b") {
-  if (0 == 0) {}
-  System.out.println("");
 }
