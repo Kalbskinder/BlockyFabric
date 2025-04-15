@@ -36,17 +36,46 @@
       ],
       "previousStatement": null,
       "colour": "#ff6f61"
+   },
+   {
+    "type": "custom_math_number_property",
+    "message0": "%1 is %2",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "NUMBER_TO",
+        "check": "Number"
+      },
+      {
+        "type": "field_dropdown",
+        "name": "PROPERTY",
+        "options": [
+          ["even", "EVEN"],
+          ["odd", "ODD"],
+          ["whole", "WHOLE"],
+          ["positive", "POSITIVE"],
+          ["negative", "NEGATIVE"],
+          ["divisible by", "DIVISIBLE_BY"]
+        ]
+      }
+    ],
+    "inputsInline": true,
+    "output": "Boolean",
+    "colour": 230,
+    "tooltip": "Checks if a number has a certain property.",
+    "helpUrl": ""
   },
+
     
 
-    {
+   {
         "type": "parse_int",
         "message0": "turn %1 into a number",
         "args0": [
           {
             "type": "input_value",
             "name": "VALUE",
-            "check": "String"
+            "check": ["String", "Number"]
           }
         ],
         "output": "Number",
