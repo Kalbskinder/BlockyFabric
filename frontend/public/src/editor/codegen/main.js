@@ -128,7 +128,7 @@ function handleBlock(block) {
 
 
         case "math_arithmetic": {
-            const A     = block.inputs?.A?.block ? handleBlock(block.inputs.A.block) : "0";
+            const A = block.inputs?.A?.block ? handleBlock(block.inputs.A.block) : "0";
             const B = block.inputs?.B?.block ? handleBlock(block.inputs.B.block) : "0";
             const op = block.fields?.OP || "EQ";
             
