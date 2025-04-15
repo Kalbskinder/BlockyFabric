@@ -350,8 +350,26 @@ function handleBlock(block) {
 
         case "text_count": {
             const haystack = block.inputs?.TEXT?.block ? handleBlock(block.inputs.TEXT.block) : '""';
-            const needle = block.inputs?.SUBSTRING?.block ? handleBlock(block.inputs.SUBSTRING.block) : '""';
-            return `${haystack}.split(${needle}, -1).length - 1`;
+            const needle = block.inputs?.SUB?.block ? handleBlock(block.inputs.SUB.block) : '""';
+            return `(${haystack}.split(${needle}, -1).length - 1)`;
+        }
+        
+        case "text_replace": {
+            const text = block.inputs?.TEXT?.block ? handleBlock(block.inputs.TEXT.block) : '""';
+            const from = block.inputs?.FROM?.block ? handleBlock(block.inputs.FROM.block) : '""';
+            const to = block.inputs?.TO?.block ? handleBlock(block.inputs.TO.block) : '""';
+            return `${text}.replaceAll(${from}, ${to})`;
+        }
+        
+        case "text_reverse": {
+            const text = block.inputs?.TEXT?.block ? handleBlock(block.inputs.TEXT.block) : '""';
+            return `new StringBuilder(${text}).reverse().toString()`;
+        }
+        
+        case "string_contains": {
+            const text = block.inputs?.MAIN_STRING?.block ? handleBlock(block.inputs.MAIN_STRING.block) : '""';
+            const search = block.inputs?.SECONDARYS_STRING?.block ? handleBlock(block.inputs.SECONDARYS_STRING.block) : '""';
+            return `${text}.contains(${search})`;
         }
         
         
