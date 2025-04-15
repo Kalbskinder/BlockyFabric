@@ -122,8 +122,13 @@ function handleBlock(block) {
            Math
            ===================== */
 
+        
+        case "math_number":
+            return block.fields?.NUM || "0";
+
+
         case "math_arithmetic": {
-            const A = block.inputs?.A?.block ? handleBlock(block.inputs.A.block) : "0";
+            const A     = block.inputs?.A?.block ? handleBlock(block.inputs.A.block) : "0";
             const B = block.inputs?.B?.block ? handleBlock(block.inputs.B.block) : "0";
             const op = block.fields?.OP || "EQ";
             
@@ -373,6 +378,152 @@ function handleBlock(block) {
         }
         
         
+        /* =====================
+           Lists
+           ===================== */
+
+        case "lists_create_with": {
+            const itemCount = block.extraState.itemCount || 0;
+            const items = [];
+        
+            for (let i = 0; i < itemCount; i++) {
+                const input = block.inputs?.[`ADD${i}`]?.block;
+                items.push(input ? handleBlock(input) : "null");
+            }
+        
+            return `Arrays.asList(${items.join(", ")})`;
+        }
+
+        case "lists_repeat": {
+            const item = block.inputs?.ITEM?.block ? handleBlock(block.inputs.ITEM.block) : "null";
+            const times = block.inputs?.NUM?.block ? handleBlock(block.inputs.NUM.block) : "0";
+        
+            return `Collections.nCopies(${times}, ${item})`;
+        }
+
+        case "lists_length": {
+            const list = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "new ArrayList<>()";
+            return `${list}.size()`;
+        }
+
+        case "lists_isEmpty": {
+            const list = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "new ArrayList<>()";
+            return `${list}.isEmpty()`;
+        }
+
+        case "lists_indexOf": {
+            const list = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "new ArrayList<>()";
+            const item = block.inputs?.FIND?.block ? handleBlock(block.inputs.FIND.block) : "null";
+            const mode = block.fields?.END || "FIRST"; // FIRST or LAST
+        
+            return mode === "FIRST"
+                ? `${list}.indexOf(${item})`
+                : `${list}.lastIndexOf(${item})`;
+        }
+
+        //
+        case "lists_getIndex": {
+            const list = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "new ArrayList<>()";
+            const indexBlock = block.inputs?.AT?.block ? handleBlock(block.inputs.AT.block) : "0";
+        
+            const mode = block.fields?.MODE || "GET";           // GET, GET_REMOVE, REMOVE
+            const where = block.fields?.WHERE || "FROM_START";  // FROM_START, FROM_END, FIRST, LAST, RANDOM
+        
+            let code = "";
+        
+            switch (where) {
+                case "FROM_START":
+                    code = `${list}.get(${indexBlock})`;
+                    break;
+                case "FROM_END":
+                    code = `${list}.get(${list}.size() - 1 - ${indexBlock})`;
+                    break;
+                case "FIRST":
+                    code = `${list}.get(0)`;
+                    break;
+                case "LAST":
+                    code = `${list}.get(${list}.size() - 1)`;
+                    break;
+                case "RANDOM":
+                    code = `${list}.get(new Random().nextInt(${list}.size()))`;
+                    break;
+            }
+        
+            if (mode === "GET") {
+                return code;
+            } else if (mode === "GET_REMOVE") {
+                return `${list}.remove(${code.match(/\((.*?)\)/)?.[1] || "0"})`;
+            } else if (mode === "REMOVE") {
+                return `${list}.remove(${code.match(/\((.*?)\)/)?.[1] || "0"});`;
+            }
+        
+            return code;
+        }        
+        
+        //
+        case "lists_setIndex": {
+            const listCode = block.inputs?.LIST?.block ? handleBlock(block.inputs.LIST.block) : "new ArrayList<>()";
+            const indexCode = block.inputs?.AT?.block ? handleBlock(block.inputs.AT.block) : "0";
+            const valueCode = block.inputs?.TO?.block ? handleBlock(block.inputs.TO.block) : "null";
+            const mode = block.fields?.MODE || "SET"; // SET or INSERT
+            const where = block.fields?.WHERE || "FROM_START";
+        
+            const listExpr = `new ArrayList<>(${listCode})`;
+            let indexExpr;
+        
+            switch (where) {
+                case "FROM_START":
+                    indexExpr = indexCode;
+                    break;
+                case "FROM_END":
+                    indexExpr = `${listExpr}.size() - 1 - ${indexCode}`;
+                    break;
+                case "FIRST":
+                    indexExpr = `0`;
+                    break;
+                case "LAST":
+                    indexExpr = `${listExpr}.size() - 1`;
+                    break;
+                case "RANDOM":
+                    indexExpr = `new Random().nextInt(${listExpr}.size())`;
+                    break;
+                default:
+                    indexExpr = indexCode;
+            }
+        
+            if (mode === "SET") {
+                return `${listExpr}.set(${indexExpr}, ${valueCode});`;
+            } else if (mode === "INSERT") {
+                return `${listExpr}.add(${indexExpr}, ${valueCode});`;
+            }
+        
+            return `// Unknown mode`;
+        }
+          
+
+        case "lists_sort": {
+            const list = block.inputs?.LIST?.block ? handleBlock(block.inputs.LIST.block) : "new ArrayList<>()";
+            const type = block.fields?.TYPE || "NUMERIC"; // TEXT, NUMERIC, IGNORE_CASE
+            const direction = block.fields?.DIRECTION || "1"; // 1 = ASCENDING, -1 = DESCENDING
+        
+            const sortCode = {
+                "NUMERIC": `${list}.sort(Comparator.naturalOrder());`,
+                "TEXT": `${list}.sort(Comparator.comparing(Object::toString));`,
+                "IGNORE_CASE": `${list}.sort((a, b) -> a.toString().compareToIgnoreCase(b.toString()));`
+            }[type];
+        
+            return direction === "-1"
+                ? `(Collections.sort(${list}, Collections.reverseOrder());)`
+                : `(${sortCode})`;
+        }
+        
+        case "lists_reverse": {
+            const list = block.inputs?.LIST?.block ? handleBlock(block.inputs.LIST.block) : "new ArrayList<>()";
+            return `(Collections.reverse(${list}))`;
+        }
+
+        
+        
         
         
         
@@ -384,10 +535,6 @@ function handleBlock(block) {
         case "return":
             return "return;"
         
-
-        case "math_number":
-            return block.fields?.NUM || "0";
-
 
         case "print": {
             const value = block.inputs?.TEXT?.block ? handleBlock(block.inputs.TEXT.block) : '""';
