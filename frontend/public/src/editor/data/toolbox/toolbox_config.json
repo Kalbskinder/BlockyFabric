@@ -81,9 +81,16 @@
         ]
       },
       {
-        "kind": "CATEGORY",
+        "kind": "category",
         "name": "Variables",
-        "colour": 285
+        "colour": 285,
+        "contents": [
+            { "kind": "LABEL", "text": "Variables", "web-class": "ioLabel" },
+
+            { "kind": "BLOCK", "type": "variables_declare" },
+            { "kind": "BLOCK", "type": "variables_set" },
+            { "kind": "BLOCK", "type": "variables_get" }
+        ]
       },
       {
         "kind": "category",

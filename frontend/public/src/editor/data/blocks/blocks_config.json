@@ -114,6 +114,74 @@
 
 
     {
+      "type": "variables_declare",
+      "message0": "Declare variable %1 %2 = %3",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "TYPE",
+          "options": [
+            ["int", "int"],
+            ["double", "double"],
+            ["String", "String"],
+            ["boolean", "boolean"]
+          ]
+        },
+        {
+          "type": "field_input",
+          "name": "VAR",
+          "text": "x"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 330,
+      "tooltip": "Declare a variable",
+      "helpUrl": ""
+    },
+    {
+      "type": "variables_set",
+      "message0": "set %1 = %2",
+      "args0": [
+        {
+          "type": "field_input",
+          "name": "VAR",
+          "text": "x"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 330,
+      "tooltip": "Set variable value",
+      "helpUrl": ""
+    },
+    {
+      "type": "variables_get",
+      "message0": "variable %1",
+      "args0": [
+        {
+          "type": "field_input",
+          "name": "VALUE",
+          "text": "x"
+        }
+      ],
+      "output": null,
+      "tooltip": "Get the value of a variable",
+      "colour": 330,
+      "helpUrl": ""
+    },
+    
+
+
+    {
         "type": "play_sound",
         "tooltip": "Play a sound a sound",
         "helpUrl": "",
