@@ -287,24 +287,29 @@ function handleBlock(block) {
         case "text":
             return `"${block.fields?.TEXT || ''}"`;
 
-            case "text_join": {
-                const items = [];
-            
-                Object.keys(block.inputs).forEach(inputKey => {
-                    const inputBlock = block.inputs[inputKey]?.block;
-                    if (inputBlock) {
-                        const itemValue = handleBlock(inputBlock);
-                        // explizit zu String casten (damit auch Zahlen, Booleans etc. korrekt sind)
-                        items.push(`String.valueOf(${itemValue})`);
-                    }
-                });
-            
-                if (items.length === 0) {
-                    return '""';
+        case "text_join": {
+            const items = [];
+        
+            Object.keys(block.inputs).forEach(inputKey => {
+                const inputBlock = block.inputs[inputKey]?.block;
+                if (inputBlock) {
+                    const itemValue = handleBlock(inputBlock);
+                    items.push(`String.valueOf(${itemValue})`);
                 }
+            });
             
-                return `(${items.join(" + ")})`;
+            if (items.length === 0) {
+                return '""';
             }
+            
+            return `(${items.join(" + ")})`;
+        }
+
+        case "to_string": {
+            const input = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : '""';
+            return `String.valueOf(${input})`;
+        }
+        
             
 
         case "text_length": {

@@ -96,7 +96,22 @@
         "tooltip": "Check if a string is part of another string",
         "output": "Boolean",
         "helpUrl": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes"
-    },      
+    },
+    {
+      "type": "to_string",
+      "message0": "Turn %1 into a String",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "output": "String",
+      "tooltip": "Returns the input as a string",
+      "colour": 165,
+      "helpUrl": ""
+    },
+
 
     {
         "type": "play_sound",

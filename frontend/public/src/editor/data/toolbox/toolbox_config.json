@@ -51,6 +51,7 @@
 
             { "kind": "BLOCK", "type": "text" },
             { "kind": "BLOCK", "type": "text_join" },
+            { "kind": "BLOCK", "type": "to_string" },
             { "kind": "BLOCK", "type": "text_length" },
             { "kind": "BLOCK", "type": "text_getSubstring" },
             { "kind": "BLOCK", "type": "text_changeCase" },
