@@ -522,12 +522,6 @@ function handleBlock(block) {
             return `(Collections.reverse(${list}))`;
         }
 
-        
-        
-        
-        
-        
-
 
         case "break":
             return "break;"
@@ -537,7 +531,7 @@ function handleBlock(block) {
         
 
         case "print": {
-            const value = block.inputs?.TEXT?.block ? handleBlock(block.inputs.TEXT.block) : '""';
+            const value = block.inputs?.MESSAGE?.block ? handleBlock(block.inputs.MESSAGE.block) : '""';
             return `System.out.println(${value});`;
         }
             
