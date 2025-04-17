@@ -558,6 +558,27 @@ function handleBlock(block) {
             return block.fields?.VAR || "x";
         }
         
+        /* =====================
+           Functions
+            ===================== */
+
+        case "def_function": {
+            const name = block.fields?.NAME || "myFunction";
+            const retType = block.fields?.RET_TYPE || "void";
+            const body = block.inputs?.BODY.block ? handleStatements(block.inputs.BODY.block) : "";
+            return `${retType} ${name}() {\n${indent(body)}\n}`;
+        }
+            
+
+        case "call_function": {
+            const name = block.fields?.NAME || "myFunction";
+            return `${name}()`;
+        }
+
+        case "return_of_function": {
+            const returnValue = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "";
+            return `return ${returnValue};`;
+        }
         
 
         
@@ -576,10 +597,11 @@ function handleBlock(block) {
 function handleStatements(block) {
     let code = handleBlock(block);
     if (block.next?.block) {
-        code += handleStatements(block.next.block);
+        code += "\n" + handleStatements(block.next.block);
     }
     return code;
 }
+
 
 function indent(str, spaces = 4) {
     const pad = ' '.repeat(spaces);

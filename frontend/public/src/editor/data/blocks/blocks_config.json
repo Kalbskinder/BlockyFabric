@@ -182,12 +182,23 @@
 
     {
       "type": "def_function",
-      "message0": "Function %1 %2 %3",
+      "message0": "Function %1 returns %2 %3 %4",
       "args0": [
         {
           "type": "field_input",
           "name": "NAME",
           "text": "myFunction"
+        },
+        {
+          "type": "field_dropdown",
+          "name": "RET_TYPE",
+          "options": [
+            ["int", "int"],
+            ["double", "double"],
+            ["String", "String"],
+            ["boolean", "boolean"],
+            ["void", "void"]
+          ]
         },
         {
           "type": "input_dummy"
@@ -198,29 +209,13 @@
         }
       ],
       "colour": 330,
-      "tooltip": "Defines a function",
+      "tooltip": "Defines a function that returns a value",
       "helpUrl": "",
       "nextStatement": null
-    },
+    },    
     {
       "type": "call_function",
-      "message0": "Run function %1",
-      "args0": [
-        {
-          "type": "field_input",
-          "name": "NAME",
-          "text": "myFunction"
-        }
-      ],
-      "colour": 330,
-      "tooltip": "Calls a function",
-      "helpUrl": "",
-      "previousStatement": null,
-      "nextStatement": null
-    },
-    {
-      "type": "return_value_of_function",
-      "message0": "Return value of function %1",
+      "message0": "call function %1",
       "args0": [
         {
           "type": "field_input",
@@ -229,10 +224,25 @@
         }
       ],
       "output": null,
-      "tooltip": "Returns the return value of a function",
       "colour": 330,
+      "tooltip": "Calls a function and returns the result",
       "helpUrl": ""
-    },  
+    },
+    {
+      "type": "return_of_function",
+      "message0": "return %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "previousStatement": null,
+      "colour": 330,
+      "tooltip": "Returns a value from the function",
+      "helpUrl": ""
+    },
+    
     
     
 

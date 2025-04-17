@@ -101,7 +101,7 @@
 
             { "kind": "BLOCK", "type": "def_function" },
             { "kind": "BLOCK", "type": "call_function" },
-            { "kind": "BLOCK", "type": "return_value_of_function" }
+            { "kind": "BLOCK", "type": "return_of_function" }
         ]
       },
 
