@@ -178,6 +178,62 @@
       "colour": 285,
       "helpUrl": ""
     },
+
+
+    {
+      "type": "def_function",
+      "message0": "Function %1 %2 %3",
+      "args0": [
+        {
+          "type": "field_input",
+          "name": "NAME",
+          "text": "myFunction"
+        },
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "input_statement",
+          "name": "BODY"
+        }
+      ],
+      "colour": 330,
+      "tooltip": "Defines a function",
+      "helpUrl": "",
+      "nextStatement": null
+    },
+    {
+      "type": "call_function",
+      "message0": "Run function %1",
+      "args0": [
+        {
+          "type": "field_input",
+          "name": "NAME",
+          "text": "myFunction"
+        }
+      ],
+      "colour": 330,
+      "tooltip": "Calls a function",
+      "helpUrl": "",
+      "previousStatement": null,
+      "nextStatement": null
+    },
+    {
+      "type": "return_value_of_function",
+      "message0": "Return value of function %1",
+      "args0": [
+        {
+          "type": "field_input",
+          "name": "NAME",
+          "text": "myFunction"
+        }
+      ],
+      "output": null,
+      "tooltip": "Returns the return value of a function",
+      "colour": 330,
+      "helpUrl": ""
+    },  
+    
     
 
 
