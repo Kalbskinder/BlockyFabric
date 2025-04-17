@@ -118,6 +118,13 @@ function handleBlock(block) {
             return `for (var ${varName} : ${list}) {\n${body}\n}`;
         }
 
+        case "break":
+            return "break;"
+
+        case "return":
+            return "return;"
+
+
         /* =====================
            Math
            ===================== */
@@ -280,6 +287,7 @@ function handleBlock(block) {
             return `Integer.parseInt(${input})`;
         }
         
+
         /* =====================
            Strings
            ===================== */
@@ -427,7 +435,6 @@ function handleBlock(block) {
                 : `${list}.lastIndexOf(${item})`;
         }
 
-        //
         case "lists_getIndex": {
             const list = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "new ArrayList<>()";
             const indexBlock = block.inputs?.AT?.block ? handleBlock(block.inputs.AT.block) : "0";
@@ -466,7 +473,6 @@ function handleBlock(block) {
             return code;
         }        
         
-        //
         case "lists_setIndex": {
             const listCode = block.inputs?.LIST?.block ? handleBlock(block.inputs.LIST.block) : "new ArrayList<>()";
             const indexCode = block.inputs?.AT?.block ? handleBlock(block.inputs.AT.block) : "0";
@@ -529,11 +535,31 @@ function handleBlock(block) {
         }
 
 
-        case "break":
-            return "break;"
+        /* =====================
+           Variables
+           ===================== */
 
-        case "return":
-            return "return;"
+        case "variables_declare": {
+            const type = block.fields?.TYPE || "int";
+            const name = block.fields?.VAR || "x";
+            const value = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "";
+        
+            return `${type} ${name}${value !== "" ? " = " + value : ""};`;
+        }
+
+        case "variables_set": {
+            const name = block.fields?.VAR || "x";
+            const value = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "0";
+        
+            return `${name} = ${value};`;
+        }
+        
+        case "variables_get": {
+            return block.fields?.VAR || "x";
+        }
+        
+        
+
         
 
         case "print": {
