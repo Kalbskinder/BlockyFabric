@@ -31,15 +31,39 @@ function handleBlock(block) {
            Conditions
            ===================== */
         
-        case "controls_if": {
-            const conditionBlock = block.inputs?.IF0?.block;
-            const doBlock = block.inputs?.DO0?.block;
-
-            const condition = conditionBlock ? handleBlock(conditionBlock) : "true";
-            const statements = doBlock ? handleStatements(doBlock) : "";
-
-            return `if (${condition}) {\n${indent(statements)}\n}`;
+           case "controls_if": {
+            let code = "";
+        
+            const inputKeys = Object.keys(block.inputs);
+            const conditions = inputKeys.filter(key => key.startsWith("IF"));
+            const hasElse = inputKeys.includes("ELSE");
+        
+            // Iterate through IF / ELSE IF pairs
+            conditions.forEach((condKey, index) => {
+                const doKey = "DO" + condKey.slice(2); // IF0 => DO0
+                const condBlock = block.inputs?.[condKey]?.block;
+                const doBlock = block.inputs?.[doKey]?.block;
+        
+                const condition = condBlock ? handleBlock(condBlock) : "true";
+                const statements = doBlock ? handleStatements(doBlock) : "";
+        
+                if (index === 0) {
+                    code += `if (${condition}) {\n${indent(statements)}\n}`;
+                } else {
+                    code += ` else if (${condition}) {\n${indent(statements)}\n}`;
+                }
+            });
+        
+            // Handle ELSE block
+            if (hasElse) {
+                const elseBlock = block.inputs.ELSE?.block;
+                const elseStatements = elseBlock ? handleStatements(elseBlock) : "";
+                code += ` else {\n${indent(elseStatements)}\n}`;
+            }
+        
+            return code;         return code;
         }
+        
 
         case "logic_compare": {
             const A = block.inputs?.A?.block ? handleBlock(block.inputs.A.block) : "null";
@@ -575,6 +599,11 @@ function handleBlock(block) {
             
 
         case "call_function": {
+            const name = block.fields?.NAME || "myFunction";
+            return `${name}()`;
+        }
+
+        case "call_function_silent": {
             const name = block.fields?.NAME || "myFunction";
             return `${name}()`;
         }
