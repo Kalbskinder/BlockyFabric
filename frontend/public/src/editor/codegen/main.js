@@ -6,20 +6,24 @@ function exportCode() {
     generateJava(json);
 }
 
-    // Run each block trough a switch statement. Each switch statement outputs a java string and appends it to the array.
-    // We need to validate some code. Some parts need to be turned into a String or integer. (This is only for some blocks tho where the input is a number but gets then treated as a string)
-
+function handleStatementChain(block) {
+    let code = handleBlock(block);
+    if (block.next?.block) {
+        code += '\n' + handleStatementChain(block.next.block);
+    }
+    return code;
+}
 
 function generateJava(json) {
     const javaCode = [];
 
     for (const block of json.blocks.blocks) {
-        const code = handleBlock(block);
-        javaCode.push(code);
+        javaCode.push(handleStatementChain(block));
     }
 
     console.log(javaCode.join('\n'));
 }
+
 
 function handleBlock(block) {
     switch (block.type) {

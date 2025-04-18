@@ -99,6 +99,7 @@
         "contents": [
             { "kind": "LABEL", "text": "Functions", "web-class": "ioLabel" },
 
+            { "kind": "BLOCK", "type": "default_function_main" },
             { "kind": "BLOCK", "type": "def_function" },
             { "kind": "BLOCK", "type": "call_function" },
             { "kind": "BLOCK", "type": "return_of_function" }

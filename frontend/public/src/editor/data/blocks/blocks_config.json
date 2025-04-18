@@ -181,6 +181,22 @@
 
 
     {
+      "type": "default_function_main",
+      "message0": "Main function %1 %2",
+      "args0": [
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "input_statement",
+          "name": "BODY"
+        }
+      ],
+      "colour": 330,
+      "tooltip": "Default main function",
+      "helpUrl": ""
+    },  
+    {
       "type": "def_function",
       "message0": "Function %1 returns %2 %3 %4",
       "args0": [
@@ -210,8 +226,7 @@
       ],
       "colour": 330,
       "tooltip": "Defines a function that returns a value",
-      "helpUrl": "",
-      "nextStatement": null
+      "helpUrl": ""
     },    
     {
       "type": "call_function",
