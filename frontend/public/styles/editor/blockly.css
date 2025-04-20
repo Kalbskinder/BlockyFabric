@@ -2,3 +2,37 @@ div#blocklyDiv {
     width: 100vw;
     height: calc(100vh - 72px);
 }
+
+div.button-container {
+    position: fixed;
+    top: 85px;
+    right: 12px;
+    z-index: 100;
+    display: flex;
+    align-items: end;
+    gap: 10px;
+}   
+
+/* styles/editor/editor.css */
+.floating-editor-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding-top: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+.floating-editor-btn:hover {
+    background-color: #45a049;
+}
+
+.floating-editor-btn img {
+    width: 23px;
+    height: 23px;
+    margin-bottom: 3px;
+}

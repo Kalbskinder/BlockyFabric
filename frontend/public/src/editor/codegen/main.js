@@ -3,7 +3,9 @@
 function exportCode() {
     const json = Blockly.serialization.workspaces.save(workspace); // Get the current state of the workspace
 
-    generateJava(json);
+    const code = generateJava(json);
+
+    return code.trim();
 }
 
 function handleStatementChain(block) {
@@ -22,6 +24,7 @@ function generateJava(json) {
     }
 
     console.log(javaCode.join('\n'));
+    return javaCode.join('\n');
 }
 
 
@@ -590,11 +593,16 @@ function handleBlock(block) {
            Functions
             ===================== */
 
+        case "default_function_main": {
+            const body = block.inputs?.BODY.block ? handleStatements(block.inputs.BODY.block) : "";
+            return `public static void main(String[] args) {\n${indent(body)}\n}`;
+        }
+
         case "def_function": {
             const name = block.fields?.NAME || "myFunction";
             const retType = block.fields?.RET_TYPE || "void";
             const body = block.inputs?.BODY.block ? handleStatements(block.inputs.BODY.block) : "";
-            return `${retType} ${name}() {\n${indent(body)}\n}`;
+            return `static ${retType} ${name}() {\n${indent(body)}\n}`;
         }
             
 

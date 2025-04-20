@@ -13,9 +13,13 @@
 <body>
     <%- include('../components/navbar') %> <!-- Navbar -->
 
-    <button id="saveButton" class="floating-save-btn"><img class="icon-light" src="/images/icons/save.svg" alt="Save"> Save</button>
-
-    <button onclick="exportCode()">Export</button>
+    <!-- Editor Buttons -->
+    <div class="button-container">
+        <button id="saveButton" class="floating-editor-btn"><img class="icon-light" src="/images/icons/save.svg" alt="Save"> Save</button>
+        <button class="floating-editor-btn" onclick="updateCodeDisplay()"
+        data-bs-toggle="modal" data-bs-target="#exportCodeModal"><img class="icon-light" src="/images/icons/export.svg" alt="Export"> Export</button>
+        <button class="floating-editor-btn"><img class="icon-light" src="/images/icons/settings.svg" alt="Settings"> Settings</button>
+    </div>
 
 
     <!-- Editor Area with Blockly -->
@@ -42,6 +46,38 @@
         <div class="success-line"></div>
     </div>
 
+    <!-- Modals -->
+
+    <!-- Export Code Modal -->
+    <div class="modal fade" id="exportCodeModal" tabindex="-1" aria-labelledby="exportCodeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exportCodeModalLabel">Export Your Code</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+    
+            <div class="modal-body">
+    
+            <!-- Buttons -->
+            <div class="d-flex justify-content-start gap-3 mb-3">
+                <button class="btn btn-primary" id="downloadModBtn">Download Mod</button>
+                <button class="btn btn-secondary" id="downloadSourceBtn">Download Source</button>
+            </div>
+    
+            <!-- Code Viewer -->
+            <pre class="bg-dark text-white rounded p-3 overflow-auto" style="max-height: 500px;">
+<code class="language-java" id="exportedCodeDisplay">// Translated Java code will appear here...</code>
+            </pre>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+        
+
+
+
 
 <!-- Scripts -->
 <script src="/src/authCheck.js"></script>
@@ -56,6 +92,13 @@
 <!-- Editor js files -->
 <script src="/src/editor/editor.js"></script>
 <script src="/src/editor/codegen/main.js"></script>
+
+<!-- PrismJS CSS -->
+<link href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+<!-- PrismJS JS -->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script>
+
 
 </body>
 </html>

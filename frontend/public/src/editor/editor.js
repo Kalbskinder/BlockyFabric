@@ -1,4 +1,5 @@
 // Theme
+
 // TODO: Move themes to an external file
 const darkTheme = Blockly.Theme.defineTheme('darkTheme', {
     base: Blockly.Themes.Classic,
@@ -47,9 +48,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         toolbox: toolbox,
         theme: darkTheme,
         grid: { spacing: 20, length: 3, colour: '#555', snap: false },
-        trashcan: true,
+        trashcan: false,
         renderer: 'zelos',
         toolboxPosition: 'start',
+        scrollbars: true,
         zoom: {
           controls: true,
           wheel: true,
@@ -177,4 +179,16 @@ function newSuccess(msg) {
         successSlideInElement.style.visibility = "hidden";
         successSlideInElement.style.opacity = "0";
     }, 3500);
+}
+
+
+/* Editor Modals */
+function updateCodeDisplay() {
+    const translatedCode = exportCode();
+    console.log(translatedCode);
+    const codeDisplay = document.getElementById("exportedCodeDisplay");
+    codeDisplay.textContent = translatedCode;
+
+    // Re-highlight with Prism
+    Prism.highlightElement(codeDisplay);
 }

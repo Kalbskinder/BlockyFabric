@@ -60,30 +60,3 @@
     75% { right: 8px; opacity: 1; }
     100% { right: -200px; opacity: 0; }
 }
-
-/* styles/editor/editor.css */
-.floating-save-btn {
-    position: fixed;
-    top: 84px;
-    right: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding-top: 8px;
-    padding-left: 8px;
-    padding-right: 8px;
-    border-radius: 12px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    z-index: 100;
-}
-
-.floating-save-btn:hover {
-    background-color: #45a049;
-}
-
-#saveButton img {
-    width: 28px;
-    height: 28px;
-    margin-bottom: 5px;
-}
