@@ -3,9 +3,11 @@
 function exportCode() {
     const json = Blockly.serialization.workspaces.save(workspace); // Get the current state of the workspace
 
-    const code = generateJava(json);
 
-    return code.trim();
+    const code = generateJava(json);
+    const finalCode = `public class Main {\n${indent(code)}\n}`;
+
+    return finalCode;
 }
 
 function handleStatementChain(block) {
