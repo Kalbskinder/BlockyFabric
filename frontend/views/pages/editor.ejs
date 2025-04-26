@@ -18,7 +18,7 @@
         <button id="saveButton" class="floating-editor-btn"><img class="icon-light" src="/images/icons/save.svg" alt="Save"> Save</button>
         <button class="floating-editor-btn" onclick="updateCodeDisplay()"
         data-bs-toggle="modal" data-bs-target="#exportCodeModal"><img class="icon-light" src="/images/icons/export.svg" alt="Export"> Export</button>
-        <button class="floating-editor-btn"><img class="icon-light" src="/images/icons/settings.svg" alt="Settings"> Settings</button>
+        <button data-bs-toggle="modal" data-bs-target="#modSettings" class="floating-editor-btn"><img class="icon-light" src="/images/icons/settings.svg" alt="Settings"> Settings</button>
     </div>
 
 
@@ -73,7 +73,8 @@
         </div>
         </div>
     </div>
-    
+
+    <%- include('../components/projectSettings') %>
         
 
 
@@ -92,6 +93,7 @@
 <!-- Editor js files -->
 <script src="/src/editor/editor.js"></script>
 <script src="/src/editor/codegen/main.js"></script>
+<script src="/src/editor/modSettings.js"></script>
 
 <!-- PrismJS CSS -->
 <link href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism-tomorrow.min.css" rel="stylesheet" />

@@ -217,5 +217,71 @@ router.delete('/delete/:id', async (req, res) => {
     }
 });
 
+// Update an existing mods details
+router.post("/update", async (req, res) => {
+    bannerUpload(req, res, async function (err) {
+        if (err instanceof multer.MulterError) {
+            if (err.code === "LIMIT_FILE_SIZE") {
+                return res.status(400).json({ error: "File too large (max. 1MB)" });
+            }
+        } else if (err) {
+            return res.status(400).json({ error: err.message });
+        }
+
+        const { project_id, name, description, visibility } = req.body;
+        
+        let user_id;
+        if (req.session.user) {
+            user_id = req.session.user.id;
+        } else {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
+
+        if (!user_id) {
+            return res.status(401).json({ error: "Not authorized" });
+        }
+        
+        if (!project_id || !name || !visibility) {
+            return res.status(400).json({ error: "Missing required fields." });
+        }
+
+        if (name.length > 20) {
+            return res.status(400).json({ error: "Name cannot be longer than 20 characters." });
+        }
+
+        if (description && description.length > 120) {
+            return res.status(400).json({ error: "Description cannot be longer than 120 characters." });
+        }
+
+        try {
+            const project = await db.get("SELECT * FROM projects WHERE id = ? AND user_id = ?", [project_id, user_id]);
+            if (!project) {
+                return res.status(404).json({ error: "Project not found" });
+            }
+        } catch (error) {
+            return res.status(500).json({ error: "Database error", details: error.message });
+        }
+
+        let bannerUrl = null;
+        if (req.file) {
+            const userId = req.session.user.id;
+            const username = req.session.user.username;
+            bannerUrl = `/images/users/${userId}_${username}/banners/${req.file.filename}`;
+        }
+
+        try {
+            await db.run(
+                "UPDATE projects SET name = ?, description = ?, banner = ?, visibility = ? WHERE id = ? AND user_id = ?",
+                [name, description, bannerUrl, visibility, project_id, user_id]
+            );
+
+            res.json({ success: true, bannerUrl });
+        } catch (error) {
+            return res.status(500).json({ error: "Database error", details: error.message });
+        }
+    });
+});
+
+
 
 export default router;
