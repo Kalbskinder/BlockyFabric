@@ -1,5 +1,3 @@
-// Theme
-
 // TODO: Move themes to an external file
 const darkTheme = Blockly.Theme.defineTheme('darkTheme', {
     base: Blockly.Themes.Classic,
