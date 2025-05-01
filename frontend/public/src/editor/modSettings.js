@@ -56,10 +56,11 @@ async function saveModSettings() {
     } else {
         headers["Content-Type"] = "application/json";
         body = JSON.stringify({
+            project_id: modId,
             name: modName,
             description: modDescription,
             visibility: modVisibilityPublic ? "public" : "private"
-        });
+        });        
     }
 
     try {
@@ -68,6 +69,8 @@ async function saveModSettings() {
             headers,
             body
         });
+
+        console.log(response);
 
         if (!response.ok) { 
             throw new Error("Error while saving mod settings");

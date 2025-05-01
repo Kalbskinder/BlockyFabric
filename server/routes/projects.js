@@ -222,6 +222,7 @@ router.post("/update", async (req, res) => {
     bannerUpload(req, res, async function (err) {
         if (err instanceof multer.MulterError) {
             if (err.code === "LIMIT_FILE_SIZE") {
+                console.log(err);
                 return res.status(400).json({ error: "File too large (max. 1MB)" });
             }
         } else if (err) {
@@ -229,7 +230,7 @@ router.post("/update", async (req, res) => {
         }
 
         const { project_id, name, description, visibility } = req.body;
-        
+
         let user_id;
         if (req.session.user) {
             user_id = req.session.user.id;
@@ -237,10 +238,6 @@ router.post("/update", async (req, res) => {
             return res.status(401).json({ error: "Unauthorized" });
         }
 
-        if (!user_id) {
-            return res.status(401).json({ error: "Not authorized" });
-        }
-        
         if (!project_id || !name || !visibility) {
             return res.status(400).json({ error: "Missing required fields." });
         }
@@ -253,8 +250,9 @@ router.post("/update", async (req, res) => {
             return res.status(400).json({ error: "Description cannot be longer than 120 characters." });
         }
 
+        let project;
         try {
-            const project = await db.get("SELECT * FROM projects WHERE id = ? AND user_id = ?", [project_id, user_id]);
+            project = await db.get("SELECT * FROM projects WHERE id = ? AND user_id = ?", [project_id, user_id]);
             if (!project) {
                 return res.status(404).json({ error: "Project not found" });
             }
@@ -263,17 +261,37 @@ router.post("/update", async (req, res) => {
         }
 
         let bannerUrl = null;
+        let oldBannerPath = null;
+
         if (req.file) {
             const userId = req.session.user.id;
             const username = req.session.user.username;
             bannerUrl = `/images/users/${userId}_${username}/banners/${req.file.filename}`;
+            oldBannerPath = project.banner;
         }
 
         try {
-            await db.run(
-                "UPDATE projects SET name = ?, description = ?, banner = ?, visibility = ? WHERE id = ? AND user_id = ?",
-                [name, description, bannerUrl, visibility, project_id, user_id]
-            );
+            const updateParams = [name, description, visibility, project_id, user_id];
+            let updateQuery;
+
+            if (bannerUrl) {
+                updateQuery = "UPDATE projects SET name = ?, description = ?, banner = ?, visibility = ? WHERE id = ? AND user_id = ?";
+                updateParams.splice(2, 0, bannerUrl); // insert bannerUrl at correct position
+            } else {
+                updateQuery = "UPDATE projects SET name = ?, description = ?, visibility = ? WHERE id = ? AND user_id = ?";
+            }
+
+            await db.run(updateQuery, updateParams);
+
+            // Delete old banner if needed
+            if (bannerUrl && oldBannerPath) {
+                const fullOldPath = path.join(__dirname, "../../frontend/public", oldBannerPath);
+                if (fs.existsSync(fullOldPath)) {
+                    fs.unlinkSync(fullOldPath);
+                } else {
+                    console.warn("Tried deleting old banner, but it did not exist:", fullOldPath);
+                }
+            }
 
             res.json({ success: true, bannerUrl });
         } catch (error) {
@@ -281,6 +299,7 @@ router.post("/update", async (req, res) => {
         }
     });
 });
+
 
 
 

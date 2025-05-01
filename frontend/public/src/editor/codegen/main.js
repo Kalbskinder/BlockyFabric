@@ -31,13 +31,15 @@ function generateJava(json) {
 }
 */
 
+// Used to translate blockly into Java Code
 function exportCode() {
     const json = Blockly.serialization.workspaces.save(workspace); // Save the current workspace
     const code = generateJava(json);
-    const finalCode = `public class Main {\n${indent(code)}\n}`;
+    const finalCode = `public class Main {\n${indent(code)}\n}`; // Put code into the class main
     return finalCode;
 }
 
+// Function to generate Java code
 function generateJava(json) {
     const javaCode = [];
 
@@ -48,6 +50,7 @@ function generateJava(json) {
     return javaCode.join('\n');
 }
 
+// Function to handle a statement chain
 function handleStatementChain(block) {
     let code = handleBlock(block);
     if (block.next?.block) {
@@ -56,6 +59,7 @@ function handleStatementChain(block) {
     return code;
 }
 
+// Function to handle a single block
 function handleBlock(block) {
     if (!block) return "";
 
@@ -68,6 +72,7 @@ function handleBlock(block) {
     }
 }
 
+// Function to handle multiple statements
 function handleStatements(block) {
     let code = handleBlock(block);
     if (block.next?.block) {
@@ -76,7 +81,7 @@ function handleStatements(block) {
     return code;
 }
 
-
+// Function to add indentation for cleaner code
 function indent(str, spaces = 4) {
     const pad = ' '.repeat(spaces);
     return str
