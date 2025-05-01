@@ -27,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/bootstrap', express.static(path.join(__dirname, '../node_modules/bootstrap/dist')));
 app.use('/blockly', express.static(path.join(__dirname, '../node_modules/blockly')));
 app.use('/@blockly', express.static(path.join(__dirname, '../node_modules/@blockly')));
+app.use('/prism', express.static(path.join(__dirname, '../node_modules/prismjs')));
 
 
 // Session Setup with SQLite
