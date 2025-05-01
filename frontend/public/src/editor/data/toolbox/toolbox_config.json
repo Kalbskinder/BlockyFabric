@@ -36,7 +36,6 @@
             { "kind": "BLOCK", "type": "math_trig" },
             { "kind": "BLOCK", "type": "custom_math_number_property" },
             { "kind": "BLOCK", "type": "math_round" },
-            { "kind": "BLOCK", "type": "math_on_list" },
             { "kind": "BLOCK", "type": "math_modulo" },
             { "kind": "BLOCK", "type": "math_random_int" },
             { "kind": "BLOCK", "type": "parse_int" }
