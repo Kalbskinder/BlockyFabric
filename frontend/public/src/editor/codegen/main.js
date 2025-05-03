@@ -32,10 +32,18 @@ function generateJava(json) {
 */
 
 // Used to translate blockly into Java Code
+
+const usedImports = new Set();
+
 function exportCode() {
     const json = Blockly.serialization.workspaces.save(workspace); // Save the current workspace
     const code = generateJava(json);
-    const finalCode = `public class Main {\n${indent(code)}\n}`; // Put code into the class main
+
+    let importSection = Array.from(usedImports).map(i => `import ${i};`).join("\n");
+    importSection  ? importSection += "\n\n" : "";
+    usedImports.clear(); // Clear used imports for next export
+    
+    const finalCode = `${importSection}public class Main {\n${indent(code)}\n}`; // Put code into the class main
     return finalCode;
 }
 
@@ -281,7 +289,7 @@ translations["math_trig"] = (block) => {
     const func = opMap[op];
     
     if (!func) {
-        console.warn(`Unbekannter math_trig-Operator: ${op}`);
+        console.warn(`Unknown math_trig-Operator: ${op}`);
         return `/* unknown math_trig op: ${op} */`;
     }
     
@@ -362,6 +370,8 @@ translations["math_modulo"] = (block) => {
 translations["math_random_int"] = (block) => {
     const from = block.inputs?.FROM?.block ? handleBlock(block.inputs.FROM.block) : "0";
     const to = block.inputs?.TO?.block ? handleBlock(block.inputs.TO.block) : "100";
+
+    usedImports.add("java.util.Random");
     
     return `(int)(Math.floor(Math.random() * (${to} - ${from} + 1)) + ${from})`;
 }
@@ -466,6 +476,8 @@ translations["text_replace"] = (block) => {
 
 translations["text_reverse"] = (block) => {
     const text = block.inputs?.TEXT?.block ? handleBlock(block.inputs.TEXT.block) : '""';
+
+    usedImports.add("java.lang.StringBuilder"); // Add StringBuilder import if not already added
     return `new StringBuilder(${text}).reverse().toString()`;   
 }
 
@@ -488,6 +500,8 @@ translations["lists_create_with"] = (block) => {
         items.push(input ? handleBlock(input) : "null");
     }
 
+    usedImports.add("java.util.Arrays");
+
     return `Arrays.asList(${items.join(", ")})`;
 }
 
@@ -495,16 +509,24 @@ translations["lists_repeat"] = (block) => {
     const item = block.inputs?.ITEM?.block ? handleBlock(block.inputs.ITEM.block) : "null";
     const times = block.inputs?.NUM?.block ? handleBlock(block.inputs.NUM.block) : "0";
 
+    usedImports.add("java.util.Collections");
+
     return `Collections.nCopies(${times}, ${item})`;
 }
 
 translations["lists_length"] = (block) => {
     const list = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "new ArrayList<>()";
+
+    usedImports.add("java.util.ArrayList");
+
     return `${list}.size()`;
 }
 
 translations["lists_isEmpty"] = (block) => {
     const list = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "new ArrayList<>()";
+
+    usedImports.add("java.util.ArrayList");
+
     return `${list}.isEmpty()`;
 }
 
@@ -512,6 +534,8 @@ translations["lists_indexOf"] = (block) => {
     const list = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "new ArrayList<>()";
     const item = block.inputs?.FIND?.block ? handleBlock(block.inputs.FIND.block) : "null";
     const mode = block.fields?.END || "FIRST"; // FIRST or LAST
+
+    usedImports.add("java.util.ArrayList");
 
     return mode === "FIRST"
         ? `${list}.indexOf(${item})`
@@ -553,6 +577,9 @@ translations["lists_getIndex"] = (block) => {
         return `${list}.remove(${code.match(/\((.*?)\)/)?.[1] || "0"});`;
     }
 
+    usedImports.add("java.util.Random");
+    usedImports.add("java.util.ArrayList");
+
     return code;
 }
 
@@ -592,6 +619,9 @@ translations["lists_setIndex"] = (block) => {
         return `${listExpr}.add(${indexExpr}, ${valueCode});`;
     }
 
+    usedImports.add("java.util.ArrayList");
+    usedImports.add("java.util.Random");
+
     return `// Unknown mode`; 
 }
 
@@ -606,6 +636,9 @@ translations["lists_sort"] = (block) => {
         "IGNORE_CASE": `${list}.sort((a, b) -> a.toString().compareToIgnoreCase(b.toString()));`
     }[type];
 
+    usedImports.add("java.util.Collections");
+    usedImports.add("java.util.Comparator");
+
     return direction === "-1"
         ? `(Collections.sort(${list}, Collections.reverseOrder());)`
         : `(${sortCode})`;
@@ -613,6 +646,10 @@ translations["lists_sort"] = (block) => {
 
 translations["lists_reverse"] = (block) => {
     const list = block.inputs?.LIST?.block ? handleBlock(block.inputs.LIST.block) : "new ArrayList<>()";
+
+    usedImports.add("java.util.Collections");
+    usedImports.add("java.util.ArrayList");
+
     return `(Collections.reverse(${list}))`;
 }
 
