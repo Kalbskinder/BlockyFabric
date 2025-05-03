@@ -227,12 +227,6 @@
         }
       },
       {
-        "type": "execute_command",
-        "fields": {
-          "NAME": "Execute command:"
-        }
-      },
-      {
         "type": "display_subtitle",
         "fields": {
           "FADEIN": 1,

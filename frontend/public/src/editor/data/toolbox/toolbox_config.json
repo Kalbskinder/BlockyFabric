@@ -124,9 +124,6 @@
           { "kind": "block", "type": "display_title" },
           { "kind": "block", "type": "display_subtitle" },
 
-          { "kind": "LABEL", "text": "Commands", "web-class": "ioLabel" },
-          { "kind": "block", "type": "execute_command" },
-
           { "kind": "LABEL", "text": "Messages", "web-class": "ioLabel" },
           { "kind": "block", "type": "send_message" },
 
