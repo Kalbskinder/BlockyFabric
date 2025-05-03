@@ -5,6 +5,7 @@ const usedImports = new Set();
 // Second class for Minecraft specific blocks
 const usedMinecraftImports = new Set();
 const usedHelpers = new Set();
+const initializeChildren = new Set()
 
 function exportCode() {
     const json = Blockly.serialization.workspaces.save(workspace); // Save the current workspace
@@ -15,7 +16,7 @@ function exportCode() {
     usedImports.clear(); // Clear used imports for next export
 
     const blockyFabricApiClass = generateHelperClass(); // Generate and format all helper functions
-    const mainClassCode = `${importSection}public class Main {\n${indent(code)}\n}`; // Put code into the class main
+    const mainClassCode = `package net.blockyfabric;\n\n${'import net.fabricmc.api.ClientModInitializer;\n' + importSection}public class Client implements ClientModInitializer {\n${indent(code)}\n}`; // Put code into the class main
     
     return {
         mainClass: mainClassCode,
@@ -36,11 +37,11 @@ function generateHelperClass() {
         .join("\n");
 
         usedMinecraftImports.clear(); // Clear used imports for next export
-    };
+    };        
 
     usedHelpers.clear(); // Clear used helpers for next export
 
-    return `${imports ? imports + '\n\n' : ''}public class BlockyFabricAPI {\n${indent(functions)}\n}`;
+    return `package net.blockyfabric;\n\n${imports ? imports + '\n\n' : ''}public class BlockyFabricAPI {\n\n${indent(functions)}\n}`;
 }
 
 // Function to generate Java code
@@ -724,6 +725,12 @@ Important: Block definitions are split into two parts:
 -----------------------------------------------------------------------------------------------------------------------
 */
 
+/* =====================
+   Minecraft
+   ===================== */
+
+/* TODO: Redo ain't working
+// Play sound
 translations["play_sound"] = (block) => {
     const sound = `"${block.fields?.SOUND || "block.anvil.land"}"`;
     const volume = parseFloat(block.fields?.VOLUME || "1");
@@ -749,4 +756,33 @@ minecraftFunctions["playSound"] = () => {
 
     return method;
 }
+*/
 
+// Display title
+translations["display_title"] = (block) => {
+    const text = handleBlock(block.inputs?.TEXT?.block) || '"Title"';
+    const fadeIn = parseInt(block.fields?.FADEIN || "1");
+    const stay = parseInt(block.fields?.STAY || "1");
+    const fadeOut = parseInt(block.fields?.FADEOUT || "1");
+
+    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedHelpers.add("displayTitle");
+
+    return `BlockyFabricAPI.displayTitle(${text}, ${fadeIn}, ${stay}, ${fadeOut});`;
+};
+
+minecraftFunctions["displayTitle"] = () => {
+    const method = `public static void displayTitle(String title, int fadeIn, int stay, int fadeOut) {
+    MinecraftClient client = MinecraftClient.getInstance();
+    if (client.player != null && client.inGameHud != null) {
+        client.inGameHud.setTitle(Text.literal(title));
+        client.inGameHud.setTitleTicks(fadeIn * 20, stay * 20, fadeOut * 20);
+    }
+}`;
+
+    usedMinecraftImports.add("net.minecraft.client.MinecraftClient");
+    usedMinecraftImports.add("net.minecraft.text.Text");
+
+
+    return method;
+};
