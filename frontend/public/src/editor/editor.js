@@ -185,8 +185,12 @@ function updateCodeDisplay() {
     const translatedCode = exportCode();
     console.log(translatedCode);
     const codeDisplay = document.getElementById("exportedCodeDisplay");
-    codeDisplay.textContent = translatedCode;
+    codeDisplay.textContent = translatedCode.mainClass;
+
+    const codeDisplayMinecraft = document.getElementById("exportedCodeDisplay-minecraft");
+    codeDisplayMinecraft.textContent = translatedCode.helperClass || "// Translated Java code related to Minecraft will appear here...";
 
     // Re-highlight with Prism
     Prism.highlightElement(codeDisplay);
+    Prism.highlightElement(codeDisplayMinecraft);
 }

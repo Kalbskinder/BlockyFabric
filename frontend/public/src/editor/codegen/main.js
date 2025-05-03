@@ -1,39 +1,10 @@
 // Used to translate blockly into Java Code
 
-/*
-function exportCode() {
-    const json = Blockly.serialization.workspaces.save(workspace); // Get the current state of the workspace
-
-
-    const code = generateJava(json);
-    const finalCode = `public class Main {\n${indent(code)}\n}`;
-
-    return finalCode;
-}
-
-function handleStatementChain(block) {
-    let code = handleBlock(block);
-    if (block.next?.block) {
-        code += '\n' + handleStatementChain(block.next.block);
-    }
-    return code;
-}
-
-function generateJava(json) {
-    const javaCode = [];
-
-    for (const block of json.blocks.blocks) {
-        javaCode.push(handleStatementChain(block));
-    }
-
-    console.log(javaCode.join('\n'));
-    return javaCode.join('\n');
-}
-*/
-
-// Used to translate blockly into Java Code
-
 const usedImports = new Set();
+
+// Second class for Minecraft specific blocks
+const usedMinecraftImports = new Set();
+const usedHelpers = new Set();
 
 function exportCode() {
     const json = Blockly.serialization.workspaces.save(workspace); // Save the current workspace
@@ -42,9 +13,34 @@ function exportCode() {
     let importSection = Array.from(usedImports).map(i => `import ${i};`).join("\n");
     importSection  ? importSection += "\n\n" : "";
     usedImports.clear(); // Clear used imports for next export
+
+    const blockyFabricApiClass = generateHelperClass(); // Generate and format all helper functions
+    const mainClassCode = `${importSection}public class Main {\n${indent(code)}\n}`; // Put code into the class main
     
-    const finalCode = `${importSection}public class Main {\n${indent(code)}\n}`; // Put code into the class main
-    return finalCode;
+    return {
+        mainClass: mainClassCode,
+        helperClass: blockyFabricApiClass
+    }
+}
+
+function generateHelperClass() {
+    const functions = Array.from(usedHelpers).map(fn => {
+        return minecraftFunctions[fn] ? minecraftFunctions[fn]() : "";
+    }).join("\n\n");
+
+    let imports = "";
+
+    if (usedMinecraftImports.size) {
+        imports = Array.from(usedMinecraftImports)
+        .map(i => `import ${i};`)
+        .join("\n");
+
+        usedMinecraftImports.clear(); // Clear used imports for next export
+    };
+
+    usedHelpers.clear(); // Clear used helpers for next export
+
+    return `${imports ? imports + '\n\n' : ''}public class BlockyFabricAPI {\n${indent(functions)}\n}`;
 }
 
 // Function to generate Java code
@@ -99,6 +95,7 @@ function indent(str, spaces = 4) {
 }
 
 
+const minecraftFunctions = {}
 const translations = {}
 
 /* =====================
@@ -715,3 +712,41 @@ translations["print"] = (block) => {
     const value = block.inputs?.MESSAGE?.block ? handleBlock(block.inputs.MESSAGE.block) : '""';
     return `System.out.println(${value});`;
 }
+
+/* -----------------------------------------------------------------------------------------------------------------------
+Notice: The section for default operational blocks stops here.
+From here on, the blocks are custom blocks that are not part of the default blockly library.
+Most of these are special blocks related to Minecraft and are not part of the default blockly library.
+
+Important: Block definitions are split into two parts:
+1. Function Definition: Each block has its own function that executes its operation like playing a sound. All necessary information is passed to the function. (Like the type of sound, the volume, etc.)
+2. Block Translation: Each block calls its corresponding function with the necessary parameters.
+-----------------------------------------------------------------------------------------------------------------------
+*/
+
+translations["play_sound"] = (block) => {
+    const sound = `"${block.fields?.SOUND || "block.anvil.land"}"`;
+    const volume = parseFloat(block.fields?.VOLUME || "1");
+    const pitch = parseFloat(block.fields?.PITCH || "1");
+
+    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedHelpers.add("playSound");
+
+    return `BlockyFabricAPI.playSound(${sound}, ${volume}f, ${pitch}f);`;
+}
+
+minecraftFunctions["playSound"] = () => {
+    const method = `public static void playSound(String sound, float volume, float pitch) {
+    MinecraftClient.getInstance().player.playSound(
+        SoundEvent.of(new Identifier(sound)), SoundCategory.MASTER, volume, pitch
+    );
+}`
+
+    usedMinecraftImports.add("net.minecraft.client.MinecraftClient");
+    usedMinecraftImports.add("net.minecraft.sound.SoundCategory");
+    usedMinecraftImports.add("net.minecraft.util.Identifier");
+    usedMinecraftImports.add("net.minecraft.sound.SoundEvent");
+
+    return method;
+}
+
