@@ -734,7 +734,7 @@ Important: Block definitions are split into two parts:
 */
 
 /* =====================
-   Minecraft
+   General
    ===================== */
 
 // Play sound
@@ -783,7 +783,7 @@ translations["display_title"] = (block) => {
     usedImports.add("net.blockyfabric.BlockyFabricAPI");
     usedHelpers.add("displayTitle");
 
-    return `BlockyFabricAPI.displayTitle(${text}, ${fadeIn}, ${stay}, ${fadeOut});`;
+    return `BlockyFabricAPI.displayTitle(${convertColorCodes(text)}, ${fadeIn}, ${stay}, ${fadeOut});`;
 };
 
 minecraftFunctions["displayTitle"] = () => {
@@ -812,7 +812,7 @@ translations["display_subtitle"] = (block) => {
     usedImports.add("net.blockyfabric.BlockyFabricAPI");
     usedHelpers.add("displaySubtitle");
 
-    return `BlockyFabricAPI.displaySubtitle(${text}, ${fadeIn}, ${stay}, ${fadeOut});`;
+    return `BlockyFabricAPI.displaySubtitle(${convertColorCodes(text)}, ${fadeIn}, ${stay}, ${fadeOut});`;
 };
 
 minecraftFunctions["displaySubtitle"] = () => {
@@ -823,6 +823,32 @@ minecraftFunctions["displaySubtitle"] = () => {
         client.inGameHud.setTitleTicks(fadeIn * 20, stay * 20, fadeOut * 20);
     }
 }`;
+
+    usedMinecraftImports.add("net.minecraft.client.MinecraftClient");
+    usedMinecraftImports.add("net.minecraft.text.Text");
+
+    return method;
+};
+
+// Display actionbar
+translations["display_actionbar"] = (block) => {
+    let text = handleBlock(block.inputs?.TEXT?.block) || '"Actionbar"';
+
+
+    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedHelpers.add("displayActionbar");
+
+    return `BlockyFabricAPI.displayActionbar(${convertColorCodes(text)});`;
+};
+
+minecraftFunctions["displayActionbar"] = () => {
+    const method = ` public static void displayActionbar(String message) {
+    MinecraftClient client = MinecraftClient.getInstance();
+    if (client.player != null) {
+        client.player.sendMessage(Text.literal(message), true);
+    }
+}
+`;
 
     usedMinecraftImports.add("net.minecraft.client.MinecraftClient");
     usedMinecraftImports.add("net.minecraft.text.Text");

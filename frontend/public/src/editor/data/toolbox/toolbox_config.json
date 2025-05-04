@@ -123,6 +123,7 @@
           { "kind": "LABEL", "text": "Title", "web-class": "ioLabel" },
           { "kind": "block", "type": "display_title" },
           { "kind": "block", "type": "display_subtitle" },
+          { "kind": "block", "type": "display_actionbar" },
 
           { "kind": "LABEL", "text": "Messages", "web-class": "ioLabel" },
           { "kind": "block", "type": "send_message" },

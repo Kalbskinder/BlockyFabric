@@ -363,6 +363,18 @@
         "colour": "#c206b8"
     },
     {
+      "type": "display_actionbar",
+      "tooltip": "Display a actionbar message",
+      "helpUrl": "",
+      "message0": "Display actionbar %1",
+      "args0": [
+        { "type": "input_value", "name": "TEXT" }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#c206b8"
+  },
+    {
         "type": "execute_command",
         "tooltip": "Executes the given command ingame",
         "helpUrl": "",
