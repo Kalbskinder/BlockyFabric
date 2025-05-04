@@ -183,7 +183,6 @@ function newSuccess(msg) {
 /* Editor Modals */
 function updateCodeDisplay() {
     const translatedCode = exportCode();
-    console.log(translatedCode);
     const codeDisplay = document.getElementById("exportedCodeDisplay");
     codeDisplay.textContent = translatedCode.mainClass;
 

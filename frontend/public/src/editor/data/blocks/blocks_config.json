@@ -377,7 +377,7 @@
     },
     {
         "type": "send_message",
-        "tooltip": "Sends a chat message. When 'Send Globally' is checked, the message will be sent by you in the game chat for everyone to see. Otherwise only you will see the message.",
+        "tooltip": "Sends a chat message. When 'Send Globally' is checked, the message will be sent by you in the game chat for everyone to see. Otherwise only you will see the message. Client-Side messages support color codes.",
         "helpUrl": "",
         "message0": "%1 %2 %3 Send Globally %4 %5",
         "args0": [

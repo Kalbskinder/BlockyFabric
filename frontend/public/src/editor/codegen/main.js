@@ -68,6 +68,8 @@ function handleStatementChain(block) {
 function handleBlock(block) {
     if (!block) return "";
 
+    console.log(block);
+
     const translator = translations[block.type];
     if (translator) {
         return translator(block);
@@ -94,6 +96,12 @@ function indent(str, spaces = 4) {
         .map(line => (line.trim() ? pad + line : line))
         .join('\n');
 }
+
+// Function to convert Minecraft color codes to Java color codes
+function convertColorCodes(text) {
+    return text.replace(/&([0-9a-fk-or])/gi, "§$1");
+}
+
 
 
 const minecraftFunctions = {}
@@ -680,7 +688,7 @@ translations["variables_get"] = (block) => {
 
 translations["default_function_main"] = (block) => {
     const body = block.inputs?.BODY.block ? handleStatements(block.inputs.BODY.block) : "";
-    return `public static void main(String[] args) {\n${indent(body)}\n}`;
+    return `@Override\npublic void onInitializeClient() {\n${indent(body)}\n}`;
 }
 
 translations["def_function"] = (block) => {
@@ -794,7 +802,7 @@ minecraftFunctions["displayTitle"] = () => {
     return method;
 };
 
-
+// Display subtitle
 translations["display_subtitle"] = (block) => {
     const text = handleBlock(block.inputs?.TEXT?.block) || '"Subtitle"';
     const fadeIn = parseInt(block.fields?.FADEIN || "1");
@@ -821,3 +829,32 @@ minecraftFunctions["displaySubtitle"] = () => {
 
     return method;
 };
+
+// Send messages
+translations["send_message"] = (block) => {
+    const message = handleBlock(block.inputs?.MESSAGE?.block) || '"Hello World!"';
+    const isGlobal = block.fields?.GLOBAL === true;
+    console.log(isGlobal);
+    console.log(block.fields);
+
+    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedHelpers.add("sendMessage");
+
+    return `BlockyFabricAPI.sendMessage(${convertColorCodes(message)}, ${isGlobal});`;
+};
+
+minecraftFunctions["sendMessage"] = () => {
+    const method = `public static void sendMessage(String message, boolean sendGlobally) {
+    MinecraftClient client = MinecraftClient.getInstance();
+    if (sendGlobally) {
+        String plainMessage = message.replaceAll("§.", "");
+        client.player.networkHandler.sendChatMessage(plainMessage);
+    } else {
+        client.inGameHud.getChatHud().addMessage(Text.literal(message));
+    }
+}`
+    usedMinecraftImports.add("net.minecraft.client.MinecraftClient");
+    usedMinecraftImports.add("net.minecraft.text.Text");
+
+    return method;
+}
