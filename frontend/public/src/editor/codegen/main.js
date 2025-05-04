@@ -786,3 +786,31 @@ minecraftFunctions["displayTitle"] = () => {
 
     return method;
 };
+
+
+translations["display_subtitle"] = (block) => {
+    const text = handleBlock(block.inputs?.TEXT?.block) || '"Subtitle"';
+    const fadeIn = parseInt(block.fields?.FADEIN || "1");
+    const stay = parseInt(block.fields?.STAY || "1");
+    const fadeOut = parseInt(block.fields?.FADEOUT || "1");
+
+    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedHelpers.add("displaySubtitle");
+
+    return `BlockyFabricAPI.displaySubtitle(${text}, ${fadeIn}, ${stay}, ${fadeOut});`;
+};
+
+minecraftFunctions["displaySubtitle"] = () => {
+    const method = `public static void displaySubtitle(String subtitle, int fadeIn, int stay, int fadeOut) {
+    MinecraftClient client = MinecraftClient.getInstance();
+    if (client.player != null && client.inGameHud != null) {
+        client.inGameHud.setSubtitle(Text.literal(subtitle));
+        client.inGameHud.setTitleTicks(fadeIn * 20, stay * 20, fadeOut * 20);
+    }
+}`;
+
+    usedMinecraftImports.add("net.minecraft.client.MinecraftClient");
+    usedMinecraftImports.add("net.minecraft.text.Text");
+
+    return method;
+};
