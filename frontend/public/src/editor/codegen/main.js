@@ -729,7 +729,6 @@ Important: Block definitions are split into two parts:
    Minecraft
    ===================== */
 
-/* TODO: Redo ain't working
 // Play sound
 translations["play_sound"] = (block) => {
     const sound = `"${block.fields?.SOUND || "block.anvil.land"}"`;
@@ -744,9 +743,17 @@ translations["play_sound"] = (block) => {
 
 minecraftFunctions["playSound"] = () => {
     const method = `public static void playSound(String sound, float volume, float pitch) {
-    MinecraftClient.getInstance().player.playSound(
-        SoundEvent.of(new Identifier(sound)), SoundCategory.MASTER, volume, pitch
-    );
+    MinecraftClient client = MinecraftClient.getInstance();
+    if (client.player == null) return;
+
+    Identifier id = Identifier.tryParse(sound);
+    if (id == null) {
+        client.player.sendMessage(Text.literal("Invalid sound identifier: " + sound), false);
+        return;
+    }
+
+    SoundEvent event = SoundEvent.of(id);
+    client.player.playSound(event, volume, pitch);
 }`
 
     usedMinecraftImports.add("net.minecraft.client.MinecraftClient");
@@ -756,7 +763,7 @@ minecraftFunctions["playSound"] = () => {
 
     return method;
 }
-*/
+
 
 // Display title
 translations["display_title"] = (block) => {
