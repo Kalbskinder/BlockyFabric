@@ -930,6 +930,7 @@ translations["new_command"] = (block) => {
 
     usedImports.add("net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback");
     usedImports.add("net.minecraft.client.command.ClientCommandManager");
+    usedImports.add("net.blockyfabric.BlockyFabricAPI");
 
     return `
 ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
@@ -961,3 +962,94 @@ ${indent(body, 8)}
 )`.trim();
 };
 
+/* =====================
+   Player info
+   ===================== */
+
+// Player position X
+translations["player_position_x"] = () => {
+    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedHelpers.add("getPlayerX");
+    return `BlockyFabricAPI.getPlayerX()`;
+};
+
+minecraftFunctions["getPlayerX"] = () => {
+    return `public static double getPlayerX() {
+    return MinecraftClient.getInstance().player.getX();
+}`
+}
+
+// Player position Y
+translations["player_position_y"] = () => {
+    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedHelpers.add("getPlayerY");
+    return `BlockyFabricAPI.getPlayerY()`;
+};
+
+minecraftFunctions["getPlayerY"] = () => {
+    return `public static double getPlayerY() {
+    return MinecraftClient.getInstance().player.getY();
+}`
+}
+
+// Player position Z
+translations["player_position_z"] = () => {
+    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedHelpers.add("getPlayerZ");
+    return `BlockyFabricAPI.getPlayerZ()`;
+};
+
+minecraftFunctions["getPlayerZ"] = () => {
+    return `public static double getPlayerZ() {
+    return MinecraftClient.getInstance().player.getZ();
+}`
+}
+
+// Player xp
+translations["player_xp"] = () => {
+    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedHelpers.add("getPlayerXP");
+    return `BlockyFabricAPI.getPlayerXP()`;
+};
+
+minecraftFunctions["getPlayerXP"] = () => {
+    return `public static int getPlayerXP() {
+    return MinecraftClient.getInstance().player.experienceLevel;
+}`
+}
+
+// Player Biome
+/*
+translations["player_biome"] = () => {
+    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedHelpers.add("getPlayerBiome");
+    return `BlockyFabricAPI.getPlayerBiome()`;
+};
+*/
+
+// Player username
+translations["player_username"] = () => {
+    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedHelpers.add("getPlayerUsername");
+    return `BlockyFabricAPI.getPlayerUsername()`;
+};
+
+minecraftFunctions["getPlayerUsername"] = () => {
+    return `public static String getPlayerUsername() {
+    return MinecraftClient.getInstance().player.getDisplayName().getString();
+}`
+}
+
+// Player uuid
+translations["player_uuid"] = () => {
+    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedHelpers.add("getPlayerUUID");
+    return `BlockyFabricAPI.getPlayerUUID()`;
+};
+
+minecraftFunctions["getPlayerUUID"] = () => {
+    return `public static String getPlayerUUID() {
+    return MinecraftClient.getInstance().player.getUuid().toString();
+}`
+}
