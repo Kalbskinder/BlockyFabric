@@ -102,6 +102,32 @@ function convertColorCodes(text) {
     return text.replace(/&([0-9a-fk-or])/gi, "§$1");
 }
 
+// Remove "/" from the beginning of the command name
+function sanitizeCommandName(name) {
+    return name.replace(/^\/+/, "");
+}
+
+// Special function to handle command statements, similar to handleStatements but with subcommands support
+function handleCommandStatements(block) {
+    let statements = "";
+    let subcommands = "";
+
+    while (block) {
+        const translation = translations[block.type];
+        const code = translation ? translation(block) : `// Unknown block: ${block.type}`;
+
+        if (block.type === "new_sub_command") {
+            subcommands += code + "\n";
+        } else {
+            statements += code + "\n";
+        }
+
+        block = block.next?.block;
+    }
+
+    return { statements: statements.trim(), subcommands: subcommands.trim() };
+}
+
 
 
 const minecraftFunctions = {}
@@ -884,3 +910,54 @@ minecraftFunctions["sendMessage"] = () => {
 
     return method;
 }
+
+/* =====================
+   Events
+   ===================== */
+
+
+
+/* =====================
+   Commands
+   ===================== */
+
+// Register a new command
+translations["new_command"] = (block) => {
+    const command = sanitizeCommandName(block.inputs?.COMMAND?.block?.fields?.TEXT || "myCommand");
+    const doBlock = block.inputs?.DO?.block;
+
+    const { statements, subcommands } = doBlock ? handleCommandStatements(doBlock) : { statements: "", subcommands: "" };
+
+    usedImports.add("net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback");
+    usedImports.add("net.minecraft.client.command.ClientCommandManager");
+
+    return `
+ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+    dispatcher.register(ClientCommandManager.literal("${command}")
+${subcommands ? indent(subcommands, 8) : ""}
+        .executes(context -> {
+${indent(statements, 12)}
+            return 1;
+        })
+    );
+});`.trim();
+};
+
+
+// Command subcommand (command argument: /myCommand)
+translations["new_sub_command"] = (block) => {
+    const arg = sanitizeCommandName(block.inputs?.ARGUMENT?.block?.fields?.TEXT || "subCommand");
+    const doBlock = block.inputs?.DO?.block;
+    const body = doBlock ? handleCommandStatements(doBlock).statements : "";
+
+    usedImports.add("net.minecraft.client.command.ClientCommandManager");
+
+    return `
+.then(ClientCommandManager.literal("${arg}")
+    .executes(context -> {
+${indent(body, 8)}
+        return 1;
+    })
+)`.trim();
+};
+

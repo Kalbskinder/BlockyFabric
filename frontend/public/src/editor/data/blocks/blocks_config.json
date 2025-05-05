@@ -509,7 +509,7 @@
           },
           {"type": "input_value", "name": "COMMAND", "check": "String" }
         ],
-        "message1": "do on execute %1",
+        "message1": "when executed %1",
         "args1": [
           {"type": "input_statement", "name": "DO"}
         ],
@@ -525,7 +525,7 @@
           },
           {"type": "input_value", "name": "ARGUMENT", "check": "String" }
         ],
-        "message1": "do on execute %1",
+        "message1": "when executed %1",
         "args1": [
           {"type": "input_statement", "name": "DO"}
         ],
