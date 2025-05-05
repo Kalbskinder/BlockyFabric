@@ -516,43 +516,24 @@
         "colour": "#456bd6"
       },
       {
-        "type": "check_command_argument",
-        "message0": "Argument %1 = %2",
+        "type": "new_sub_command",
+        "message0": "%1 Create command argument %2",
         "args0": [
-          {
-            "type": "field_number",
-            "name": "NUMBER",
-            "value": 1,
-            "min": 1,
-            "precision": 1
+          { "type": "field_image", "src": "/images/icons/blocks/chain_command_block.png", "alt": "Block icon",
+            "width": 24,
+            "height": 24
           },
-          {
-            "type": "input_value",
-            "name": "ARGUMENT"
-          }
+          {"type": "input_value", "name": "ARGUMENT", "check": "String" }
         ],
-        "output": "Boolean",
-        "tooltip": "Returns true if the specified argument equals the given value.",
-        "colour": "#456bd6",
-        "helpUrl": "https://wiki.fabricmc.net/tutorial:command_argument_types"
-      },      
-      {
-        "type": "command_argument",
-        "message0": "Command argument %1",
-        "args0": [
-          {
-            "type": "field_number",
-            "name": "NUMBER",
-            "value": 1,
-            "min": 1,
-            "precision": 1
-          }
+        "message1": "do on execute %1",
+        "args1": [
+          {"type": "input_statement", "name": "DO"}
         ],
-        "output": "String",
-        "tooltip": "Returns the value of the nth command argument.",
         "colour": "#456bd6",
-        "helpUrl": "https://wiki.fabricmc.net/tutorial:command_argument_types"
-      },     
+        "previousStatement": null,
+        "nextStatement": null
+      },
+   
       {
         "type": "event_triggered",
         "message0": "%1 When %2",
