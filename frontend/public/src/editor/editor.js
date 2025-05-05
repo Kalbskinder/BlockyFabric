@@ -3,7 +3,7 @@ const darkTheme = Blockly.Theme.defineTheme('darkTheme', {
     base: Blockly.Themes.Classic,
     componentStyles: {
         workspaceBackgroundColour: '#1e1e1e',
-        toolboxBackgroundColour: '#252526',
+        toolboxBackgroundColour: '#232323',
         toolboxForegroundColour: '#fff',
         flyoutBackgroundColour: '#2d2d2d',
         flyoutForegroundColour: '#ccc',

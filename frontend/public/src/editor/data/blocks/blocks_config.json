@@ -282,8 +282,12 @@
         "type": "play_sound",
         "tooltip": "Play a sound a sound",
         "helpUrl": "",
-        "message0": "%1 %2 Volume: %3 Pitch: %4 %5",
+        "message0": "%1 %2 %3 Volume: %4 Pitch: %5 %6",
         "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/music.png", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          },
           {
             "type": "field_label_serializable",
             "text": "Play sound",
@@ -336,8 +340,12 @@
         "type": "display_title",
         "tooltip": "Display a title",
         "helpUrl": "",
-        "message0": "Display title %1 Fade in: %2 Stay: %3 Fade out: %4",
+        "message0": "%1 Display title %2 Fade in: %3 Stay: %4 Fade out: %5",
         "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/title.webp", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          },
           { "type": "input_value", "name": "TEXT" },
           { "type": "field_number", "name": "FADEIN", "value": 1, "min": 0, "max": 9 },
           { "type": "field_number", "name": "STAY", "value": 1, "min": 0, "max": 9 },
@@ -351,8 +359,12 @@
         "type": "display_subtitle",
         "tooltip": "Display a subtitle",
         "helpUrl": "",
-        "message0": "Display subtitle %1 Fade in: %2 Stay: %3 Fade out: %4",
+        "message0": "%1 Display subtitle %2 Fade in: %3 Stay: %4 Fade out: %5",
         "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/title.webp", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          },
           { "type": "input_value", "name": "TEXT" },
           { "type": "field_number", "name": "FADEIN", "value": 1, "min": 0, "max": 9 },
           { "type": "field_number", "name": "STAY", "value": 1, "min": 0, "max": 9 },
@@ -366,8 +378,12 @@
       "type": "display_actionbar",
       "tooltip": "Display a actionbar message",
       "helpUrl": "",
-      "message0": "Display actionbar %1",
+      "message0": "%1 Display actionbar %2",
       "args0": [
+        { "type": "field_image", "src": "/images/icons/blocks/actionbar.webp", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+        },
         { "type": "input_value", "name": "TEXT" }
       ],
       "previousStatement": null,
@@ -391,13 +407,15 @@
         "type": "send_message",
         "tooltip": "Sends a chat message. When 'Send Globally' is checked, the message will be sent by you in the game chat for everyone to see. Otherwise only you will see the message. Client-Side messages support color codes.",
         "helpUrl": "",
-        "message0": "%1 %2 %3 Send Globally %4 %5",
+        "message0": "%1 %2 %3 Send Globally %4",
         "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/message.webp", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          },
           { "type": "field_label_serializable", "text": "Send Message", "name": "NAME" },
           { "type": "input_value", "name": "MESSAGE" },
-          { "type": "input_end_row" },
-          { "type": "field_checkbox", "name": "GLOBAL", "checked": "FALSE" },
-          { "type": "input_end_row" }
+          { "type": "field_checkbox", "name": "GLOBAL", "checked": "FALSE" }
         ],
         "previousStatement": null,
         "nextStatement": null,
@@ -419,8 +437,12 @@
 
     {
         "type": "key_pressed",
-        "message0": "When key %1 is pressed",
+        "message0": "%1 When key %2 is pressed",
         "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/key_pressed.webp", "alt": "Block icon",
+          "width": 40,
+          "height": 40
+          },
           {"type": "field_dropdown", "name": "KEY", "options": [
             ["A", "A"],
             ["B", "B"],
@@ -479,8 +501,12 @@
       },
       {
         "type": "new_command",
-        "message0": "Register a new command %1",
+        "message0": "%1 Register a new command %2",
         "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/command.webp", "alt": "Block icon",
+            "width": 24,
+            "height": 24
+          },
           {"type": "input_value", "name": "COMMAND", "check": "String" }
         ],
         "message1": "do on execute %1",
@@ -529,9 +555,13 @@
       },     
       {
         "type": "event_triggered",
-        "message0": "When %1",
+        "message0": "%1 When %2",
         "helpUrl": "https://wiki.fabricmc.net/tutorial:event_index",
         "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/event.webp", "alt": "Block icon",
+            "width": 24,
+            "height": 24
+          },
           {"type": "field_dropdown", "name": "KEY", "options": [
             ["Fish on the Line", "FishOnTheLineEvent"],
             ["ServerMessage.CHAT_MESSAGE", "ServerMessageEvents.CHAT_MESSAGE"],
@@ -554,28 +584,52 @@
       },
       {
         "type": "event_message",
-        "message0": "message",
+        "message0": "%1 message",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/message.webp", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          }
+        ],
         "output": "String",
         "colour": "#456bd6",
         "tooltip": "Contains the message for the ServerMessage event"
       },
       {
         "type": "event_block",
-        "message0": "block",
+        "message0": "%1 block",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/stone.png", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          }
+        ],
         "output": "String",
         "colour": "#456bd6",
         "tooltip": "Contains the type of block for any Block event"
       },
       {
         "type": "event_item",
-        "message0": "item",
+        "message0": "%1 item",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/sword.webp", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          }
+        ],
         "output": "String",
         "colour": "#456bd6",
         "tooltip": "Contains the item for any Item event"
       },
       {
         "type": "event_entity",
-        "message0": "entity",
+        "message0": "%1 entity",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/spawn_egg.webp", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          }
+        ],
         "output": "String",
         "colour": "#456bd6",
         "tooltip": "Contains the entity for any Entity event"
@@ -584,49 +638,91 @@
 
       {
         "type": "player_username",
-        "message0": "Player Username",
+        "message0": "%1 Player Username",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/name.webp", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          }
+        ],
         "output": "String",
         "colour": "#03a366",
         "tooltip": "Returns the player's name"
       },
       {
         "type": "player_uuid",
-        "message0": "Player UUID",
+        "message0": "%1 Player UUID",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/uuid.webp", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          }
+        ],
         "output": "String",
         "colour": "#03a366",
         "tooltip": "Returns the player's uuid"
       },
       {
         "type": "player_position_x",
-        "message0": "Player's X position",
+        "message0": "%1 Player's X position",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/compass.webp", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          }
+        ],
         "output": "String",
         "colour": "#03a366",
         "tooltip": "Returns the current player's X position"
       },
       {
         "type": "player_position_y",
-        "message0": "Player's Y position",
+        "message0": "%1 Player's Y position",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/compass.webp", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          }
+        ],
         "output": "String",
         "colour": "#03a366",
         "tooltip": "Returns the current player's Y position"
       },
       {
         "type": "player_position_z",
-        "message0": "Player's Z position",
+        "message0": "%1 Player's Z position",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/compass.webp", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          }
+        ],
         "output": "String",
         "colour": "#03a366",
         "tooltip": "Returns the current player's Z position"
       },
       {
         "type": "player_xp",
-        "message0": "Player XP",
+        "message0": "%1 Player XP",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/xp.gif", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          }
+        ],
         "output": "String",
         "colour": "#03a366",
         "tooltip": "Returns the amount of experience levels a player has. (Returns as a String)"
       },
       {
         "type": "player_biome",
-        "message0": "Player Biome",
+        "message0": "%1 Player Biome",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/biome.png", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          }
+        ],
         "output": "String",
         "colour": "#03a366",
         "tooltip": "Returns the biome the player's currently in"

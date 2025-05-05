@@ -60,3 +60,16 @@
     75% { right: 8px; opacity: 1; }
     100% { right: -200px; opacity: 0; }
 }
+
+
+div.copyright-notice {
+    position: fixed;
+    padding: 3px;
+    bottom: 0;
+    left: 0;
+    color: #d7d7d7;
+    font-size: 12px;
+    z-index: 99;
+    width: 100%;
+    background-color: #232323;
+}

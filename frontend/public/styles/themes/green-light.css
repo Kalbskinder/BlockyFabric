@@ -111,3 +111,7 @@ table.table th {
 div.theme-option img.light {
     border: 1px solid #595959;
 }
+
+div.footer {
+    color: black;
+}

@@ -54,3 +54,7 @@ ul.dropdown-menu a.dropdown-item:hover {
 div.theme-option img.light {
     border: 1px solid #595959;
 }
+
+div.footer {
+    color: black;
+}
