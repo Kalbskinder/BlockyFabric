@@ -18,7 +18,6 @@ async function loadModSettings() {
         }
 
         const data = await response.json();
-        console.log(data);
 
         modName.value = data.name;
         modDescription.value = data.description;
@@ -70,14 +69,10 @@ async function saveModSettings() {
             body
         });
 
-        console.log(response);
-
         if (!response.ok) { 
             throw new Error("Error while saving mod settings");
         }
 
-        const data = await response.json();
-        console.log(data);
         window.location.href = `/editor?id=${modId}`;
     } catch (error) {
         console.error("Error while saving mod settings: ", error);

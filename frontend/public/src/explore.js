@@ -63,6 +63,5 @@ fetchProjects('newest');
 
 
 function previewProject(projectId, user_id) {
-    console.log(user_id);
     window.location.href = `/projects/${projectId}?user_id=${user_id}`;
 }

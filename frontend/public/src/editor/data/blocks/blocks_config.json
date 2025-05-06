@@ -547,8 +547,8 @@
           },
           {"type": "field_dropdown", "name": "KEY", "options": [
             ["Fish on the Line", "FishOnTheLineEvent"],
-            ["ServerMessage.CHAT_MESSAGE", "ServerMessageEvents.CHAT_MESSAGE"],
-            ["ServerMessage.COMMAND_MESSAGE", "ServerMessageEvents.COMMAND_MESSAGE"],
+            ["Player receives Chat Message", "ClientMessageEvents.CHAT_MESSAGE"],
+            ["Player receives Command Message", "ClientMessageEvents.GAME_MESSAGE"],
             ["AttackBlock", "AttackBlockCallback.EVENT"],
             ["AttackEntity", "AttackEntityCallback.EVENT"],
             ["PlayerBreakBlock.AFTER", "PlayerBreakBlockEvents.AFTER"],

@@ -68,8 +68,6 @@ function handleStatementChain(block) {
 function handleBlock(block) {
     if (!block) return "";
 
-    console.log(block);
-
     const translator = translations[block.type];
     if (translator) {
         return translator(block);
@@ -886,8 +884,6 @@ minecraftFunctions["displayActionbar"] = () => {
 translations["send_message"] = (block) => {
     const message = handleBlock(block.inputs?.MESSAGE?.block) || '"Hello World!"';
     const isGlobal = block.fields?.GLOBAL === true;
-    console.log(isGlobal);
-    console.log(block.fields);
 
     usedImports.add("net.blockyfabric.BlockyFabricAPI");
     usedHelpers.add("sendMessage");
@@ -915,6 +911,44 @@ minecraftFunctions["sendMessage"] = () => {
    Events
    ===================== */
 
+translations["event_triggered"] = (block) => {
+    const eventType = block.fields?.KEY || "";
+
+    if (!eventType) {
+        console.warn("No event type specified.");
+        return "// Unkown EVENT_TYPE.";
+    }
+
+    const children = block.inputs?.DO?.block ? handleStatements(block.inputs.DO.block) : "";
+
+    switch (eventType) {
+        case "ClientMessageEvents.CHAT_MESSAGE":
+            usedImports.add("import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;");
+
+            return `ClientReceiveMessageEvents.CHAT.register((message, signed_message, sender, params, timestamp) -> {
+    String eventMessage = message.getString();
+${indent(children, 4)}
+});`;
+        case "ClientMessageEvents.GAME_MESSAGE":
+            usedImports.add("import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;");
+            
+            return `ClientReceiveMessageEvents.GAME.register((message, overlay) -> {
+	String eventMessage = message.getString();
+	if (!overlay) {
+${indent(children, 8)}			
+    }
+});`;
+
+        default:
+            return "// Unkown EVENT_TYPE.";
+    }
+};
+
+
+
+translations["event_message"] = (block) => {
+    return "eventMessage";
+};
 
 
 /* =====================
@@ -1032,7 +1066,7 @@ translations["player_biome"] = () => {
 translations["player_username"] = () => {
     usedImports.add("net.blockyfabric.BlockyFabricAPI");
     usedHelpers.add("getPlayerUsername");
-    return `BlockyFabricAPI.getPlayerUsername()`;
+    return `BlockyFabricAPI.getPlayerName()`;
 };
 
 minecraftFunctions["getPlayerUsername"] = () => {
