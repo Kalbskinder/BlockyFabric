@@ -751,6 +751,7 @@ translations["comment"] = (block) => {
     return `\n// ${block.inputs?.COMMENT?.block?.fields?.TEXT || "Comment"}`;
 }
 
+
 /* -----------------------------------------------------------------------------------------------------------------------
 Notice: The section for default operational blocks stops here.
 From here on, the blocks are custom blocks that are not part of the default blockly library.
@@ -944,15 +945,26 @@ ${indent(children, 8)}
     }
 });`;
 
+        case "ClientPlayerBlockBreakEvents.AFTER":
+            usedImports.add("import net.fabricmc.fabric.api.event.client.player.ClientPlayerBlockBreakEvents;");
+
+            return `ClientPlayerBlockBreakEvents.AFTER.register((world, player, pos, state) -> {
+	String eventBlock = state.getBlock().getName().getString();
+${indent(children, 4)}		
+});`;
         default:
             return "// Unkown EVENT_TYPE.";
     }
 };
 
 
-
-translations["event_message"] = (block) => {
+// Returns the message from the event
+translations["event_message"] = () => {
     return "eventMessage";
+};
+
+translations["event_block"] = () => {
+    return "eventBlock";
 };
 
 
