@@ -558,12 +558,12 @@
             "height": 24
           },
           {"type": "field_dropdown", "name": "KEY", "options": [
-            ["Fish on the Line", "FishOnTheLineEvent"],
+            ["has Fish on the Line", "FishOnTheLineEvent"],
             ["Player receives Chat Message", "ClientMessageEvents.CHAT_MESSAGE"],
             ["Player receives Command Message", "ClientMessageEvents.GAME_MESSAGE"],
-            ["Attacks a Block", "AttackBlockCallback.EVENT"],
-            ["Attacks an Entity", "AttackEntityCallback.EVENT"],
-            ["Player Breaks a Block", "ClientPlayerBlockBreakEvents.AFTER"],
+            ["Attacks Block", "AttackBlockCallback.EVENT"],
+            ["Attacks Entity", "AttackEntityCallback.EVENT"],
+            ["Player Breaks Block", "ClientPlayerBlockBreakEvents.AFTER"],
             ["UseBlock", "UseBlockCallback.EVENT"],
             ["UseEntity", "UseEntityCallback.EVENT"],
             ["UseItem", "UseItemCallback.EVENT"]

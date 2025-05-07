@@ -932,7 +932,7 @@ translations["event_triggered"] = (block) => {
             usedImports.add("import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;");
 
             return `ClientReceiveMessageEvents.CHAT.register((message, signed_message, sender, params, timestamp) -> {
-    String eventMessage = message.getString();
+    String eventMessage = message.getString(); 
 ${indent(children, 4)}
 });`;
         case "ClientMessageEvents.GAME_MESSAGE":
@@ -952,6 +952,17 @@ ${indent(children, 8)}
 	String eventBlock = state.getBlock().getName().getString();
 ${indent(children, 4)}		
 });`;
+
+        case "AttackEntityCallback.EVENT":
+            usedImports.add("import net.fabricmc.fabric.api.event.player.AttackEntityCallback;");
+            usedImports.add("import net.minecraft.util.ActionResult;");
+
+        return `AttackEntityCallback.EVENT.register((playerEntity, world, hand, entity, entityHitResult) -> {
+	String eventEntity = entity.getName().getString();
+${indent(children, 4)}
+	return ActionResult.PASS;
+});`
+
         default:
             return "// Unkown EVENT_TYPE.";
     }
@@ -965,6 +976,10 @@ translations["event_message"] = () => {
 
 translations["event_block"] = () => {
     return "eventBlock";
+};
+
+translations["event_entity"] = () => {
+    return "eventEntity";
 };
 
 
