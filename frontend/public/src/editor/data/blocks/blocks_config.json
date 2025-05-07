@@ -376,7 +376,7 @@
     },
     {
       "type": "display_actionbar",
-      "tooltip": "Display a actionbar message",
+      "tooltip": "Display an actionbar message",
       "helpUrl": "",
       "message0": "%1 Display actionbar %2",
       "args0": [
