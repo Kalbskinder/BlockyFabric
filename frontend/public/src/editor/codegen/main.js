@@ -963,6 +963,17 @@ ${indent(children, 4)}
 	return ActionResult.PASS;
 });`
 
+        case "UseEntityCallback.EVENT":
+            usedImports.add("import net.fabricmc.fabric.api.event.player.UseEntityCallback;");
+            usedImports.add("import net.minecraft.util.ActionResult;");
+
+            return `UseEntityCallback.EVENT.register((playerEntity, world, hand, entity, entityHitResult) -> {
+	String eventEntity = entity.getName().getString();
+${indent(children, 4)}
+	return ActionResult.PASS;
+});`;
+
+
         default:
             return "// Unkown EVENT_TYPE.";
     }
