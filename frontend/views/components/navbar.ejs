@@ -45,9 +45,9 @@
                 </li>
             </ul>
 
-            <% if (user && user.username) { %>
+            <% if (user && user.id) { %>
                 <ul class="navbar-nav ms-auto">
-                    <% if (user.username === 'simon') { %>
+                    <% if (user.id === 1) { %>
                         <li class="nav-item">
                             <a href="/admin" class="nav-link">Admin</a>
                         </li>

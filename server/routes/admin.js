@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
     } else {
         res.render('pages/404');
     } 
-    if (session.username === 'simon') {
+    if (session.id === 1) {
         res.render('pages/admin');
     } else {
         res.render('pages/404')
