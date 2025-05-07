@@ -432,7 +432,19 @@
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#c206b8"
-  },  
+    },
+    {
+      "type": "comment",
+      "tooltip": "Adds a comment to the code",
+      "helpUrl": "",
+      "message0": "Add comment %1",
+      "args0": [
+        { "type": "input_value", "name": "COMMENT", "check": "String" }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#c206b8"
+    },
 
 
     {
@@ -563,7 +575,9 @@
         "args1": [
           {"type": "input_statement", "name": "DO"}
         ],
-        "colour": "#456bd6"
+        "colour": "#456bd6",
+        "nextStatement": null,
+        "previousStatement": null
       },
       {
         "type": "event_message",

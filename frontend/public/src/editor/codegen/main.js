@@ -746,6 +746,11 @@ translations["print"] = (block) => {
     return `System.out.println(${value});`;
 }
 
+translations["comment"] = (block) => {
+    console.log(block)
+    return `\n// ${block.inputs?.COMMENT?.block?.fields?.TEXT || "Comment"}`;
+}
+
 /* -----------------------------------------------------------------------------------------------------------------------
 Notice: The section for default operational blocks stops here.
 From here on, the blocks are custom blocks that are not part of the default blockly library.

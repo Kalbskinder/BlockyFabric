@@ -129,7 +129,8 @@
           { "kind": "block", "type": "send_message" },
 
           { "kind": "LABEL", "text": "Other", "web-class": "ioLabel" },
-          { "kind": "block", "type": "print" }
+          { "kind": "block", "type": "print" },
+          { "kind": "block", "type": "comment" }
         ]
       },
       {
