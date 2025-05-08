@@ -131,7 +131,8 @@
 
           { "kind": "LABEL", "text": "Other", "web-class": "ioLabel" },
           { "kind": "block", "type": "print" },
-          { "kind": "block", "type": "comment" }
+          { "kind": "block", "type": "comment" },
+          { "kind": "block", "type": "regex" }
         ]
       },
       {

@@ -138,32 +138,56 @@ function getChainedBlocks(startBlock) {
     return blocks;
 }
 
-function buildArgumentChain(args, finalExecutes) {
-    if (args.length === 0) return finalExecutes;
+function buildArgumentChain(args, execBodyLines) {
+    if (args.length === 0) {
+        const execBody = indent(execBodyLines.join('\n'), 4);
+        return `.executes(context -> {\n${execBody}\n    })`;
+    }
 
     const current = args[0];
     const rest = args.slice(1);
+
 
     const name = current.fields.ARG_NAME;
     const type = current.fields.ARG_TYPE;
 
     let typeExpr;
+    let javaType;
     switch (type) {
-        case "int": typeExpr = "IntegerArgumentType.integer()"; break;
-        case "float": typeExpr = "FloatArgumentType.floatArg()"; break;
-        case "string": typeExpr = "StringArgumentType.string()"; break;
-        case "boolean": typeExpr = "BoolArgumentType.bool()"; break;
-        default: typeExpr = "StringArgumentType.word()"; break;
+        case "int":
+            typeExpr = "IntegerArgumentType.integer()";
+            javaType = "Integer";
+            break;
+        case "float":
+            typeExpr = "FloatArgumentType.floatArg()";
+            javaType = "Float";
+            break;
+        case "string":
+            typeExpr = "StringArgumentType.string()";
+            javaType = "String";
+            break;
+        case "boolean":
+            typeExpr = "BoolArgumentType.bool()";
+            javaType = "Boolean";
+            break;
+        default:
+            typeExpr = "StringArgumentType.word()";
+            javaType = "Object";
     }
 
-    const argumentLine = `ClientCommandManager.argument("${name}", ${typeExpr})`;
+    const varLine = `${javaType} ${name} = context.getArgument("${name}", ${javaType}.class);`;
 
     if (rest.length === 0) {
-        return `${argumentLine}${finalExecutes}`;
+        const execBody = indent([varLine, ...execBodyLines].join('\n'), 4);
+        return `ClientCommandManager.argument("${name}", ${typeExpr})\n    .executes(context -> {\n${execBody}\n    })`;
     }
 
-    return `${argumentLine}\n.then(${buildArgumentChain(rest, finalExecutes).trim()})`;
+    // Rekursiv weiter bauen
+    const inner = buildArgumentChain(rest, [varLine, ...execBodyLines]);
+    return `ClientCommandManager.argument("${name}", ${typeExpr})\n    .then(${inner})`;
 }
+
+
 
 
 const minecraftFunctions = {}
@@ -1083,7 +1107,7 @@ ${indent(statements, 4)}
 })`;
 
     // Verschachtelte Argumentkette
-    const argumentChain = buildArgumentChain(argBlocks, execution);
+    const argumentChain = buildArgumentChain(argBlocks, [execution]);
 
     return `
 .then(ClientCommandManager.literal("${subCommandName}")
@@ -1091,12 +1115,9 @@ ${indent(statements, 4)}
 )`.trim();
 };
 
-
-
-
 translations["command_argument_get"] = (block) => {
     const argName = block.fields?.VAR || "arg";
-    return `context.getArgument("${argName}", Object.class)`;
+    return `${argName}`;
 };
 
 

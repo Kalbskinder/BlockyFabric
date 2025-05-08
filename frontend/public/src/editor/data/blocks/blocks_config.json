@@ -466,6 +466,19 @@
       "nextStatement": null,
       "colour": "#c206b8"
     },
+    {
+      "type": "regex",
+      "tooltip": "Uses a regex on a string",
+      "helpUrl": "",
+      "message0": "Use regex %1 on %2",
+      "args0": [
+        { "type": "input_value", "name": "REGEX", "check": "String" },
+        { "type": "input_value", "name": "STRING", "check": "String" }
+      ],
+      "inputsInline": true,
+      "output": "String",
+      "colour": "#c206b8"
+    },    
 
 
     {
