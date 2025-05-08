@@ -1000,6 +1000,9 @@ translations["event_triggered"] = (block) => {
 
             return `ClientReceiveMessageEvents.CHAT.register((message, signed_message, sender, params, timestamp) -> {
     String eventMessage = message.getString(); 
+    if (sender == null || sender.getId() == null) return;
+    String eventSender = sender.getString();
+
 ${indent(children, 4)}
 });`;
         case "ClientMessageEvents.GAME_MESSAGE":
