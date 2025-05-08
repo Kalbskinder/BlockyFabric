@@ -66,7 +66,7 @@ function handleStatementChain(block) {
 
 // Function to handle a single block
 function handleBlock(block) {
-    if (!block) return "";
+    if (!block || block.disabledReasons) return "";
 
     const translator = translations[block.type];
     if (translator) {
