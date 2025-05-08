@@ -37,6 +37,10 @@
       "previousStatement": null,
       "colour": "#ff6f61"
    },
+
+
+
+
    {
     "type": "custom_math_number_property",
     "message0": "%1 is %2",
@@ -65,9 +69,20 @@
     "tooltip": "Checks if a number has a certain property.",
     "helpUrl": ""
   },
-
-    
-
+  {
+    "type": "parse_float",
+    "message0": "turn %1 into a float",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "VALUE"
+      }
+    ],
+    "output": null,
+    "tooltip": "Turn a string or a number into a float",
+    "colour": 285,
+    "helpUrl": ""
+  },
    {
         "type": "parse_int",
         "message0": "turn %1 into a number",
@@ -83,6 +98,9 @@
         "tooltip": "Parses a string and returns an integer number",
         "helpUrl": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt"
     },
+
+
+
     
     {
         "type": "string_contains",
@@ -99,7 +117,7 @@
     },
     {
       "type": "to_string",
-      "message0": "Turn %1 into a String",
+      "message0": "turn %1 into a String",
       "args0": [
         {
           "type": "input_value",
@@ -124,7 +142,10 @@
             ["int", "int"],
             ["double", "double"],
             ["String", "String"],
-            ["boolean", "boolean"]
+            ["boolean", "boolean"],
+            ["array type String", "List<String>"],
+            ["array type int", "List<Integer>"],
+            ["array type double", "List<? extends Number>"]
           ]
         },
         {
@@ -213,7 +234,7 @@
             ["double", "double"],
             ["String", "String"],
             ["boolean", "boolean"],
-            ["void", "void"]
+            ["nothing", "void"]
           ]
         },
         {

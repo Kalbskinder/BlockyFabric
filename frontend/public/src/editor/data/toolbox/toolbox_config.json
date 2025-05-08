@@ -38,7 +38,8 @@
             { "kind": "BLOCK", "type": "math_round" },
             { "kind": "BLOCK", "type": "math_modulo" },
             { "kind": "BLOCK", "type": "math_random_int" },
-            { "kind": "BLOCK", "type": "parse_int" }
+            { "kind": "BLOCK", "type": "parse_int" },
+            { "kind": "BLOCK", "type": "parse_float" }
         ]
       },
       {
