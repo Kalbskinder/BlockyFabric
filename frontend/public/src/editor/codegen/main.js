@@ -1006,7 +1006,7 @@ translations["new_command"] = (block) => {
     const { statements, subcommands } = doBlock ? handleCommandStatements(doBlock) : { statements: "", subcommands: "" };
 
     usedImports.add("net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback");
-    usedImports.add("net.minecraft.client.command.ClientCommandManager");
+    usedImports.add("import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;")
     usedImports.add("net.blockyfabric.BlockyFabricAPI");
 
     return `
