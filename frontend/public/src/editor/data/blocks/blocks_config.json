@@ -70,8 +70,8 @@
     "helpUrl": ""
   },
   {
-    "type": "parse_float",
-    "message0": "turn %1 into a float",
+    "type": "parse_double",
+    "message0": "turn %1 into a double",
     "args0": [
       {
         "type": "input_value",
@@ -79,8 +79,8 @@
       }
     ],
     "output": null,
-    "tooltip": "Turn a string or a number into a float",
-    "colour": 285,
+    "tooltip": "Turn a string or a number into a double",
+    "colour": 230,
     "helpUrl": ""
   },
    {
@@ -143,9 +143,9 @@
             ["double", "double"],
             ["String", "String"],
             ["boolean", "boolean"],
-            ["array type String", "List<String>"],
-            ["array type int", "List<Integer>"],
-            ["array type double", "List<? extends Number>"]
+            ["Array type String", "List<String>"],
+            ["Array type int", "List<Integer>"],
+            ["Array type double", "List<? extends Number>"]
           ]
         },
         {

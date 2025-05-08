@@ -411,6 +411,11 @@ translations["parse_int"] = (block) => {
     return `Integer.parseInt(${input})`;
 }
 
+translations["parse_double"] = (block) => {
+    const input = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : `"0"`;
+    return `Double.parseDouble(${input})`;
+}
+
 /* =====================
    Strings
    ===================== */
