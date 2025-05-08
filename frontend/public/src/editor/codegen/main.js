@@ -138,53 +138,31 @@ function getChainedBlocks(startBlock) {
     return blocks;
 }
 
-function buildArgumentChain(args, execBodyLines) {
-    if (args.length === 0) {
-        const execBody = indent(execBodyLines.join('\n'), 4);
-        return `.executes(context -> {\n${execBody}\n    })`;
-    }
+function buildArgumentChain(args, finalExecutesBlockLines) {
+    if (args.length === 0) return finalExecutesBlockLines.join("\n");
 
     const current = args[0];
     const rest = args.slice(1);
-
 
     const name = current.fields.ARG_NAME;
     const type = current.fields.ARG_TYPE;
 
     let typeExpr;
-    let javaType;
     switch (type) {
-        case "int":
-            typeExpr = "IntegerArgumentType.integer()";
-            javaType = "Integer";
-            break;
-        case "float":
-            typeExpr = "FloatArgumentType.floatArg()";
-            javaType = "Float";
-            break;
-        case "string":
-            typeExpr = "StringArgumentType.string()";
-            javaType = "String";
-            break;
-        case "boolean":
-            typeExpr = "BoolArgumentType.bool()";
-            javaType = "Boolean";
-            break;
-        default:
-            typeExpr = "StringArgumentType.word()";
-            javaType = "Object";
+        case "int": typeExpr = "IntegerArgumentType.integer()"; break;
+        case "float": typeExpr = "FloatArgumentType.floatArg()"; break;
+        case "string": typeExpr = "StringArgumentType.string()"; break;
+        case "boolean": typeExpr = "BoolArgumentType.bool()"; break;
+        default: typeExpr = "StringArgumentType.word()"; break;
     }
 
-    const varLine = `${javaType} ${name} = context.getArgument("${name}", ${javaType}.class);`;
+    const argumentLine = `ClientCommandManager.argument("${name}", ${typeExpr})`;
 
     if (rest.length === 0) {
-        const execBody = indent([varLine, ...execBodyLines].join('\n'), 4);
-        return `ClientCommandManager.argument("${name}", ${typeExpr})\n    .executes(context -> {\n${execBody}\n    })`;
+        return `${argumentLine}\n${indent(finalExecutesBlockLines.join("\n"), 4)}`;
     }
 
-    // Rekursiv weiter bauen
-    const inner = buildArgumentChain(rest, [varLine, ...execBodyLines]);
-    return `ClientCommandManager.argument("${name}", ${typeExpr})\n    .then(${inner})`;
+    return `${argumentLine}\n.then(${buildArgumentChain(rest, finalExecutesBlockLines)})`;
 }
 
 
@@ -766,7 +744,7 @@ translations["variables_set"] = (block) => {
     const name = block.fields?.VAR || "x";
     const value = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "0";
         
-     return `static ${name} = ${value};`;
+     return `${name} = ${value};`;
 }
 
 translations["variables_get"] = (block) => {
@@ -816,6 +794,12 @@ translations["print"] = (block) => {
 translations["comment"] = (block) => {
     console.log(block)
     return `\n// ${block.inputs?.COMMENT?.block?.fields?.TEXT || "Comment"}`;
+}
+
+translations["regex"] = (block) => {
+    const pattern = block.inputs?.REGEX?.block ? handleBlock(block.inputs.REGEX.block) : '""';
+    const string = block.inputs?.STRING?.block ? handleBlock(block.inputs.STRING.block) : '""';
+    return `Pattern.compile(${pattern}).matcher(${string}).find();`;
 }
 
 
@@ -1071,22 +1055,60 @@ translations["event_entity"] = () => {
 // Register a new command
 translations["new_command"] = (block) => {
     const command = sanitizeCommandName(block.inputs?.COMMAND?.block?.fields?.TEXT || "myCommand");
-    const doBlock = block.inputs?.DO?.block;
 
-    const { statements, subcommands } = doBlock ? handleCommandStatements(doBlock) : { statements: "", subcommands: "" };
+    const doBlock = block.inputs?.DO?.block;
+    const subcommandsBlock = block.inputs?.SUBCOMMANDS?.block;
+    const argsBlock = block.inputs?.ARGS?.block;
+
+    console.log("argsBlock", argsBlock);
+    console.log("doBlock", doBlock);
+    console.log("subcommandsBlock", subcommandsBlock);
+
+    // Extrahiere Argumente als verkettete Liste
+    const argBlocks = argsBlock ? getChainedBlocks(argsBlock) : [];
+
+    // Code, der im executes-Block ausgeführt wird
+    const execBodyLines = doBlock ? handleCommandStatements(doBlock).statements.split('\n') : [];
+
+    // Variablen definieren basierend auf den Argumentnamen/-typen
+    const variableLines = argBlocks.map(arg => {
+        const name = arg.fields.ARG_NAME;
+        const type = arg.fields.ARG_TYPE;
+
+        const javaType = {
+            "int": "Integer",
+            "float": "Float",
+            "string": "String",
+            "boolean": "Boolean"
+        }[type] || "String";
+
+        return `${javaType} ${name} = context.getArgument("${name}", ${javaType}.class);`;
+    });
+
+    const fullExecBody = [...variableLines, "", ...execBodyLines].join('\n');
+    const finalExecutes = `\n.executes(context -> {\n${indent(fullExecBody, 4)}\nreturn 1;\n    })`;
+
+    const argumentChain = argBlocks.length > 0
+    ? `\n    .then(${buildArgumentChain(argBlocks, [finalExecutes])})`
+    : `${finalExecutes}`;
+
+    // Subcommands (wie bisher)
+    const subcommands = subcommandsBlock ? handleCommandStatements(subcommandsBlock).subcommands : "";
 
     usedImports.add("net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback");
-    usedImports.add("import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;")
-    usedImports.add("net.modwizard.ModWizardAPI");
+    usedImports.add("import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;");
+
+    const root = `ClientCommandManager.literal("${command}")`;
+    const fullChain = argumentChain
+    ? `${root}\n${indent(argumentChain, 4)}`
+    : `${root}${finalExecutes}`;
+
 
     return `
 ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-    dispatcher.register(ClientCommandManager.literal("${command}")
+    dispatcher.register(
+        ${fullChain}
 ${subcommands ? indent(subcommands, 8) : ""}
-        .executes(context -> {
-${indent(statements, 12)}
-            return 1;
-        })
     );
 });`.trim();
 };
@@ -1102,21 +1124,41 @@ translations["new_sub_command"] = (block) => {
     const doBlock = block.inputs?.DO?.block;
     const statements = doBlock ? handleCommandStatements(doBlock).statements : "";
 
-    // Das, was am Ende ausgeführt wird
-    const execution = `
+    // Generiere Variablen aus Argumenten
+    const variableLines = argBlocks.map(arg => {
+        const name = arg.fields.ARG_NAME;
+        const type = arg.fields.ARG_TYPE;
+
+        const javaType = {
+            "int": "Integer",
+            "float": "Float",
+            "string": "String",
+            "boolean": "Boolean"
+        }[type] || "String";
+
+        return `${javaType} ${name} = context.getArgument("${name}", ${javaType}.class);`;
+    });
+
+    // Kompletter Inhalt von executes
+    const fullExecBody = [...variableLines, "", ...statements.split('\n')].join('\n');
+
+    const finalExecutes = `
 .executes(context -> {
-${indent(statements, 4)}
+${indent(fullExecBody, 4)}
     return 1;
 })`;
 
-    // Verschachtelte Argumentkette
-    const argumentChain = buildArgumentChain(argBlocks, [execution]);
+    // Erzeuge die Argumentkette mit buildArgumentChain
+    const argumentChain = argBlocks.length > 0
+        ? `${buildArgumentChain(argBlocks, [finalExecutes])})`
+        : `${finalExecutes}`;
 
     return `
 .then(ClientCommandManager.literal("${subCommandName}")
     .then(${indent(argumentChain, 4).trim()})
-)`.trim();
+`.trim();
 };
+
 
 translations["command_argument_get"] = (block) => {
     const argName = block.fields?.VAR || "arg";
