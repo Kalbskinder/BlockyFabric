@@ -60,6 +60,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     });
 
+    const defaultBlocks = toolbox.contents[5].contents[2]
+    console.log(defaultBlocks);
+    Blockly.serialization.workspaces.load(defaultBlocks, workspace);
+
     await fetchWorkspace(projectId);
 });
 

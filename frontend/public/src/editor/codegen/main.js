@@ -15,12 +15,12 @@ function exportCode() {
     importSection  ? importSection += "\n\n" : "";
     usedImports.clear(); // Clear used imports for next export
 
-    const blockyFabricApiClass = generateHelperClass(); // Generate and format all helper functions
-    const mainClassCode = `package net.blockyfabric;\n\n${'import net.fabricmc.api.ClientModInitializer;\n' + importSection}public class Client implements ClientModInitializer {\n${indent(code)}\n}`; // Put code into the class main
+    const modWizardAPIClass = generateHelperClass(); // Generate and format all helper functions
+    const mainClassCode = `package net.modwizard;\n\n${'import net.fabricmc.api.ClientModInitializer;\n' + importSection}public class Client implements ClientModInitializer {\n${indent(code)}\n}`; // Put code into the class main
     
     return {
         mainClass: mainClassCode,
-        helperClass: blockyFabricApiClass
+        helperClass: modWizardAPIClass
     }
 }
 
@@ -41,7 +41,7 @@ function generateHelperClass() {
 
     usedHelpers.clear(); // Clear used helpers for next export
 
-    return `package net.blockyfabric;\n\n${imports ? imports + '\n\n' : ''}public class BlockyFabricAPI {\n\n${indent(functions)}\n}`;
+    return `package net.modwizard;\n\n${imports ? imports + '\n\n' : ''}public class ModWizardAPI {\n\n${indent(functions)}\n}`;
 }
 
 // Function to generate Java code
@@ -778,10 +778,10 @@ translations["play_sound"] = (block) => {
     const volume = parseFloat(block.fields?.VOLUME || "1");
     const pitch = parseFloat(block.fields?.PITCH || "1");
 
-    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("playSound");
 
-    return `BlockyFabricAPI.playSound(${sound}, ${volume}f, ${pitch}f);`;
+    return `ModWizardAPI.playSound(${sound}, ${volume}f, ${pitch}f);`;
 }
 
 minecraftFunctions["playSound"] = () => {
@@ -815,10 +815,10 @@ translations["display_title"] = (block) => {
     const stay = parseInt(block.fields?.STAY || "1");
     const fadeOut = parseInt(block.fields?.FADEOUT || "1");
 
-    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("displayTitle");
 
-    return `BlockyFabricAPI.displayTitle(${convertColorCodes(text)}, ${fadeIn}, ${stay}, ${fadeOut});`;
+    return `ModWizardAPI.displayTitle(${convertColorCodes(text)}, ${fadeIn}, ${stay}, ${fadeOut});`;
 };
 
 minecraftFunctions["displayTitle"] = () => {
@@ -844,10 +844,10 @@ translations["display_subtitle"] = (block) => {
     const stay = parseInt(block.fields?.STAY || "1");
     const fadeOut = parseInt(block.fields?.FADEOUT || "1");
 
-    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("displaySubtitle");
 
-    return `BlockyFabricAPI.displaySubtitle(${convertColorCodes(text)}, ${fadeIn}, ${stay}, ${fadeOut});`;
+    return `ModWizardAPI.displaySubtitle(${convertColorCodes(text)}, ${fadeIn}, ${stay}, ${fadeOut});`;
 };
 
 minecraftFunctions["displaySubtitle"] = () => {
@@ -870,10 +870,10 @@ translations["display_actionbar"] = (block) => {
     let text = handleBlock(block.inputs?.TEXT?.block) || '"Actionbar"';
 
 
-    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("displayActionbar");
 
-    return `BlockyFabricAPI.displayActionbar(${convertColorCodes(text)});`;
+    return `ModWizardAPI.displayActionbar(${convertColorCodes(text)});`;
 };
 
 minecraftFunctions["displayActionbar"] = () => {
@@ -896,10 +896,10 @@ translations["send_message"] = (block) => {
     const message = handleBlock(block.inputs?.MESSAGE?.block) || '"Hello World!"';
     const isGlobal = block.fields?.GLOBAL === true;
 
-    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("sendMessage");
 
-    return `BlockyFabricAPI.sendMessage(${convertColorCodes(message)}, ${isGlobal});`;
+    return `ModWizardAPI.sendMessage(${convertColorCodes(message)}, ${isGlobal});`;
 };
 
 minecraftFunctions["sendMessage"] = () => {
@@ -1012,7 +1012,7 @@ translations["new_command"] = (block) => {
 
     usedImports.add("net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback");
     usedImports.add("import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;")
-    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedImports.add("net.modwizard.ModWizardAPI");
 
     return `
 ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
@@ -1050,10 +1050,10 @@ ${indent(body, 8)}
 
 // Player position X
 translations["player_position_x"] = () => {
-    usedImports.add("net.blockyfabric.BlockyFabricAPI");
-    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedImports.add("net.modwizard.ModWizardAPI");
+    usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("getPlayerX");
-    return `BlockyFabricAPI.getPlayerX()`;
+    return `ModWizardAPI.getPlayerX()`;
 };
 
 minecraftFunctions["getPlayerX"] = () => {
@@ -1064,9 +1064,9 @@ minecraftFunctions["getPlayerX"] = () => {
 
 // Player position Y
 translations["player_position_y"] = () => {
-    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("getPlayerY");
-    return `BlockyFabricAPI.getPlayerY()`;
+    return `ModWizardAPI.getPlayerY()`;
 };
 
 minecraftFunctions["getPlayerY"] = () => {
@@ -1077,9 +1077,9 @@ minecraftFunctions["getPlayerY"] = () => {
 
 // Player position Z
 translations["player_position_z"] = () => {
-    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("getPlayerZ");
-    return `BlockyFabricAPI.getPlayerZ()`;
+    return `ModWizardAPI.getPlayerZ()`;
 };
 
 minecraftFunctions["getPlayerZ"] = () => {
@@ -1090,9 +1090,9 @@ minecraftFunctions["getPlayerZ"] = () => {
 
 // Player xp
 translations["player_xp"] = () => {
-    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("getPlayerXP");
-    return `BlockyFabricAPI.getPlayerXP()`;
+    return `ModWizardAPI.getPlayerXP()`;
 };
 
 minecraftFunctions["getPlayerXP"] = () => {
@@ -1104,17 +1104,17 @@ minecraftFunctions["getPlayerXP"] = () => {
 // Player Biome
 /*
 translations["player_biome"] = () => {
-    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("getPlayerBiome");
-    return `BlockyFabricAPI.getPlayerBiome()`;
+    return `ModWizardAPI.getPlayerBiome()`;
 };
 */
 
 // Player username
 translations["player_username"] = () => {
-    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("getPlayerUsername");
-    return `BlockyFabricAPI.getPlayerName()`;
+    return `ModWizardAPI.getPlayerName()`;
 };
 
 minecraftFunctions["getPlayerUsername"] = () => {
@@ -1125,9 +1125,9 @@ minecraftFunctions["getPlayerUsername"] = () => {
 
 // Player uuid
 translations["player_uuid"] = () => {
-    usedImports.add("net.blockyfabric.BlockyFabricAPI");
+    usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("getPlayerUUID");
-    return `BlockyFabricAPI.getPlayerUUID()`;
+    return `ModWizardAPI.getPlayerUUID()`;
 };
 
 minecraftFunctions["getPlayerUUID"] = () => {
