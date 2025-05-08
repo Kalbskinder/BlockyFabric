@@ -149,7 +149,9 @@
 
             { "kind": "LABEL", "text": "Commands", "web-class": "ioLabel" },
             { "kind": "block", "type": "new_command" },
-            { "kind": "block", "type": "new_sub_command" }
+            { "kind": "block", "type": "new_sub_command" },
+            { "kind": "block", "type": "command_argument" },
+            { "kind": "block", "type": "command_argument_get" }
         ]
       },
       {

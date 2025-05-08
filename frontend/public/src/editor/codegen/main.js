@@ -126,6 +126,44 @@ function handleCommandStatements(block) {
     return { statements: statements.trim(), subcommands: subcommands.trim() };
 }
 
+function getChainedBlocks(startBlock) {
+    const blocks = [];
+    let current = startBlock;
+
+    while (current) {
+        blocks.push(current);
+        current = current.next?.block;
+    }
+
+    return blocks;
+}
+
+function buildArgumentChain(args, finalExecutes) {
+    if (args.length === 0) return finalExecutes;
+
+    const current = args[0];
+    const rest = args.slice(1);
+
+    const name = current.fields.ARG_NAME;
+    const type = current.fields.ARG_TYPE;
+
+    let typeExpr;
+    switch (type) {
+        case "int": typeExpr = "IntegerArgumentType.integer()"; break;
+        case "float": typeExpr = "FloatArgumentType.floatArg()"; break;
+        case "string": typeExpr = "StringArgumentType.string()"; break;
+        case "boolean": typeExpr = "BoolArgumentType.bool()"; break;
+        default: typeExpr = "StringArgumentType.word()"; break;
+    }
+
+    const argumentLine = `ClientCommandManager.argument("${name}", ${typeExpr})`;
+
+    if (rest.length === 0) {
+        return `${argumentLine}${finalExecutes}`;
+    }
+
+    return `${argumentLine}\n.then(${buildArgumentChain(rest, finalExecutes).trim()})`;
+}
 
 
 const minecraftFunctions = {}
@@ -702,9 +740,9 @@ translations["variables_declare"] = (block) => {
 
 translations["variables_set"] = (block) => {
     const name = block.fields?.VAR || "x";
-            const value = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "0";
+    const value = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "0";
         
-            return `${name} = ${value};`;
+     return `static ${name} = ${value};`;
 }
 
 translations["variables_get"] = (block) => {
@@ -1029,20 +1067,38 @@ ${indent(statements, 12)}
 
 // Command subcommand (command argument: /myCommand)
 translations["new_sub_command"] = (block) => {
-    const arg = sanitizeCommandName(block.inputs?.ARGUMENT?.block?.fields?.TEXT || "subCommand");
-    const doBlock = block.inputs?.DO?.block;
-    const body = doBlock ? handleCommandStatements(doBlock).statements : "";
+    const subCommandName = sanitizeCommandName(block.inputs?.ARGUMENT_NAME?.block?.fields?.TEXT || "subCommand");
 
-    usedImports.add("net.minecraft.client.command.ClientCommandManager");
+    const argStartBlock = block.inputs?.ARGS?.block;
+    const argBlocks = argStartBlock ? getChainedBlocks(argStartBlock) : [];
+
+    const doBlock = block.inputs?.DO?.block;
+    const statements = doBlock ? handleCommandStatements(doBlock).statements : "";
+
+    // Das, was am Ende ausgeführt wird
+    const execution = `
+.executes(context -> {
+${indent(statements, 4)}
+    return 1;
+})`;
+
+    // Verschachtelte Argumentkette
+    const argumentChain = buildArgumentChain(argBlocks, execution);
 
     return `
-.then(ClientCommandManager.literal("${arg}")
-    .executes(context -> {
-${indent(body, 8)}
-        return 1;
-    })
+.then(ClientCommandManager.literal("${subCommandName}")
+    .then(${indent(argumentChain, 4).trim()})
 )`.trim();
 };
+
+
+
+
+translations["command_argument_get"] = (block) => {
+    const argName = block.fields?.VAR || "arg";
+    return `context.getArgument("${argName}", Object.class)`;
+};
+
 
 /* =====================
    Player info

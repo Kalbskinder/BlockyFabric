@@ -552,22 +552,58 @@
       },
       {
         "type": "new_sub_command",
-        "message0": "%1 Create command argument %2",
+        "message0": "%1 Subcommand %2",
         "args0": [
-          { "type": "field_image", "src": "/images/icons/blocks/chain_command_block.png", "alt": "Block icon",
-            "width": 24,
-            "height": 24
-          },
-          {"type": "input_value", "name": "ARGUMENT", "check": "String" }
+          { "type": "field_image", "src": "/images/icons/blocks/chain_command_block.png", "alt": "Block icon", "width": 24, "height": 24 },
+          { "type": "input_value", "name": "ARGUMENT_NAME", "check": "String" }
         ],
-        "message1": "when executed %1",
+        "message1": "Arguments %1",
         "args1": [
-          {"type": "input_statement", "name": "DO"}
+          { "type": "input_statement", "name": "ARGS" }
+        ],
+        "message2": "when executed %1",
+        "args2": [
+          { "type": "input_statement", "name": "DO" }
         ],
         "colour": "#456bd6",
         "previousStatement": null,
         "nextStatement": null
       },
+      {
+        "type": "command_argument",
+        "message0": "%1 argument name %2 type %3",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/repeat_command_block.gif", "alt": "Block icon", "width": 24, "height": 24 },
+          { "type": "field_input", "name": "ARG_NAME", "text": "x" },
+          { "type": "field_dropdown", "name": "ARG_TYPE", "options": [
+            ["Integer", "int"],
+            ["Float", "float"],
+            ["String", "string"],
+            ["Boolean", "boolean"]
+          ]}
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": "#456bd6"
+      },
+      {
+        "type": "command_argument_get",
+        "message0": "%1 command argument %2",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/repeat_command_block.gif", "alt": "Block icon", "width": 24, "height": 24 },
+          {
+            "type": "field_input",
+            "name": "VAR",
+            "text": "x"
+          }
+        ],
+        "output": null,
+        "tooltip": "Get the value of a command argument",
+        "colour": "#456bd6",
+        "helpUrl": ""
+      },
+      
+      
    
       {
         "type": "event_triggered",
