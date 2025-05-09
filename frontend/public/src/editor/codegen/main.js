@@ -466,6 +466,10 @@ translations["parse_double"] = (block) => {
     return `Double.parseDouble(${input})`;
 }
 
+translations["math_pi"] = () => {
+    return "Math.PI";
+}
+
 /* =====================
    Strings
    ===================== */

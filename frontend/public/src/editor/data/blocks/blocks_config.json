@@ -83,22 +83,28 @@
     "colour": 230,
     "helpUrl": ""
   },
-   {
-        "type": "parse_int",
-        "message0": "turn %1 into a number",
-        "args0": [
-          {
-            "type": "input_value",
-            "name": "VALUE",
-            "check": ["String", "Number"]
-          }
-        ],
-        "output": "Number",
-        "colour": 230,
-        "tooltip": "Parses a string and returns an integer number",
-        "helpUrl": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt"
-    },
-
+  {
+    "type": "parse_int",
+    "message0": "turn %1 into a number",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "VALUE",
+        "check": ["String", "Number"]
+      }
+    ],
+    "output": "Number",
+    "colour": 230,
+    "tooltip": "Parses a string and returns an integer number",
+    "helpUrl": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt"
+  },
+  {
+    "type": "math_pi",
+    "message0": "π",
+    "output": "Number",
+    "colour": 230,
+    "tooltip": "Returns the value of Pi"
+  },
 
 
     
