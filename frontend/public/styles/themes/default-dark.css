@@ -144,3 +144,19 @@ div.theme-option img.dark {
 img.settings-icon {
     filter: invert(100%) sepia(0%) saturate(7435%) hue-rotate(18deg) brightness(97%) contrast(97%);
 }
+
+div.contributor {
+    background: var(--card-bg-color);
+}
+
+div.contributor h3 {
+    color: var(--text-color);
+}
+
+div.contributor p {
+    color: #a7a5a5;
+}
+
+div.contributor div.about-socials img[src*="github"] {
+    filter: invert(100%) sepia(0%) saturate(7435%) hue-rotate(18deg) brightness(97%) contrast(97%);
+}

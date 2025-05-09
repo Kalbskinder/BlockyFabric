@@ -34,4 +34,8 @@ router.get('/editor', (req, res) => {
     res.render('pages/editor')
 });
 
+router.get('/about', (req, res) => {
+    res.render('pages/about')
+});
+
 export default router;
