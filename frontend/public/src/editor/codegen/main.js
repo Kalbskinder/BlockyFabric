@@ -751,12 +751,20 @@ translations["variables_declare"] = (block) => {
     const name = block.fields?.VAR || "x";
     const value = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "";
 
+    if (type === "String") {
+        return `String ${name} = ${convertColorCodes(value)};`;
+    }
+
     return `${type} ${name}${value !== "" ? " = " + value : ""};`;
 }
 
 translations["variables_set"] = (block) => {
     const name = block.fields?.VAR || "x";
     const value = block.inputs?.VALUE?.block ? handleBlock(block.inputs.VALUE.block) : "0";
+
+    if (typeof value === "string") {
+        return `${name} = ${convertColorCodes(value)};`;
+    }
         
      return `${name} = ${value};`;
 }
