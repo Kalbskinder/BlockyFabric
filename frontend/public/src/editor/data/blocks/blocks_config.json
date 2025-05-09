@@ -672,7 +672,20 @@
         ],
         "output": "String",
         "colour": "#456bd6",
-        "tooltip": "Contains the message for the ServerMessage event"
+        "tooltip": "Contains the message for the Recieve Message event"
+      },
+      {
+        "type": "event_sender",
+        "message0": "%1 message author",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/map.webp", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          }
+        ],
+        "output": "String",
+        "colour": "#456bd6",
+        "tooltip": "Contains the author of the message for the Recieve Message event"
       },
       {
         "type": "event_block",

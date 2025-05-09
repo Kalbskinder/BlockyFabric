@@ -999,7 +999,7 @@ translations["event_triggered"] = (block) => {
             return `ClientReceiveMessageEvents.CHAT.register((message, signed_message, sender, params, timestamp) -> {
     String eventMessage = message.getString(); 
     if (sender == null || sender.getId() == null) return;
-    String eventSender = sender.getString();
+    String eventSender = sender.toString();
 
 ${indent(children, 4)}
 });`;
@@ -1042,6 +1042,17 @@ ${indent(children, 4)}
 });`;
 
 
+        // Returns item as String minecraft:item_name
+        case "UseItemCallback.EVENT":
+            usedImports.add("import net.fabricmc.fabric.api.event.player.UseItemCallback;");
+            usedImports.add("import net.minecraft.util.ActionResult;");
+
+            return `UseItemCallback.EVENT.register((playerEntity, world, hand) -> {
+	String eventItem = playerEntity.getMainHandStack().getItem().toString();
+${indent(children, 4)}
+	return ActionResult.PASS;
+});`
+
         default:
             return "// Unkown EVENT_TYPE.";
     }
@@ -1059,6 +1070,14 @@ translations["event_block"] = () => {
 
 translations["event_entity"] = () => {
     return "eventEntity";
+};
+
+translations["event_sender"] = () => {
+    return "eventSender";
+};
+
+translations["event_item"] = () => {
+    return "eventItem";
 };
 
 
