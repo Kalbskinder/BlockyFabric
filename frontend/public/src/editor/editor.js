@@ -49,7 +49,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         trashcan: false,
         renderer: 'zelos',
         toolboxPosition: 'start',
-        scrollbars: true,
+        move: {
+            scrollbars: true,
+            drag: true,
+            wheel: true
+        },
         zoom: {
           controls: true,
           wheel: true,

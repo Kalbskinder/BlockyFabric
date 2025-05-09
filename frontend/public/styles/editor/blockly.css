@@ -1,6 +1,6 @@
 div#blocklyDiv {
     width: 100vw;
-    height: calc(100vh - 72px);
+    height: calc(100vh - 72px - 24px);
 }
 
 div.button-container {
