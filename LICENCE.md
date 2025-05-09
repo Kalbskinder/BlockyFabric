@@ -1,3 +1,5 @@
+# LICENCE
+
 Copyright (c) 2025 ModWizard
 All rights reserved.
 
