@@ -213,6 +213,16 @@ translations["logic_compare"] = (block) => {
     const B = block.inputs?.B?.block ? handleBlock(block.inputs.B.block) : "null";
     const op = block.fields?.OP || "EQ";
 
+    const isString = (val) => /^".*"$/.test(val) || val.includes('String.class');
+
+    if (isString(A) || isString(B)) {
+        if (op === "EQ") {
+            return `${A}.equals(${B})`;
+        } else if (op === "NEQ") {
+            return `!${A}.equals(${B})`;
+        }
+    }
+
     const opMap = {
         "EQ": "==",
         "NEQ": "!=",
@@ -1060,17 +1070,13 @@ translations["new_command"] = (block) => {
     const subcommandsBlock = block.inputs?.SUBCOMMANDS?.block;
     const argsBlock = block.inputs?.ARGS?.block;
 
-    console.log("argsBlock", argsBlock);
-    console.log("doBlock", doBlock);
-    console.log("subcommandsBlock", subcommandsBlock);
-
-    // Extrahiere Argumente als verkettete Liste
+    // Get args as list
     const argBlocks = argsBlock ? getChainedBlocks(argsBlock) : [];
 
-    // Code, der im executes-Block ausgeführt wird
+    // Blocks in the doBlock (when exeuted)
     const execBodyLines = doBlock ? handleCommandStatements(doBlock).statements.split('\n') : [];
 
-    // Variablen definieren basierend auf den Argumentnamen/-typen
+    // Variables defined based on the argument names/types
     const variableLines = argBlocks.map(arg => {
         const name = arg.fields.ARG_NAME;
         const type = arg.fields.ARG_TYPE;
@@ -1092,7 +1098,6 @@ translations["new_command"] = (block) => {
     ? `\n    .then(${buildArgumentChain(argBlocks, [finalExecutes])})`
     : `${finalExecutes}`;
 
-    // Subcommands (wie bisher)
     const subcommands = subcommandsBlock ? handleCommandStatements(subcommandsBlock).subcommands : "";
 
     usedImports.add("net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback");
@@ -1139,7 +1144,6 @@ translations["new_sub_command"] = (block) => {
         return `${javaType} ${name} = context.getArgument("${name}", ${javaType}.class);`;
     });
 
-    // Kompletter Inhalt von executes
     const fullExecBody = [...variableLines, "", ...statements.split('\n')].join('\n');
 
     const finalExecutes = `
@@ -1148,7 +1152,6 @@ ${indent(fullExecBody, 4)}
     return 1;
 })`;
 
-    // Erzeuge die Argumentkette mit buildArgumentChain
     const argumentChain = argBlocks.length > 0
         ? `${buildArgumentChain(argBlocks, [finalExecutes])})`
         : `${finalExecutes}`;
