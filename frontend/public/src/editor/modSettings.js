@@ -72,7 +72,7 @@ async function saveModSettings() {
         if (!response.ok) { 
             throw new Error("Error while saving mod settings");
         }
-
+        await saveWorkspace(); // Save the workspace state after saving mod settings
         window.location.href = `/editor?id=${modId}`;
     } catch (error) {
         console.error("Error while saving mod settings: ", error);
