@@ -645,10 +645,10 @@
             ["has Fish on the Line", "FishOnTheLineEvent"],
             ["Player receives Chat Message", "ClientMessageEvents.CHAT_MESSAGE"],
             ["Player receives Command Message", "ClientMessageEvents.GAME_MESSAGE"],
-            ["Attacks Block", "AttackBlockCallback.EVENT"],
-            ["Attacks Entity", "AttackEntityCallback.EVENT"],
             ["Player Breaks Block", "ClientPlayerBlockBreakEvents.AFTER"],
+            ["Attacks Block", "AttackBlockCallback.EVENT"],
             ["UseBlock", "UseBlockCallback.EVENT"],
+            ["Attacks Entity", "AttackEntityCallback.EVENT"],
             ["UseEntity", "UseEntityCallback.EVENT"],
             ["UseItem", "UseItemCallback.EVENT"]
           ]}

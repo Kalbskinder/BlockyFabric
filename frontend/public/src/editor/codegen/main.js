@@ -802,7 +802,7 @@ translations["return_of_function"] = (block) => {
 
 translations["print"] = (block) => {
     const value = block.inputs?.MESSAGE?.block ? handleBlock(block.inputs.MESSAGE.block) : '""';
-    return `System.out.println(${value});`;
+    return `LOGGER.info(${value});`;
 }
 
 translations["comment"] = (block) => {
@@ -1035,7 +1035,7 @@ ${indent(children, 4)}
             return `UseBlockCallback.EVENT.register((playerEntity, world, hand, blockHitResult) -> {
 ${indent(children, 4)}	
     return ActionResult.PASS;
-	});`;
+});`;
 
         case "AttackBlockCallback.EVENT":
             usedImports.add("import net.fabricmc.fabric.api.event.player.AttackBlockCallback;");
