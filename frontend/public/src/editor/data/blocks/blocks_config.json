@@ -373,7 +373,7 @@
           "width": 24,
           "height": 24
           },
-          { "type": "input_value", "name": "TEXT" },
+          { "type": "input_value", "name": "TEXT", "check": "String" },
           { "type": "field_number", "name": "FADEIN", "value": 1, "min": 0, "max": 9 },
           { "type": "field_number", "name": "STAY", "value": 1, "min": 0, "max": 9 },
           { "type": "field_number", "name": "FADEOUT", "value": 1, "min": 0, "max": 9 }
@@ -392,7 +392,7 @@
           "width": 24,
           "height": 24
           },
-          { "type": "input_value", "name": "TEXT" },
+          { "type": "input_value", "name": "TEXT", "check": "String" },
           { "type": "field_number", "name": "FADEIN", "value": 1, "min": 0, "max": 9 },
           { "type": "field_number", "name": "STAY", "value": 1, "min": 0, "max": 9 },
           { "type": "field_number", "name": "FADEOUT", "value": 1, "min": 0, "max": 9 }
@@ -411,7 +411,7 @@
           "width": 24,
           "height": 24
         },
-        { "type": "input_value", "name": "TEXT" }
+        { "type": "input_value", "name": "TEXT", "check": "String" }
       ],
       "previousStatement": null,
       "nextStatement": null,
@@ -441,7 +441,7 @@
           "height": 24
           },
           { "type": "field_label_serializable", "text": "Send Message", "name": "NAME" },
-          { "type": "input_value", "name": "MESSAGE" },
+          { "type": "input_value", "name": "MESSAGE", "check": "String" },
           { "type": "field_checkbox", "name": "GLOBAL", "checked": "FALSE" }
         ],
         "previousStatement": null,
@@ -634,7 +634,7 @@
    
       {
         "type": "event_triggered",
-        "message0": "%1 When %2",
+        "message0": "%1 When Player %2",
         "helpUrl": "https://wiki.fabricmc.net/tutorial:event_index",
         "args0": [
           { "type": "field_image", "src": "/images/icons/blocks/event.webp", "alt": "Block icon",
@@ -643,14 +643,14 @@
           },
           {"type": "field_dropdown", "name": "KEY", "options": [
             ["has Fish on the Line", "FishOnTheLineEvent"],
-            ["Player receives Chat Message", "ClientMessageEvents.CHAT_MESSAGE"],
-            ["Player receives Command Message", "ClientMessageEvents.GAME_MESSAGE"],
-            ["Player Breaks Block", "ClientPlayerBlockBreakEvents.AFTER"],
-            ["Attacks Block", "AttackBlockCallback.EVENT"],
-            ["UseBlock", "UseBlockCallback.EVENT"],
-            ["Attacks Entity", "AttackEntityCallback.EVENT"],
-            ["UseEntity", "UseEntityCallback.EVENT"],
-            ["UseItem", "UseItemCallback.EVENT"]
+            ["receives Chat Message", "ClientMessageEvents.CHAT_MESSAGE"],
+            ["receives Command Message", "ClientMessageEvents.GAME_MESSAGE"],
+            ["breaks Block", "ClientPlayerBlockBreakEvents.AFTER"],
+            ["attacks Block", "AttackBlockCallback.EVENT"],
+            ["uses Block", "UseBlockCallback.EVENT"],
+            ["attacks Entity", "AttackEntityCallback.EVENT"],
+            ["uses Entity", "UseEntityCallback.EVENT"],
+            ["uses Item", "UseItemCallback.EVENT"]
           ]}
         ],
         "message1": "do %1",
