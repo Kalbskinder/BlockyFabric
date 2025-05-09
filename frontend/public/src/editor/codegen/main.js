@@ -16,7 +16,7 @@ function exportCode() {
     usedImports.clear(); // Clear used imports for next export
 
     const modWizardAPIClass = generateHelperClass(); // Generate and format all helper functions
-    const mainClassCode = `package net.modwizard;\n\n${'import net.fabricmc.api.ClientModInitializer;\n' + importSection}public class Client implements ClientModInitializer {\n${indent(code)}\n}`; // Put code into the class main
+    const mainClassCode = `package net.modwizard;\n\n${'import net.fabricmc.api.ClientModInitializer;\n' + importSection}public class Client implements ClientModInitializer {${indent(`\npublic static final String MOD_ID = "ModWizardLogger";\npublic static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MOD_ID);\n`, 4)}\n${indent(code)}\n}`; // Put code into the class main
     
     return {
         mainClass: mainClassCode,
@@ -993,6 +993,10 @@ translations["event_triggered"] = (block) => {
     const children = block.inputs?.DO?.block ? handleStatements(block.inputs.DO.block) : "";
 
     switch (eventType) {
+
+        /*
+        * Chat Events
+        */
         case "ClientMessageEvents.CHAT_MESSAGE":
             usedImports.add("import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;");
 
@@ -1013,6 +1017,9 @@ ${indent(children, 8)}
     }
 });`;
 
+        /*
+        * Block Events
+        */
         case "ClientPlayerBlockBreakEvents.AFTER":
             usedImports.add("import net.fabricmc.fabric.api.event.client.player.ClientPlayerBlockBreakEvents;");
 
@@ -1021,6 +1028,27 @@ ${indent(children, 8)}
 ${indent(children, 4)}		
 });`;
 
+        case "UseBlockCallback.EVENT":
+            usedImports.add("import net.fabricmc.fabric.api.event.player.UseBlockCallback;");
+            usedImports.add("import net.minecraft.util.ActionResult;");
+
+            return `UseBlockCallback.EVENT.register((playerEntity, world, hand, blockHitResult) -> {
+${indent(children, 4)}	
+    return ActionResult.PASS;
+	});`;
+
+        case "AttackBlockCallback.EVENT":
+            usedImports.add("import net.fabricmc.fabric.api.event.player.AttackBlockCallback;");
+            usedImports.add("import net.minecraft.util.ActionResult;");
+
+            return `AttackBlockCallback.EVENT.register((playerEntity, world, hand, blockPos, direction) -> {
+${indent(children, 4)}	
+    return ActionResult.PASS;
+});`;
+
+        /*
+        * Entity Events
+        */
         case "AttackEntityCallback.EVENT":
             usedImports.add("import net.fabricmc.fabric.api.event.player.AttackEntityCallback;");
             usedImports.add("import net.minecraft.util.ActionResult;");
@@ -1041,6 +1069,9 @@ ${indent(children, 4)}
 	return ActionResult.PASS;
 });`;
 
+        /*
+        * Item Events
+        */
 
         // Returns item as String minecraft:item_name
         case "UseItemCallback.EVENT":
@@ -1052,6 +1083,10 @@ ${indent(children, 4)}
 ${indent(children, 4)}
 	return ActionResult.PASS;
 });`
+
+        /*
+        * Other Events
+        */
 
         default:
             return "// Unkown EVENT_TYPE.";
