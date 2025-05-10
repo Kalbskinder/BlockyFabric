@@ -58,3 +58,37 @@ div.theme-option img.light {
 div.footer {
     color: black;
 }
+
+nav {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 1px 1px 12px 0px rgba(0, 0, 0, 0.178);
+}
+
+body::after {
+    background-image: url('/images/mw_bg_light.png');
+    filter: brightness(1.1) blur(7px);
+}
+
+.nav-link {
+    color: var(--text-color);
+    font-size: 15.5px;
+}
+
+.nav-link:hover,
+a.navbar-brand:hover,
+a.navbar-brand:focus, 
+.nav-link:active, 
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+    color: var(--text-color);
+}
+
+a.navbar-brand {
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+}
+
+.content {
+    background-color: #e9e9e9c0;
+    border: 2px solid #dbdbdbb7;
+}

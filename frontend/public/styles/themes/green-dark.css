@@ -3,9 +3,9 @@
     --primary-color-hover: #168f3c;
     --success-color: #007bff;
     --success-color-hover: #0069d9;
-    --bg-color: #232323;
+    --bg-color: #1c1c1c;
     --text-color: #ffffff;
-    --card-bg-color: #2c2c2c;
+    --card-bg-color: #2d2d2d;
 }
 
 ::selection {
@@ -237,4 +237,8 @@ div.contributor p {
 
 div.contributor div.about-socials img[src*="github"] {
     filter: invert(100%) sepia(0%) saturate(7435%) hue-rotate(18deg) brightness(97%) contrast(97%);
+}
+
+nav {
+    background-color: #0a0a0a;
 }

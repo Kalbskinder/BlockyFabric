@@ -1,9 +1,21 @@
-.content {
+.content-container {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     margin-top: 80px;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 50px 140px;
+    border-radius: 8px;
+    background-color: #00000088;
+    border: 2px solid #dbdbdb53;
 }
 
 .content h1 {

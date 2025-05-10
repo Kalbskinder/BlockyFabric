@@ -1,0 +1,67 @@
+body {
+    background: none;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/mw_bg_dark.png');
+    background-repeat: repeat-y;
+    background-size: 100% auto;
+    background-position: top center;
+    animation: scrollBackground 35s linear infinite;
+    filter: blur(8px) brightness(0.7);
+    z-index: -1;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/bg_overlay.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    filter: brightness(0);
+    z-index: 0;
+}
+
+@keyframes scrollBackground {
+    0% {
+        background-position-y: 2000px;
+    }
+    100% {
+        background-position-y: 0px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    body::after {
+        animation: none;
+        background-position-y: 0;
+    }
+}
+
+.content-wrapper,
+.content,
+.about-container {
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    body::after {
+        background-size: 150% auto;
+    }
+
+    body::before {
+        background-size: cover;
+    }
+}
