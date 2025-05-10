@@ -476,10 +476,11 @@
       "type": "regex",
       "tooltip": "Uses a regex on a string",
       "helpUrl": "",
-      "message0": "Use regex %1 on %2",
+      "message0": "Use regex %1 on %2, Case Sensitive? %3",
       "args0": [
         { "type": "input_value", "name": "REGEX", "check": "String" },
-        { "type": "input_value", "name": "STRING", "check": "String" }
+        { "type": "input_value", "name": "STRING", "check": "String" },
+        { "type": "field_checkbox", "name": "CASE_SENSITIVE", "checked": "FALSE" }
       ],
       "inputsInline": true,
       "output": "String",

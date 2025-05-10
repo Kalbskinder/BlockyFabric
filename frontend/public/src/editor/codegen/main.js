@@ -819,11 +819,19 @@ translations["comment"] = (block) => {
 }
 
 translations["regex"] = (block) => {
-    const pattern = block.inputs?.REGEX?.block ? handleBlock(block.inputs.REGEX.block) : '""';
-    const string = block.inputs?.STRING?.block ? handleBlock(block.inputs.STRING.block) : '""';
-    return `Pattern.compile(${pattern}).matcher(${string}).find();`;
-}
+    const pattern = handleBlock(block.inputs?.REGEX?.block) || '""';
+    const string = handleBlock(block.inputs?.STRING?.block) || '""';
+    const caseSensitive = block.fields?.CASE_SENSITIVE === "TRUE";
 
+    usedImports.add("java.util.regex.Pattern");
+    usedImports.add("java.util.regex.Matcher");
+    usedImports.add("java.util.function.Supplier");
+
+    return `((Supplier<String>) () -> {
+    Matcher m = Pattern.compile(${pattern}${caseSensitive ? "" : ", Pattern.CASE_INSENSITIVE"}).matcher(${string});
+    return m.find() ? m.group(1) : "";
+}).get()`;
+};
 
 /* -----------------------------------------------------------------------------------------------------------------------
 Notice: The section for default operational blocks stops here.
