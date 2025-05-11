@@ -1196,7 +1196,7 @@ translations["new_command"] = (block) => {
     const subcommands = subcommandsBlock ? handleCommandStatements(subcommandsBlock).subcommands : "";
 
     usedImports.add("net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback");
-    usedImports.add("import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;");
+    usedImports.add("net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;");
 
     const root = `ClientCommandManager.literal("${command}")`;
     const fullChain = argumentChain

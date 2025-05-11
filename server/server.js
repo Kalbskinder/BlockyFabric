@@ -28,6 +28,9 @@ app.use('/bootstrap', express.static(path.join(__dirname, '../node_modules/boots
 app.use('/blockly', express.static(path.join(__dirname, '../node_modules/blockly')));
 app.use('/@blockly', express.static(path.join(__dirname, '../node_modules/@blockly')));
 app.use('/prism', express.static(path.join(__dirname, '../node_modules/prismjs')));
+app.use('/templates', express.static(path.join(__dirname, '../templates')));
+app.use('/jszip', express.static(path.join(__dirname, '../node_modules/jszip')));
+app.use('/file-saver', express.static(path.join(__dirname, '../node_modules/file-saver')));
 
 
 // Session Setup with SQLite
