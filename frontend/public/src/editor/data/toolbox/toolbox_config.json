@@ -143,6 +143,7 @@
         "contents": [
             { "kind": "LABEL", "text": "Events", "web-class": "ioLabel" },
             { "kind": "block", "type": "key_pressed" },
+            { "kind": "block", "type": "repeat_ticks" },
             { "kind": "block", "type": "event_triggered" },
             { "kind": "block", "type": "event_message" },
             { "kind": "block", "type": "event_block" },

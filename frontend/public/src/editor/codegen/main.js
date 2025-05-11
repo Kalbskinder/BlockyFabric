@@ -827,10 +827,7 @@ translations["regex"] = (block) => {
     usedImports.add("java.util.regex.Matcher");
     usedImports.add("java.util.function.Supplier");
 
-    return `((Supplier<String>) () -> {
-    Matcher m = Pattern.compile(${pattern}${caseSensitive ? "" : ", Pattern.CASE_INSENSITIVE"}).matcher(${string});
-    return m.find() ? m.group(1) : "";
-}).get()`;
+    return `((Supplier<String>) () -> { Matcher m = Pattern.compile(${pattern}${caseSensitive ? "" : ", Pattern.CASE_INSENSITIVE"}).matcher(${string}); return m.find() ? m.group(1) : ""; }).get()`;
 };
 
 /* -----------------------------------------------------------------------------------------------------------------------
@@ -1098,15 +1095,39 @@ ${indent(children, 4)}
 	String eventItem = playerEntity.getMainHandStack().getItem().toString();
 ${indent(children, 4)}
 	return ActionResult.PASS;
-});`
+});`;
 
         /*
         * Other Events
-        */
+        */   
 
         default:
             return "// Unkown EVENT_TYPE.";
     }
+};
+
+translations["repeat_ticks"] = (block) => {
+    const interval = block.fields?.TICKS || 20;
+    const doBlock = block.inputs?.DO?.block;
+
+    const statements = doBlock ? handleCommandStatements(doBlock).statements : "";
+
+    usedImports.add("net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents");
+    usedImports.add("net.minecraft.client.MinecraftClient");
+
+    const counterName = `__tickCounter${Math.floor(Math.random() * 10000)}`;
+
+    return `
+int[] ${counterName} = new int[]{0};
+ClientTickEvents.END_CLIENT_TICK.register(client -> {
+    if (!client.isPaused()) {
+        ${counterName}[0]++;
+        if (${counterName}[0] >= ${interval}) {
+            ${counterName}[0] = 0;
+${indent(statements, 12)}
+        }
+    }
+});`.trim();
 };
 
 

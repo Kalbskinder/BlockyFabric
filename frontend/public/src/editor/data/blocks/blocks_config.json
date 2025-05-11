@@ -553,6 +553,25 @@
         "colour": "#456bd6"
       },
       {
+        "type": "repeat_ticks",
+        "tooltip": "Repeat the code every X ticks",
+        "message0": "%1 Repeat every %2 ticks",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/clock.webp", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          },
+          { "type": "field_number", "name": "TICKS", "value": 20, "min": 1 }
+        ],
+        "message1": "do %1",
+        "args1": [
+          {"type": "input_statement", "name": "DO"}
+        ],
+        "colour": "#456bd6",
+        "nextStatement": null,
+        "previousStatement": null
+      },
+      {
         "type": "new_command",
         "message0": "%1 Register a new command %2",
         "args0": [
