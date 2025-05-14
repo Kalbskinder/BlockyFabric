@@ -867,7 +867,7 @@
       },
       {
         "type": "set_display_position",
-        "message0": "Set display position %1 to X: %2 Y: %3 Z: %4",
+        "message0": "Set display position %1 to \nX: %2 \nY: %3 \nZ: %4",
         "args0": [
           { "type": "field_input", "name": "ID", "text": "myDisplay" },
           { "type": "input_value", "name": "X", "check": "Number" },
@@ -882,7 +882,7 @@
       },
       {
         "type": "set_display_rotation",
-        "message0": "Set display rotation %1 to Pitch: %2 Yaw: %3 Roll: %4",
+        "message0": "Set display rotation %1 to \nPitch: %2 \nYaw: %3 \nRoll: %4",
         "args0": [
           { "type": "field_input", "name": "ID", "text": "myDisplay" },
           { "type": "input_value", "name": "PITCH", "check": "Number" },
@@ -897,7 +897,7 @@
       },
       {
         "type": "set_display_scale",
-        "message0": "Set display scale %1 to X: %2 Y: %3 Z: %4",
+        "message0": "Set display scale %1 to \nX: %2 \nY: %3 \nZ: %4",
         "args0": [
           { "type": "field_input", "name": "ID", "text": "myDisplay" },
           { "type": "input_value", "name": "X", "check": "Number" },
