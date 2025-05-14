@@ -182,11 +182,10 @@
             { "kind": "BLOCK", "type": "set_display_position" },
             { "kind": "BLOCK", "type": "set_display_rotation" },
             { "kind": "BLOCK", "type": "set_display_scale" },
-            { "kind": "BLOCK", "type": "set_display_entity_model" },
+            { "kind": "BLOCK", "type": "set_display_block" },
             { "kind": "BLOCK", "type": "set_display_item" },
             { "kind": "BLOCK", "type": "set_display_text" },
             { "kind": "BLOCK", "type": "set_display_visibility" },
-            { "kind": "BLOCK", "type": "on_click_display" },
             { "kind": "BLOCK", "type": "delete_display_entity" }
         ]
       }

@@ -851,7 +851,6 @@
             "options": [
               ["Item", "item_display"],
               ["Block", "block_display"],
-              ["Entity", "entity_display"],
               ["Text", "text_display"]
             ]
           },
@@ -883,11 +882,12 @@
       },
       {
         "type": "set_display_rotation",
-        "message0": "Set display rotation %1 to Pitch: %2 Yaw: %3",
+        "message0": "Set display rotation %1 to Pitch: %2 Yaw: %3 Roll: %4",
         "args0": [
           { "type": "field_input", "name": "ID", "text": "myDisplay" },
           { "type": "input_value", "name": "PITCH", "check": "Number" },
-          { "type": "input_value", "name": "YAW", "check": "Number" }
+          { "type": "input_value", "name": "YAW", "check": "Number" },
+          { "type": "input_value", "name": "ROLL", "check": "Number" }
         ],
         "previousStatement": null,
         "nextStatement": null,
@@ -911,16 +911,16 @@
         "helpUrl": ""
       },
       {
-        "type": "set_display_entity_model",
-        "message0": "Set display entity model %1 to %2",
+        "type": "set_display_block",
+        "message0": "Set display block %1 to %2",
         "args0": [
           { "type": "field_input", "name": "ID", "text": "myDisplay" },
-          { "type": "field_input", "name": "MODEL", "text": "minecraft:zombie" }
+          { "type": "field_input", "name": "BLOCK", "text": "minecraft:diamond_ore" }
         ],
         "previousStatement": null,
         "nextStatement": null,
         "colour": "#edb940",
-        "tooltip": "Set the model for an entity_display",
+        "tooltip": "Set the block for an block_display",
         "helpUrl": ""
       },      
       {
@@ -958,8 +958,8 @@
             "type": "field_dropdown",
             "name": "VISIBLE",
             "options": [
-              ["true", "TRUE"],
-              ["false", "FALSE"]
+              ["true", "true"],
+              ["false", "true"]
             ]
           }
         ],

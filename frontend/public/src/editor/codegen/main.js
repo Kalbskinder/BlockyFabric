@@ -1196,7 +1196,7 @@ translations["new_command"] = (block) => {
     const subcommands = subcommandsBlock ? handleCommandStatements(subcommandsBlock).subcommands : "";
 
     usedImports.add("net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback");
-    usedImports.add("net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;");
+    usedImports.add("net.fabricmc.fabric.api.client.command.v2.ClientCommandManager");
 
     const root = `ClientCommandManager.literal("${command}")`;
     const fullChain = argumentChain
@@ -1354,4 +1354,86 @@ minecraftFunctions["getPlayerUUID"] = () => {
     return `public static String getPlayerUUID() {
     return MinecraftClient.getInstance().player.getUuid().toString();
 }`
+}
+
+
+/* =====================
+   Display Entitys
+   ===================== */
+
+translations["create_display_entity"] = (block) => {
+    const entityId = block.fields?.ID;
+    const entityType = block.fields?.TYPE;
+
+    switch (entityType) {
+        case "item_display":
+            return `CustomEntityRenderer.renderItemDisplayEntity("${entityId}", "minecraft:diamond", 0, 0, 0, 0.5f, 0.5f, 0.5f, 0, 0, 0 );`;
+        case "block_display":
+            return `CustomEntityRenderer.renderBlockDisplayEntity("${entityId}", "minecraft:diamond_ore", 0, 0, 0.5f, 0.5f, 0.5f, 0.5f, 0, 0, 0);`
+        case "text_display":
+            return `CustomEntityRenderer.renderTextDisplayEntity("${entityId}", "Hello, World!", 0, 0, 0, 0.5f, 0.5f, 0.5f, 0, 0, 0);`
+    }
+}
+
+translations["set_display_position"] = (block) => {
+    const entityId = block.fields?.ID;
+
+    const x = block.inputs?.X?.block ? handleBlock(block.inputs.X.block) : "0";
+    const y = block.inputs?.Y?.block ? handleBlock(block.inputs.Y.block) : "0";
+    const z = block.inputs?.Z?.block ? handleBlock(block.inputs.Z.block) : "0";
+
+    return `CustomEntityRenderer.setPositionDisplayEntity("${entityId}", ${x}f, ${y}f, ${z}f);`;
+}
+
+translations["set_display_rotation"] = (block) => {
+    const entityId = block.fields?.ID;
+    const yaw = block.inputs?.YAW?.block ? handleBlock(block.inputs.YAW.block) : "0";
+    const pitch = block.inputs?.PITCH?.block ? handleBlock(block.inputs.PITCH.block) : "0";
+    const roll = block.inputs?.ROLL?.block ? handleBlock(block.inputs.ROLL.block) : "0";
+
+    return `CustomEntityRenderer.setRotationDisplayEntity("${entityId}", ${yaw}f, ${pitch}f, ${roll}f);`;
+}
+
+translations["set_display_scale"] = (block) => {
+    const entityId = block.fields?.ID;
+
+    const x = block.inputs?.X?.block ? handleBlock(block.inputs.X.block) : "0";
+    const y = block.inputs?.Y?.block ? handleBlock(block.inputs.Y.block) : "0";
+    const z = block.inputs?.Z?.block ? handleBlock(block.inputs.Z.block) : "0";
+
+    return `CustomEntityRenderer.setScaleDisplayEntity("${entityId}", ${x}f, ${y}f, ${z}f);`;
+}
+
+translations["set_display_block"] = (block) => {
+    entityId = block.fields?.ID;
+    block = block.fields?.BLOCK || "minecraft:diamond_ore";
+
+    return `CustomEntityRenderer.setBlockBlockDisplayEntity("${entityId}", "${block}");`;
+}
+
+translations["set_display_item"] = (block) => {
+    const entityId = block.fields?.ID;
+    const item = block.fields?.ITEM || "minecraft:diamond";
+
+    return `CustomEntityRenderer.setItemItemDisplayEntity("${entityId}", "${item}");`;
+}
+
+translations["set_display_text"] = (block) => {
+    const entityId = block.fields?.ID;
+    const text = block.inputs?.TEXT.block ? handleBlock(block.inputs.TEXT.block) : "Hello, World!";
+
+    return `CustomEntityRenderer.setTextTextDisplayEntity("${entityId}", ${text});`;
+}
+
+translations["set_display_visibility"] = (block) => {
+    const entityId = block.fields?.ID;
+    const visible = block.fields?.VISIBLE || "true";
+
+    return `CustomEntityRenderer.setVisibilityDisplayEntity("${entityId}", ${visible});`;
+}
+
+translations["delete_display_entity"] = (block) => {
+    const entityId = block.fields?.ID;  
+
+    return `CustomEntityRenderer.deleteDisplayEntity("${entityId}");`;
 }
