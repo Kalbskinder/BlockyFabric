@@ -1,4 +1,4 @@
-package net.modwizard;
+package com.example;
 
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
@@ -25,11 +25,11 @@ public class CustomEntityRenderer {
     private static class DisplayEntityData {
         float x, y, z;
         float scaleX, scaleY, scaleZ;
-        float yaw, pitch;
+        float yaw, pitch, roll;
         boolean visible;
         ItemStack itemStack;
 
-        DisplayEntityData(String itemId, float x, float y, float z, float scaleX, float scaleY, float scaleZ, float yaw, float pitch) {
+        DisplayEntityData(String itemId, float x, float y, float z, float scaleX, float scaleY, float scaleZ, float yaw, float pitch, float roll) {
             this.x = x;
             this.y = y;
             this.z = z;
@@ -38,6 +38,7 @@ public class CustomEntityRenderer {
             this.scaleZ = scaleZ;
             this.yaw = yaw;
             this.pitch = pitch;
+            this.roll = roll;
             this.visible = true; // Default visibility
             Item item = Registries.ITEM.get(Identifier.tryParse(itemId));
             this.itemStack = (item == Items.AIR) ? new ItemStack(Items.BARRIER) : new ItemStack(item); // Fallback to barrier if invalid
@@ -55,14 +56,16 @@ public class CustomEntityRenderer {
      * @param scaleY Scale
      * @param scaleZ Scale
      * @param yaw Rotation on Y axis
+     * @param pitch Rotation on X axis
+     * @param roll Rotation on Z axis
      */
     public static void renderItemDisplayEntity(String id, String itemId, float x, float y, float z,
-                                               float scaleX, float scaleY, float scaleZ, float yaw, float pitch) {
+                                               float scaleX, float scaleY, float scaleZ, float yaw, float pitch, float roll) {
         if (registeredIds.contains(id)) return; // Prevent duplicate registration
         registeredIds.add(id);
 
         // Store the entity's initial data
-        entityDataMap.put(id, new DisplayEntityData(itemId, x, y, z, scaleX, scaleY, scaleZ, yaw, pitch));
+        entityDataMap.put(id, new DisplayEntityData(itemId, x, y, z, scaleX, scaleY, scaleZ, yaw, pitch, roll));
 
         // Register the rendering event (only once)
         if (!isRenderingInitialized) {
@@ -89,6 +92,8 @@ public class CustomEntityRenderer {
                     matrices.scale(data.scaleX, data.scaleY, data.scaleZ);
                     matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(data.yaw));
                     matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(data.pitch));
+                    matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(data.roll));
+
 
                     // Render the item
                     client.getItemRenderer().renderItem(
@@ -132,11 +137,12 @@ public class CustomEntityRenderer {
      * @param yaw New yaw (Y-axis rotation)
      * @param pitch New pitch (X-axis rotation)
      */
-    public static void setRotationItemDisplayEntity(String id, float yaw, float pitch) {
+    public static void setRotationItemDisplayEntity(String id, float yaw, float pitch, float roll) {
         DisplayEntityData data = entityDataMap.get(id);
         if (data != null) {
             data.yaw = yaw;
             data.pitch = pitch;
+            data.roll = roll;
         } else {
             System.err.println("ItemDisplayEntity with ID " + id + " not found.");
         }
