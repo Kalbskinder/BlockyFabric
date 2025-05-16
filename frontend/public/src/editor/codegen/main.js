@@ -301,6 +301,27 @@ translations["return"] = () => {
     return "return;";
 }
 
+translations["try_catch"] = (block) => {
+    const tryBlock = block.inputs?.TRY?.block ? handleStatements(block.inputs.TRY.block) : "";
+    const catchBlock = block.inputs?.CATCH?.block ? handleStatements(block.inputs.CATCH.block) : "";
+    const finallyBlock = block.inputs?.FINALLY?.block ? handleStatements(block.inputs.FINALLY.block) : "";
+
+    if (finallyBlock) {
+        return `try {\n${indent(tryBlock)}\n} catch (Exception e) {\n${indent(catchBlock)}\n} finally {\n${indent(finallyBlock)}\n}`;
+    } else {
+        return `try {\n${indent(tryBlock)}\n} catch (Exception e) {\n${indent(catchBlock)}\n}`;
+    }
+}
+
+translations["error"] = (block) => {
+    return "e";
+}
+
+translations["throw_error"] = (block) => {
+    const message = block.inputs?.ERROR?.block ? handleBlock(block.inputs.ERROR.block) : "";
+    return `throw new Exception(${message});`;
+}
+
 /* =====================
    Math
    ===================== */

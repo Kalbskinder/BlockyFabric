@@ -12,9 +12,13 @@
             { "kind": "BLOCK", "type": "logic_compare" },
             { "kind": "BLOCK", "type": "logic_operation" },
             { "kind": "BLOCK", "type": "logic_negate" },
-            { "kind": "BLOCK", "type": "logic_boolean" },
             { "kind": "BLOCK", "type": "break" },
             { "kind": "BLOCK", "type": "return" },
+
+            { "kind": "LABEL", "text": "Errors", "web-class": "ioLabel" },
+            { "kind": "BLOCK", "type": "try_catch" },
+            { "kind": "BLOCK", "type": "throw_error" },
+            { "kind": "BLOCK", "type": "error" },
 
             { "kind": "LABEL", "text": "Loops", "web-class": "ioLabel" },
 

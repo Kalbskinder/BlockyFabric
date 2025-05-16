@@ -37,6 +37,69 @@
       "previousStatement": null,
       "colour": "#ff6f61"
    },
+    {
+      "type": "error",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_label",
+          "name": "NAME",
+          "text": "error"
+        }
+      ],
+      "output": "String",
+      "colour": "#ff6f61",
+      "tooltip": "The error caught by the try/catch block",
+      "helpUrl": ""
+    },
+
+    {
+      "type": "try_catch",
+      "message0": "try \n%1",
+      "args0": [
+        {
+          "type": "input_statement",
+          "name": "TRY"
+        }
+      ],
+      "message1": "catch \n%1",
+      "args1": [
+        {
+          "type": "input_statement",
+          "name": "CATCH"
+        }
+      ],
+      "message2": "finally \n%1",
+      "args2": [
+        {
+          "type": "input_statement",
+          "name": "FINALLY"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#ff6f61",
+      "tooltip": "Try/catch/finally block",
+      "helpUrl": ""
+    },
+    {
+      "type": "throw_error",
+      "message0": "throw error %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "ERROR",
+          "check": "String"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#ff6f61",
+      "tooltip": "Throws an error",
+      "helpUrl": ""
+    },
+
+
 
 
 
@@ -958,8 +1021,8 @@
             "type": "field_dropdown",
             "name": "VISIBLE",
             "options": [
-              ["true", "true"],
-              ["false", "true"]
+              ["visible", "true"],
+              ["hidden", "true"]
             ]
           }
         ],
