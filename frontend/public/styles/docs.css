@@ -1,81 +1,194 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Press+Start+2P&display=swap');
+
+:root {
+    --bg-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --accent-color: #4a4a4a;
+    --hover-color: #59a9ff;
+    --border-color: #333333;
+    --content-bg: #222222;
 }
 
 body {
-    scroll-behavior: smooth;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Lexend', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
 }
 
-/* Layout */
 .docs-container {
-    display: flex;
-    height: calc(100vh - 50px); /* Adjusted for navbar */
+    display: grid;
+    grid-template-columns: 220px 1fr 180px;
+    max-width: 1400px;
+    height: calc(100vh - 60px);
 }
 
-/* Sidebar */
-.sidebar {
-    width: 250px;
-    background: #222;
-    color: white;
-    padding: 20px;
+.sidebar-left {
+    background-color: var(--content-bg);
+    padding: 10px;
     overflow-y: auto;
+    height: 100%;
+    border-right: 1px solid var(--border-color);
 }
 
-.sidebar h2 {
-    font-size: 20px;
-    margin-bottom: 15px;
+.sidebar-section {
+    margin-bottom: 8px;
 }
 
-.sidebar ul {
+.section-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: left;
+    width: 100%;
+    padding: 8px 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.section-toggle:hover {
+    color: var(--hover-color);
+}
+
+.toggle-icon {
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+}
+
+.section-toggle.active .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.section-list {
     list-style: none;
     padding: 0;
+    margin: 0;
+    display: none;
 }
 
-.sidebar ul li {
-    margin: 10px 0;
-}
-
-.sidebar ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 8px;
+.section-list.active {
     display: block;
-    border-radius: 5px;
-    transition: 0.3s;
 }
 
-.sidebar ul li a:hover {
-    background: #444;
+.section-list li {
+    padding: 6px 15px;
 }
 
-/* Content */
-.content {
-    flex: 1;
+.section-list a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.section-list a:hover {
+    background-color: transparent;
+    color: var(--hover-color);
+}
+
+.section-list a.active {
+    color: var(--hover-color);
+    font-weight: 600;
+}
+
+.docs-main {
+    background-color: var(--bg-color);
     padding: 20px;
     overflow-y: auto;
+    height: 100%;
 }
 
-.content h1 {
-    font-size: 32px;
+.main-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
 }
 
-.content p {
-    font-size: 16px;
-    margin-top: 10px;
+.main-content h2 {
+    font-size: 1.4rem;
+    margin-top: 25px;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 4px;
 }
 
-.content-container {
-    margin-left: 40px;
+.main-content p {
+    font-size: 0.95rem;
+    margin: 12px 0;
 }
 
-.content-container h4 {
-    text-decoration: underline;
-    margin-bottom: 10px;
+.main-content code {
+    background-color: var(--accent-color);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: 'Noto Sans', monospace;
 }
 
-.content-overview {
-    margin-bottom: 20px;
-    margin-top: 20px;
+.sidebar-right {
+    background-color: var(--bg-color);
+    padding: 10px;
+    height: 100%;
+    overflow-y: auto;
+    border-left: 1px solid var(--border-color);
+}
+
+.sidebar-right h3 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    color: var(--text-color);
+}
+
+.section-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section-nav li {
+    margin-bottom: 8px;
+}
+
+.section-nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.section-nav a.active {
+    color: var(--hover-color);
+}
+
+.section-nav a:hover {
+    color: var(--hover-color);
+}
+
+@media (max-width: 1024px) {
+    .docs-container {
+        grid-template-columns: 220px 1fr;
+    }
+
+    .sidebar-right {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .docs-container {
+        grid-template-columns: 1fr;
+        padding: 10px 0;
+    }
+
+    .sidebar-left {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
 }

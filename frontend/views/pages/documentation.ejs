@@ -7,92 +7,198 @@
     <%- include('../components/imports') %>
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="/styles/docs.css">
-    <%- include('../components/themes') %> <!-- Theme -->
+    <%- include('../components/themes') %>
 </head>
 <body>
-    <%- include('../components/navbar') %>  <!-- Navbar -->
+    <%- include('../components/navbar') %>
 
     <div class="docs-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <h2>Documentation</h2>
-            <ul>
-                <li><a href="#" onclick="showContent('intro')">🔹 Introduction</a></li>
-                <li><a href="#" onclick="showContent('start')">🔹 Getting started</a></li>
-                <li><a href="#" onclick="showContent('blockly')">🔹 Using Blockly</a></li>
-                <li><a href="#" onclick="showContent('custom_blocks')">🔹 Creating Custom Blocks</a></li>
-                <li><a href="#" onclick="showContent('backend')">🔹 Backend API</a></li>
+        <aside class="sidebar-left">
+            <div class="sidebar-section">
+                <button class="section-toggle">Introduction <span class="toggle-icon">▼</span></button>
+                <ul class="section-list">
+                    <li><a href="#overview" data-page="overview">Overview</a></li>
+                    <li><a href="#goals" data-page="goals">Goals</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <button class="section-toggle">Projekt aufsetzen <span class="toggle-icon">▼</span></button>
+                <ul class="section-list">
+                    <li><a href="#installation" data-page="installation">Installation</a></li>
+                    <li><a href="#configuration" data-page="configuration">Konfiguration</a></li>
+                    <li><a href="#first-mods" data-page="first-mods">Erste Mods</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="docs-main">
+            <article class="main-content" id="main-content">
+                <!-- Inhalt wird dynamisch geladen -->
+            </article>
+        </main>
+
+        <aside class="sidebar-right">
+            <h3>In dieser Seite</h3>
+            <ul class="section-nav" id="section-nav">
+                <!-- Ankerlinks werden dynamisch geladen -->
             </ul>
-        </div>
-
-        <!-- Main Content -->
-        <div class="content">
-            <div id="intro" class="doc-section">
-                <h1>🔹 Introduction</h1>
-                <p>Welcome to the Blockly Mod Creator documentation! Learn how to create your own Minecraft mods using Blockly.</p>
-                <h4>Technologies</h4>
-                <p>Fabric</p>
-            </div>
-
-            <div id="start" class="doc-section" style="display: none;">
-                <h1>🔹 Creating a new Project</h1>
-                <div class="content-container">
-                    <p>When creating a new <a href="/dashboard">project</a> you have to</p>
-                    <div class="content-overview">
-                        <h3>Overview</h3>
-                        <ul>
-                            <li><a href="#title-and-desc">Title and Descreption</a></li>
-                            <li><a href="#banner">Banner</a></li>
-                            <li><a href="#visibility">Project Visibility</a></li>
-                            <li><a href="#mc-version">Minecraft Version</a></li>
-                        </ul>
-                    </div>
-                    <h4 id="title-and-desc">Title and Description</h4>
-                    <p>Give your Project a Title and a short Descreption of your Project. A Description is not required but recommended.</p>
-                    <h4 id="banner">Banner</h4>
-                    <p>When creating a new Project you can Provide any image file as a banner for your Project. If no image was provided you will get the default banner image.</p>
-                    <h4 id="visibility">Project Visibility</h4>
-                    <p>Select if your Project should be publicly visible or only visible to you. When selecting Public, everybody will be able to see your Project in the <a href="/explore">Exploration Page</a>.</p>
-                    <h4 id="mc-version">Minecraft Version</h4>
-                    <p>We only support Minecraft version 1.21.5 and later. As soon as Fabric updates to a new version of Minecraft we try our best to update our tool within a day.</p>
-                </div>
-            </div>
-
-            <div id="blockly" class="doc-section" style="display: none;">
-                <h1>🔹 Using Blockly</h1>
-                <p>Drag and connect blocks to create scripts. The code will be generated automatically.</p>
-            </div>
-
-            <div id="custom_blocks" class="doc-section" style="display: none;">
-                <h1>🔹 Creating Custom Blocks</h1>
-                <p>Use `Blockly.defineBlocksWithJsonArray` to define new blocks.</p>
-            </div>
-
-            <div id="backend" class="doc-section" style="display: none;">
-                <h1>🔹 Backend API</h1>
-                <p>Send the generated code to `/upload` using a POST request.</p>
-            </div>
-        </div>
+        </aside>
     </div>
 
     <script>
-        function showContent(section) {
-            let sections = ["intro", "start", "blockly", "custom_blocks", "backend"];
-            sections.forEach(id => {
-                document.getElementById(id).style.display = (id === section) ? "block" : "none";
-            });
+        const pages = {
+            overview: {
+                title: "Overview",
+                content: `
+                    <h1>Overview</h1>
+                    <section id="introduction">
+                        <h2>Introduction</h2>
+                        <p>Mod Wizard is a tool that lets anybody create minecraft mods with no coding experience. It lets you create mods in minutes by dragging blocks together.</p>
+                    </section>
+                    <section id="features">
+                        <h2>Features</h2>
+                        <p>Main features:</p>
+                        <ul>
+                            <li>Support for the newest Minecraft versions</li>
+                            <li>Support for Fabric</li>
+                        </ul>
+                    </section>
+                `,
+                sections: [
+                    { id: "introduction", title: "Introduction" },
+                    { id: "features", title: "Features" }
+                ]
+            },
+            goals: {
+                title: "Goals",
+                content: `
+                    <h1>Goals</h1>
+                    <section id="mission">
+                        <h2>Mission</h2>
+                        <p>Our mission is to make modding for Minecraft as accessible as possible by offering an intuitive platform.</p>
+                    </section>
+                    <section id="community">
+                        <h2>Community</h2>
+                        <p>We offer a wide range of resources and tutorials to help you get started.</p>
+                    </section>
+                `,
+                sections: [
+                    { id: "mission", title: "Mission" },
+                    { id: "community", title: "Community" }
+                ]
+            },
+            installation: {
+                title: "Installation",
+                content: `
+                    <h1>Installation</h1>
+                    <section id="download">
+                        <h2>Download</h2>
+                        <p>Lade die neueste Version von Mod Wizard von unserer Website herunter.</p>
+                    </section>
+                    <section id="setup-gradle">
+                        <h2>Gradle einrichten</h2>
+                        <p>Füge folgende Zeile zu deiner <code>build.gradle</code> hinzu:</p>
+                        <p><code>implementation 'com.modwizard:core:1.0.0'</code></p>
+                    </section>
+                `,
+                sections: [
+                    { id: "download", title: "Download" },
+                    { id: "setup-gradle", title: "Gradle einrichten" }
+                ]
+            },
+            configuration: {
+                title: "Konfiguration",
+                content: `
+                    <h1>Konfiguration</h1>
+                    <section id="mod-json">
+                        <h2>mod.json erstellen</h2>
+                        <p>Erstelle eine <code>mod.json</code>-Datei im Stammverzeichnis deines Projekts:</p>
+                        <p><code>{"id": "examplemod", "version": "1.0.0"}</code></p>
+                    </section>
+                    <section id="dependencies">
+                        <h2>Abhängigkeiten</h2>
+                        <p>Füge Abhängigkeiten in <code>build.gradle</code> hinzu, z. B. Fabric API.</p>
+                    </section>
+                `,
+                sections: [
+                    { id: "mod-json", title: "mod.json erstellen" },
+                    { id: "dependencies", title: "Abhängigkeiten" }
+                ]
+            },
+            'first-mods': {
+                title: "Erste Mods",
+                content: `
+                    <h1>Erste Mods</h1>
+                    <section id="basic-mod">
+                        <h2>Ein einfacher Mod</h2>
+                        <p>Erstelle eine Klasse, die <code>ModInitializer</code> implementiert:</p>
+                        <p><code>
+                            public class ExampleMod implements ModInitializer {<br>
+                                @Override<br>
+                                public void onInitialize() {<br>
+                                    System.out.println("Hallo, Mod Wizard!");<br>
+                                }<br>
+                            }
+                        </code></p>
+                    </section>
+                    <section id="testing">
+                        <h2>Testen</h2>
+                        <p>Führe <code>gradlew runClient</code> aus, um deinen Mod in Minecraft zu testen.</p>
+                    </section>
+                `,
+                sections: [
+                    { id: "basic-mod", title: "Ein einfacher Mod" },
+                    { id: "testing", title: "Testen" }
+                ]
+            }
+        };
 
-            localStorage.setItem('lastSection', section);
+        document.querySelectorAll('.section-list a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                loadPage(pageId);
+                document.querySelectorAll('.section-list a').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        // Dropdown-Funktionalität
+        document.querySelectorAll('.section-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const list = toggle.nextElementSibling;
+                const isActive = list.classList.contains('active');
+                document.querySelectorAll('.section-list').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.section-toggle').forEach(t => t.classList.remove('active'));
+                if (!isActive) {
+                    list.classList.add('active');
+                    toggle.classList.add('active');
+                }
+            });
+        });
+
+        function loadPage(pageId) {
+            const page = pages[pageId];
+            if (!page) return;
+
+            const mainContent = document.getElementById('main-content');
+            mainContent.innerHTML = page.content;
+
+            const sectionNav = document.getElementById('section-nav');
+            sectionNav.innerHTML = page.sections.map(section => `
+                <li><a href="#${section.id}">${section.title}</a></li>
+            `).join('');
+
+            sectionNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.querySelectorAll('.section-nav a').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                });
+            });
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const lastSection = localStorage.getItem('lastSection');
-            if (lastSection) {
-                showContent(lastSection);
-            } else {
-                showContent('intro');
-            }
-        });
+        loadPage('overview');
+        document.querySelector('.section-list a[data-page="overview"]').classList.add('active');
     </script>
 </body>
 </html>
