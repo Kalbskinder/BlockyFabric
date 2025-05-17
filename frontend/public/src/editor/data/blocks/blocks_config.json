@@ -884,7 +884,7 @@
         "type": "player_yaw_pitch",
         "message0": "%1 Player %2",
         "args0": [
-          { "type": "field_image", "src": "/images/icons/blocks/stone.png", "alt": "Block icon",
+          { "type": "field_image", "src": "/images/icons/blocks/spyglass.webp", "alt": "Block icon",
           "width": 24,
           "height": 24
           },
@@ -923,6 +923,20 @@
         "colour": "#03a366",
         "tooltip": "Returns the biome the player's currently in"
       },
+      {
+        "type": "player_gamemode",
+        "message0": "%1 Player gamemode",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/debug.gif", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          }
+        ],
+        "output": "String",
+        "colour": "#03a366",
+        "tooltip": "Returns the player's gamemode"
+      },
+
       {
         "type": "player_clipboard_set",
         "message0": "%1 Copy %2 to clipboard",

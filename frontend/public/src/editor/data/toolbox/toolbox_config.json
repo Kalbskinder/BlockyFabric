@@ -173,6 +173,7 @@
             { "kind": "BLOCK", "type": "player_position_y" },
             { "kind": "BLOCK", "type": "player_position_z" },
             { "kind": "BLOCK", "type": "player_yaw_pitch" },
+            { "kind": "BLOCK", "type": "player_gamemode" },
             { "kind": "BLOCK", "type": "player_xp" },
 
             { "kind": "LABEL", "text": "Clipboard", "web-class": "ioLabel" },

@@ -1385,7 +1385,7 @@ translations["player_username"] = () => {
     usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("getPlayerUsername");
     return `ModWizardAPI.getPlayerName()`;
-};
+}
 
 minecraftFunctions["getPlayerUsername"] = () => {
     return `public static String getPlayerUsername() {
@@ -1398,7 +1398,7 @@ translations["player_uuid"] = () => {
     usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("getPlayerUUID");
     return `ModWizardAPI.getPlayerUUID()`;
-};
+}
 
 minecraftFunctions["getPlayerUUID"] = () => {
     return `public static String getPlayerUUID() {
@@ -1406,22 +1406,31 @@ minecraftFunctions["getPlayerUUID"] = () => {
 }`
 }
 
-// Copy to clipboard and get clipboard
+// Player game mode
+translations["player_gamemode"] = () => {
+    usedImports.add("net.modwizard.ModWizardAPI");
+    usedHelpers.add("getPlayerGameMode");
+    return `ModWizardAPI.getPlayerGameMode()`;
+};
 
+minecraftFunctions["getPlayerGameMode"] = () => {
+    return `public static String getPlayerGameMode () {
+    return MinecraftClient.getInstance().player.getGameMode().getId();
+}`;
+}
+
+// Copy to clipboard and get clipboard
 translations["player_clipboard_get"] = () => {
     usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("getClipboard");
     return `ModWizardAPI.playerClipboard("", "get")`;
-};
+}
 
 translations["player_clipboard_set"] = (block) => {
     usedImports.add("net.modwizard.ModWizardAPI");
     usedHelpers.add("getClipboard");
     return `ModWizardAPI.playerClipboard(${handleBlock(block.inputs?.TEXT?.block) || '"Hello World!"'}, "copy")`;
 }
-
-
-
 
 minecraftFunctions["getClipboard"] = () => {
     return `public static String playerClipboard (String text, String method) {
