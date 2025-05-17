@@ -923,6 +923,28 @@
         "colour": "#03a366",
         "tooltip": "Returns the biome the player's currently in"
       },
+      {
+        "type": "player_clipboard_set",
+        "message0": "%1 Copy %2 to clipboard",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/sign.webp", "alt": "Block icon", "width": 24, "height": 24 },
+          { "type": "input_value", "name": "TEXT" }
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": "#03a366",
+        "tooltip": "Copies a String to the clipboard"
+      },
+      {
+        "type": "player_clipboard_get",
+        "message0": "%1 Get clipboard",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/sign.webp", "alt": "Block icon", "width": 24, "height": 24 }
+        ],
+        "output": "String",
+        "colour": "#03a366",
+        "tooltip": "Returns the contents of the clipboard"
+      },
       
       
       {

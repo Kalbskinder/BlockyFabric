@@ -173,8 +173,11 @@
             { "kind": "BLOCK", "type": "player_position_y" },
             { "kind": "BLOCK", "type": "player_position_z" },
             { "kind": "BLOCK", "type": "player_yaw_pitch" },
-            { "kind": "BLOCK", "type": "player_biome" },
-            { "kind": "BLOCK", "type": "player_xp" }
+            { "kind": "BLOCK", "type": "player_xp" },
+
+            { "kind": "LABEL", "text": "Clipboard", "web-class": "ioLabel" },
+            { "kind": "BLOCK", "type": "player_clipboard_set" },
+            { "kind": "BLOCK", "type": "player_clipboard_get" }
         ]
       },
       {

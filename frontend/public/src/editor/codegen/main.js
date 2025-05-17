@@ -1406,6 +1406,36 @@ minecraftFunctions["getPlayerUUID"] = () => {
 }`
 }
 
+// Copy to clipboard and get clipboard
+
+translations["player_clipboard_get"] = () => {
+    usedImports.add("net.modwizard.ModWizardAPI");
+    usedHelpers.add("getClipboard");
+    return `ModWizardAPI.playerClipboard("", "get")`;
+};
+
+translations["player_clipboard_set"] = (block) => {
+    usedImports.add("net.modwizard.ModWizardAPI");
+    usedHelpers.add("getClipboard");
+    return `ModWizardAPI.playerClipboard(${handleBlock(block.inputs?.TEXT?.block) || '"Hello World!"'}, "copy")`;
+}
+
+
+
+
+minecraftFunctions["getClipboard"] = () => {
+    return `public static String playerClipboard (String text, String method) {
+    if (method == "copy") {
+        MinecraftClient.getInstance().keyboard.setClipboard(text);
+        return text;
+    } else if (method == "get") {
+        return MinecraftClient.getInstance().keyboard.getClipboard();
+    } else{
+        return text;
+    }
+}`;
+}
+
 
 /* =====================
    Display Entitys
