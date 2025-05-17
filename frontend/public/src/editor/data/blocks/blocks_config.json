@@ -881,6 +881,23 @@
         "tooltip": "Returns the current player's Z position"
       },
       {
+        "type": "player_yaw_pitch",
+        "message0": "%1 Player %2",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/stone.png", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          },
+          { "type": "field_dropdown", "name": "OPTIONS", "options": [
+            ["yaw", "true"],
+            ["pitch", "false"]
+          ]}
+        ],
+        "output": "Number",
+        "colour": "#03a366",
+        "tooltip": "Returns the player's yaw or pitch"
+      },
+      {
         "type": "player_xp",
         "message0": "%1 Player XP",
         "args0": [

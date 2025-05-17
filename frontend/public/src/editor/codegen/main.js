@@ -7,6 +7,8 @@ const usedMinecraftImports = new Set();
 const usedHelpers = new Set();
 const initializeChildren = new Set()
 
+usedImports.add("org.slf4j.LoggerFactory")
+
 function exportCode() {
     const json = Blockly.serialization.workspaces.save(workspace); // Save the current workspace
     const code = generateJava(json);
@@ -1342,6 +1344,18 @@ minecraftFunctions["getPlayerZ"] = () => {
     return `public static double getPlayerZ() {
     return MinecraftClient.getInstance().player.getZ();
 }`
+}
+
+translations["player_yaw_pitch"] = (block) => {
+    usedImports.add("net.modwizard.ModWizardAPI");
+    usedHelpers.add("getPlayerRotation");
+    return `ModWizardAPI.getPlayerRotation(${block.fields?.OPTIONS || "true"})`;
+};
+
+minecraftFunctions["getPlayerRotation"] = () => {
+    return `public static float getPlayerRotation(boolean yaw) {
+    return yaw ? MinecraftClient.getInstance().player.lastYaw : MinecraftClient.getInstance().player.lastPitch;
+}`;
 }
 
 // Player xp
