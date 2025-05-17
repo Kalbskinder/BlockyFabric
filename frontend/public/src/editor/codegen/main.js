@@ -1032,7 +1032,7 @@ translations["event_triggered"] = (block) => {
         * Chat Events
         */
         case "ClientMessageEvents.CHAT_MESSAGE":
-            usedImports.add("import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;");
+            usedImports.add("net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents");
 
             return `ClientReceiveMessageEvents.CHAT.register((message, signed_message, sender, params, timestamp) -> {
     String eventMessage = message.getString(); 
@@ -1042,7 +1042,7 @@ translations["event_triggered"] = (block) => {
 ${indent(children, 4)}
 });`;
         case "ClientMessageEvents.GAME_MESSAGE":
-            usedImports.add("import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;");
+            usedImports.add("net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents");
             
             return `ClientReceiveMessageEvents.GAME.register((message, overlay) -> {
 	String eventMessage = message.getString();
@@ -1055,7 +1055,7 @@ ${indent(children, 8)}
         * Block Events
         */
         case "ClientPlayerBlockBreakEvents.AFTER":
-            usedImports.add("import net.fabricmc.fabric.api.event.client.player.ClientPlayerBlockBreakEvents;");
+            usedImports.add("net.fabricmc.fabric.api.event.client.player.ClientPlayerBlockBreakEvents");
 
             return `ClientPlayerBlockBreakEvents.AFTER.register((world, player, pos, state) -> {
 	String eventBlock = state.getBlock().getName().getString();
@@ -1063,19 +1063,34 @@ ${indent(children, 4)}
 });`;
 
         case "UseBlockCallback.EVENT":
-            usedImports.add("import net.fabricmc.fabric.api.event.player.UseBlockCallback;");
-            usedImports.add("import net.minecraft.util.ActionResult;");
+            usedImports.add("net.fabricmc.fabric.api.event.player.UseBlockCallback");
+            usedImports.add("net.minecraft.util.ActionResult");
 
             return `UseBlockCallback.EVENT.register((playerEntity, world, hand, blockHitResult) -> {
+    BlockPos p = hitResult.getBlockPos();
+	BlockState state = world.getBlockState(p);
+	Block b = state.getBlock();
+	Identifier block = Registries.BLOCK.getId(b);
+	String pos = p.getX() + ", " + p.getY() + ", " + p.getZ();
+
 ${indent(children, 4)}	
     return ActionResult.PASS;
 });`;
 
         case "AttackBlockCallback.EVENT":
-            usedImports.add("import net.fabricmc.fabric.api.event.player.AttackBlockCallback;");
-            usedImports.add("import net.minecraft.util.ActionResult;");
+            usedImports.add("net.fabricmc.fabric.api.event.player.AttackBlockCallback");
+            usedImports.add("net.minecraft.util.ActionResult");
+            usedImports.add("net.minecraft.block.BlockState");
+            usedImports.add("net.minecraft.block.Block");
+            usedImports.add("net.minecraft.util.Identifier");
+            usedImports.add("net.minecraft.registry.Registries");
 
             return `AttackBlockCallback.EVENT.register((playerEntity, world, hand, blockPos, direction) -> {
+    String pos = blockPos.getX() + ", " + blockPos.getY() + ", " + blockPos.getZ();
+	BlockState state = world.getBlockState(blockPos);
+	Block b = state.getBlock();
+	Identifier block = Registries.BLOCK.getId(b);
+    
 ${indent(children, 4)}	
     return ActionResult.PASS;
 });`;
@@ -1084,8 +1099,8 @@ ${indent(children, 4)}
         * Entity Events
         */
         case "AttackEntityCallback.EVENT":
-            usedImports.add("import net.fabricmc.fabric.api.event.player.AttackEntityCallback;");
-            usedImports.add("import net.minecraft.util.ActionResult;");
+            usedImports.add("net.fabricmc.fabric.api.event.player.AttackEntityCallback");
+            usedImports.add("net.minecraft.util.ActionResult");
 
         return `AttackEntityCallback.EVENT.register((playerEntity, world, hand, entity, entityHitResult) -> {
 	String eventEntity = entity.getName().getString();
@@ -1094,8 +1109,8 @@ ${indent(children, 4)}
 });`
 
         case "UseEntityCallback.EVENT":
-            usedImports.add("import net.fabricmc.fabric.api.event.player.UseEntityCallback;");
-            usedImports.add("import net.minecraft.util.ActionResult;");
+            usedImports.add("net.fabricmc.fabric.api.event.player.UseEntityCallback;");
+            usedImports.add("net.minecraft.util.ActionResult;");
 
             return `UseEntityCallback.EVENT.register((playerEntity, world, hand, entity, entityHitResult) -> {
 	String eventEntity = entity.getName().getString();
@@ -1109,8 +1124,8 @@ ${indent(children, 4)}
 
         // Returns item as String minecraft:item_name
         case "UseItemCallback.EVENT":
-            usedImports.add("import net.fabricmc.fabric.api.event.player.UseItemCallback;");
-            usedImports.add("import net.minecraft.util.ActionResult;");
+            usedImports.add("net.fabricmc.fabric.api.event.player.UseItemCallback;");
+            usedImports.add("net.minecraft.util.ActionResult;");
 
             return `UseItemCallback.EVENT.register((playerEntity, world, hand) -> {
 	String eventItem = playerEntity.getMainHandStack().getItem().toString();
@@ -1157,8 +1172,8 @@ translations["event_message"] = () => {
     return "eventMessage";
 };
 
-translations["event_block"] = () => {
-    return "eventBlock";
+translations["event_block"] = (block) => {
+    return `${block.fields?.OPTIONS || "block" }`;
 };
 
 translations["event_entity"] = () => {
