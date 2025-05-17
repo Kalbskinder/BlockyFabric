@@ -1269,13 +1269,13 @@ ${indent(fullExecBody, 4)}
 })`;
 
     const argumentChain = argBlocks.length > 0
-        ? `${buildArgumentChain(argBlocks, [finalExecutes])})`
+        ? `.then(${buildArgumentChain(argBlocks, [finalExecutes])})`
         : `${finalExecutes}`;
 
     return `
 .then(ClientCommandManager.literal("${subCommandName}")
-    .then(${indent(argumentChain, 4).trim()})
-`.trim();
+    ${indent(argumentChain, 4).trim()}
+)`.trim();
 };
 
 

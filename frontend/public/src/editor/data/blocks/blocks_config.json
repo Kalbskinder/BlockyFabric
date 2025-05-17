@@ -846,7 +846,7 @@
           "height": 24
           }
         ],
-        "output": "String",
+        "output": "Number",
         "colour": "#03a366",
         "tooltip": "Returns the current player's X position"
       },
@@ -859,7 +859,7 @@
           "height": 24
           }
         ],
-        "output": "String",
+        "output": "Number",
         "colour": "#03a366",
         "tooltip": "Returns the current player's Y position"
       },
@@ -872,7 +872,7 @@
           "height": 24
           }
         ],
-        "output": "String",
+        "output": "Number",
         "colour": "#03a366",
         "tooltip": "Returns the current player's Z position"
       },
@@ -885,7 +885,7 @@
           "height": 24
           }
         ],
-        "output": "String",
+        "output": "Number",
         "colour": "#03a366",
         "tooltip": "Returns the amount of experience levels a player has. (Returns as a String)"
       },
