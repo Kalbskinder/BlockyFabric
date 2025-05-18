@@ -178,7 +178,11 @@
 
             { "kind": "LABEL", "text": "Clipboard", "web-class": "ioLabel" },
             { "kind": "BLOCK", "type": "player_clipboard_set" },
-            { "kind": "BLOCK", "type": "player_clipboard_get" }
+            { "kind": "BLOCK", "type": "player_clipboard_get" },
+
+            { "kind": "LABEL", "text": "Other", "web-class": "ioLabel" },
+            { "kind": "BLOCK", "type": "player_item_drop" }
+            
         ]
       },
       {

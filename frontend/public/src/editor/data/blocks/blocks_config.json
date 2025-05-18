@@ -959,6 +959,18 @@
         "colour": "#03a366",
         "tooltip": "Returns the contents of the clipboard"
       },
+      {
+        "type": "player_item_drop",
+        "message0": "%1 Drop held item \nEntire stack? %2",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/dropper.png", "alt": "Block icon", "width": 24, "height": 24 },
+          { "type": "field_checkbox", "name": "ENTIRE_STACK" }
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": "#03a366",  
+        "tooltip": "Drops the player's held item"
+      },
       
       
       {

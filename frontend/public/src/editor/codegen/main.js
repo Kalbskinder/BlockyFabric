@@ -1445,6 +1445,19 @@ minecraftFunctions["getClipboard"] = () => {
 }`;
 }
 
+// Player drop held item
+translations["player_item_drop"] = (block) => {
+    usedImports.add("net.modwizard.ModWizardAPI");
+    usedHelpers.add("dropHeldItem");
+    return `ModWizardAPI.dropHeldItem(${block.fields?.ENTIRE_STACK || "false"})`;
+}
+
+minecraftFunctions["dropHeldItem"] = () => {
+    return `public static boolean dropHeldItem (boolean entireStack) {
+    return MinecraftClient.getInstance().player.dropSelectedItem(entireStack);
+}`;
+}
+
 
 /* =====================
    Display Entitys
