@@ -17,33 +17,9 @@ function exportCode() {
     importSection  ? importSection += "\n\n" : "";
     usedImports.clear(); // Clear used imports for next export
 
-    const modWizardAPIClass = generateHelperClass(); // Generate and format all helper functions
     const mainClassCode = `package net.modwizard;\n\n${'import net.fabricmc.api.ClientModInitializer;\n' + importSection}public class Client implements ClientModInitializer {${indent(`\npublic static final String MOD_ID = "ModWizardLogger";\npublic static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MOD_ID);\n`, 4)}\n${indent(code)}\n}`; // Put code into the class main
     
-    return {
-        mainClass: mainClassCode,
-        helperClass: modWizardAPIClass
-    }
-}
-
-function generateHelperClass() {
-    const functions = Array.from(usedHelpers).map(fn => {
-        return minecraftFunctions[fn] ? minecraftFunctions[fn]() : "";
-    }).join("\n\n");
-
-    let imports = "";
-
-    if (usedMinecraftImports.size) {
-        imports = Array.from(usedMinecraftImports)
-        .map(i => `import ${i};`)
-        .join("\n");
-
-        usedMinecraftImports.clear(); // Clear used imports for next export
-    };        
-
-    usedHelpers.clear(); // Clear used helpers for next export
-
-    return `package net.modwizard;\n\n${imports ? imports + '\n\n' : ''}public class ModWizardAPI {\n\n${indent(functions)}\n}`;
+    return mainClassCode
 }
 
 // Function to generate Java code
@@ -169,8 +145,6 @@ function buildArgumentChain(args, finalExecutesBlockLines) {
 
 
 
-
-const minecraftFunctions = {}
 const translations = {}
 
 /* =====================
@@ -875,34 +849,9 @@ translations["play_sound"] = (block) => {
     const pitch = parseFloat(block.fields?.PITCH || "1");
 
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("playSound");
 
     return `ModWizardAPI.playSound(${sound}, ${volume}f, ${pitch}f);`;
 }
-
-minecraftFunctions["playSound"] = () => {
-    const method = `public static void playSound(String sound, float volume, float pitch) {
-    MinecraftClient client = MinecraftClient.getInstance();
-    if (client.player == null) return;
-
-    Identifier id = Identifier.tryParse(sound);
-    if (id == null) {
-        client.player.sendMessage(Text.literal("Invalid sound identifier: " + sound), false);
-        return;
-    }
-
-    SoundEvent event = SoundEvent.of(id);
-    client.player.playSound(event, volume, pitch);
-}`
-
-    usedMinecraftImports.add("net.minecraft.client.MinecraftClient");
-    usedMinecraftImports.add("net.minecraft.sound.SoundCategory");
-    usedMinecraftImports.add("net.minecraft.util.Identifier");
-    usedMinecraftImports.add("net.minecraft.sound.SoundEvent");
-
-    return method;
-}
-
 
 // Display title
 translations["display_title"] = (block) => {
@@ -912,25 +861,8 @@ translations["display_title"] = (block) => {
     const fadeOut = parseInt(block.fields?.FADEOUT || "1");
 
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("displayTitle");
 
     return `ModWizardAPI.displayTitle(${convertColorCodes(text)}, ${fadeIn}, ${stay}, ${fadeOut});`;
-};
-
-minecraftFunctions["displayTitle"] = () => {
-    const method = `public static void displayTitle(String title, int fadeIn, int stay, int fadeOut) {
-    MinecraftClient client = MinecraftClient.getInstance();
-    if (client.player != null && client.inGameHud != null) {
-        client.inGameHud.setTitle(Text.literal(title));
-        client.inGameHud.setTitleTicks(fadeIn * 20, stay * 20, fadeOut * 20);
-    }
-}`;
-
-    usedMinecraftImports.add("net.minecraft.client.MinecraftClient");
-    usedMinecraftImports.add("net.minecraft.text.Text");
-
-
-    return method;
 };
 
 // Display subtitle
@@ -941,50 +873,17 @@ translations["display_subtitle"] = (block) => {
     const fadeOut = parseInt(block.fields?.FADEOUT || "1");
 
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("displaySubtitle");
 
     return `ModWizardAPI.displaySubtitle(${convertColorCodes(text)}, ${fadeIn}, ${stay}, ${fadeOut});`;
-};
-
-minecraftFunctions["displaySubtitle"] = () => {
-    const method = `public static void displaySubtitle(String subtitle, int fadeIn, int stay, int fadeOut) {
-    MinecraftClient client = MinecraftClient.getInstance();
-    if (client.player != null && client.inGameHud != null) {
-        client.inGameHud.setSubtitle(Text.literal(subtitle));
-        client.inGameHud.setTitleTicks(fadeIn * 20, stay * 20, fadeOut * 20);
-    }
-}`;
-
-    usedMinecraftImports.add("net.minecraft.client.MinecraftClient");
-    usedMinecraftImports.add("net.minecraft.text.Text");
-
-    return method;
 };
 
 // Display actionbar
 translations["display_actionbar"] = (block) => {
     let text = handleBlock(block.inputs?.TEXT?.block) || '"Actionbar"';
 
-
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("displayActionbar");
 
     return `ModWizardAPI.displayActionbar(${convertColorCodes(text)});`;
-};
-
-minecraftFunctions["displayActionbar"] = () => {
-    const method = ` public static void displayActionbar(String message) {
-    MinecraftClient client = MinecraftClient.getInstance();
-    if (client.player != null) {
-        client.player.sendMessage(Text.literal(message), true);
-    }
-}
-`;
-
-    usedMinecraftImports.add("net.minecraft.client.MinecraftClient");
-    usedMinecraftImports.add("net.minecraft.text.Text");
-
-    return method;
 };
 
 // Send messages
@@ -993,26 +892,9 @@ translations["send_message"] = (block) => {
     const isGlobal = block.fields?.GLOBAL === true;
 
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("sendMessage");
 
     return `ModWizardAPI.sendMessage(${convertColorCodes(message)}, ${isGlobal});`;
 };
-
-minecraftFunctions["sendMessage"] = () => {
-    const method = `public static void sendMessage(String message, boolean sendGlobally) {
-    MinecraftClient client = MinecraftClient.getInstance();
-    if (sendGlobally) {
-        String plainMessage = message.replaceAll("§.", "");
-        client.player.networkHandler.sendChatMessage(plainMessage);
-    } else {
-        client.inGameHud.getChatHud().addMessage(Text.literal(message));
-    }
-}`
-    usedMinecraftImports.add("net.minecraft.client.MinecraftClient");
-    usedMinecraftImports.add("net.minecraft.text.Text");
-
-    return method;
-}
 
 /* =====================
    Events
@@ -1309,67 +1191,31 @@ translations["command_argument_get"] = (block) => {
 // Player position X
 translations["player_position_x"] = () => {
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("getPlayerX");
     return `ModWizardAPI.getPlayerX()`;
 };
-
-minecraftFunctions["getPlayerX"] = () => {
-    return `public static double getPlayerX() {
-    return MinecraftClient.getInstance().player.getX();
-}`
-}
 
 // Player position Y
 translations["player_position_y"] = () => {
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("getPlayerY");
     return `ModWizardAPI.getPlayerY()`;
 };
-
-minecraftFunctions["getPlayerY"] = () => {
-    return `public static double getPlayerY() {
-    return MinecraftClient.getInstance().player.getY();
-}`
-}
 
 // Player position Z
 translations["player_position_z"] = () => {
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("getPlayerZ");
     return `ModWizardAPI.getPlayerZ()`;
 };
 
-minecraftFunctions["getPlayerZ"] = () => {
-    return `public static double getPlayerZ() {
-    return MinecraftClient.getInstance().player.getZ();
-}`
-}
-
 translations["player_yaw_pitch"] = (block) => {
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("getPlayerRotation");
     return `ModWizardAPI.getPlayerRotation(${block.fields?.OPTIONS || "true"})`;
 };
-
-minecraftFunctions["getPlayerRotation"] = () => {
-    return `public static float getPlayerRotation(boolean yaw) {
-    return yaw ? MinecraftClient.getInstance().player.lastYaw : MinecraftClient.getInstance().player.lastPitch;
-}`;
-}
 
 // Player xp
 translations["player_xp"] = () => {
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("getPlayerXP");
     return `ModWizardAPI.getPlayerXP()`;
 };
-
-minecraftFunctions["getPlayerXP"] = () => {
-    return `public static int getPlayerXP() {
-    return MinecraftClient.getInstance().player.experienceLevel;
-}`
-}
 
 // Player Biome
 /*
@@ -1383,79 +1229,36 @@ translations["player_biome"] = () => {
 // Player username
 translations["player_username"] = () => {
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("getPlayerUsername");
     return `ModWizardAPI.getPlayerName()`;
-}
-
-minecraftFunctions["getPlayerUsername"] = () => {
-    return `public static String getPlayerUsername() {
-    return MinecraftClient.getInstance().player.getDisplayName().getString();
-}`
 }
 
 // Player uuid
 translations["player_uuid"] = () => {
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("getPlayerUUID");
     return `ModWizardAPI.getPlayerUUID()`;
-}
-
-minecraftFunctions["getPlayerUUID"] = () => {
-    return `public static String getPlayerUUID() {
-    return MinecraftClient.getInstance().player.getUuid().toString();
-}`
 }
 
 // Player game mode
 translations["player_gamemode"] = () => {
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("getPlayerGameMode");
     return `ModWizardAPI.getPlayerGameMode()`;
 };
-
-minecraftFunctions["getPlayerGameMode"] = () => {
-    return `public static String getPlayerGameMode () {
-    return MinecraftClient.getInstance().player.getGameMode().getId();
-}`;
-}
 
 // Copy to clipboard and get clipboard
 translations["player_clipboard_get"] = () => {
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("getClipboard");
     return `ModWizardAPI.playerClipboard("", "get")`;
 }
 
 translations["player_clipboard_set"] = (block) => {
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("getClipboard");
     return `ModWizardAPI.playerClipboard(${handleBlock(block.inputs?.TEXT?.block) || '"Hello World!"'}, "copy")`;
-}
-
-minecraftFunctions["getClipboard"] = () => {
-    return `public static String playerClipboard (String text, String method) {
-    if (method == "copy") {
-        MinecraftClient.getInstance().keyboard.setClipboard(text);
-        return text;
-    } else if (method == "get") {
-        return MinecraftClient.getInstance().keyboard.getClipboard();
-    } else{
-        return text;
-    }
-}`;
 }
 
 // Player drop held item
 translations["player_item_drop"] = (block) => {
     usedImports.add("net.modwizard.ModWizardAPI");
-    usedHelpers.add("dropHeldItem");
     return `ModWizardAPI.dropHeldItem(${block.fields?.ENTIRE_STACK || "false"})`;
-}
-
-minecraftFunctions["dropHeldItem"] = () => {
-    return `public static boolean dropHeldItem (boolean entireStack) {
-    return MinecraftClient.getInstance().player.dropSelectedItem(entireStack);
-}`;
 }
 
 

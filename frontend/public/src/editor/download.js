@@ -15,8 +15,7 @@ function downloadJavaFile(filename, code) {
 document.getElementById("downloadSourceBtn").addEventListener("click", () => {
     const generatedCode = exportCode();
 
-    downloadJavaFile("Main.java", generatedCode.mainClass);
-    downloadJavaFile("ModWizardAPI.java", generatedCode.helperClass);
+    downloadJavaFile("Main.java", generatedCode);
 });
 
 
@@ -30,10 +29,7 @@ document.getElementById("downloadModBtn").addEventListener("click", async () => 
     const templateZip = await JSZip.loadAsync(templateBlob);
 
     // Ersetze Client.java
-    templateZip.file("src/client/java/net/modwizard/Client.java", generatedCode.mainClass);
-
-    // Füge ModWizardAPI.java hinzu
-    templateZip.file("src/client/java/net/modwizard/ModWizardAPI.java", generatedCode.helperClass);
+    templateZip.file("src/client/java/net/modwizard/Client.java", generatedCode);
 
     // ZIP erstellen & herunterladen
     const content = await templateZip.generateAsync({ type: "blob" });
