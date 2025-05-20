@@ -1018,6 +1018,25 @@ ${indent(children, 4)}
 });`;
 
         /*
+        * Server Events
+        */
+
+        case "ConnectCallback.EVENT":
+            usedImports.add("net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents")
+            return `ClientPlayConnectionEvents.JOIN.register((clientPlayNetworkHandler, packetSender, minecraftClient) -> {
+	String serverAddress = clientPlayNetworkHandler.getServerInfo().address.toString();
+${indent(children, 4)}
+});`;
+
+        case "DisconnectCallback.EVENT":
+            usedImports.add("net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents")
+            return `ClientPlayConnectionEvents.DISCONNECT.register((clientPlayNetworkHandler, minecraftClient) -> {
+	String serverAddress = clientPlayNetworkHandler.getServerInfo().address.toString();
+${indent(children, 4)}
+});`;
+
+
+        /*
         * Other Events
         */   
 
@@ -1070,6 +1089,10 @@ translations["event_sender"] = () => {
 
 translations["event_item"] = () => {
     return "eventItem";
+};
+
+translations["event_server"] = () => {
+    return "serverAddress";
 };
 
 

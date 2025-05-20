@@ -153,6 +153,7 @@
             { "kind": "block", "type": "event_block" },
             { "kind": "block", "type": "event_item" },
             { "kind": "block", "type": "event_entity" },
+            { "kind": "block", "type": "event_server" },
 
             { "kind": "LABEL", "text": "Commands", "web-class": "ioLabel" },
             { "kind": "block", "type": "new_command" },

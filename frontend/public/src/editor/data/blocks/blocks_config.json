@@ -733,7 +733,9 @@
             ["uses Block", "UseBlockCallback.EVENT"],
             ["attacks Entity", "AttackEntityCallback.EVENT"],
             ["uses Entity", "UseEntityCallback.EVENT"],
-            ["uses Item", "UseItemCallback.EVENT"]
+            ["uses Item", "UseItemCallback.EVENT"],
+            ["connects to Server", "ConnectCallback.EVENT"],
+            ["disconnects from Server", "DisconnectCallback.EVENT"]
           ]}
         ],
         "message1": "do %1",
@@ -812,6 +814,19 @@
         "output": "String",
         "colour": "#456bd6",
         "tooltip": "Contains the entity for any Entity event"
+      },
+      {
+        "type": "event_server",
+        "message0": "%1 server address",
+        "args0": [
+          { "type": "field_image", "src": "/images/icons/blocks/lodestone.png", "alt": "Block icon",
+          "width": 24,
+          "height": 24
+          }
+        ],
+        "output": "String",
+        "colour": "#456bd6",
+        "tooltip": "Returns the server address of the server a player has joined."
       },
 
 
