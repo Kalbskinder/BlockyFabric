@@ -16,12 +16,15 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.modwizard.name"
+			"net.modwizard.Main"
 		],
 		"client": [
-			"net.modwizard.nameClient"
+			"net.modwizard.Client"
 		]
 	},
+	"mixins": [
+		"glowingplayer.mixins.json"
+	],
 	"depends": {
 		"fabricloader": ">=0.16.14",
 		"minecraft": "~1.21.5",

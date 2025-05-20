@@ -202,6 +202,16 @@
             { "kind": "BLOCK", "type": "set_display_visibility" },
             { "kind": "BLOCK", "type": "delete_display_entity" }
         ]
+      },
+
+      {
+        "kind": "category",
+        "name": "Extras",
+        "colour": "#3eb7c7",
+        "contents": [
+            { "kind": "LABEL", "text": "Extras", "web-class": "ioLabel" },
+            { "kind": "BLOCK", "type": "player_glow" }
+        ]
       }
     ]
 }

@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.example.secrets.glowingplayer.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+  ],
+  "client": [
+    "GlowingPlayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

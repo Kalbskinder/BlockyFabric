@@ -1365,3 +1365,15 @@ translations["delete_display_entity"] = (block) => {
 
     return `CustomEntityRenderer.deleteDisplayEntity("${entityId}");`;
 }
+
+
+/* =====================
+   Extras
+   ===================== */
+
+// Player glow effect
+translations["player_glow"] = (block) => {
+    const glow = block.fields?.GLOW || "false";
+    usedImports.add("net.modwizard.extras.glowingplayer.GlowingPlayer")
+    return `GlowingPlayer.setPlayerGlow(${glow});`;
+}
