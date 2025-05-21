@@ -512,11 +512,12 @@
         "colour": "#c206b8"
     },
     {
-      "type": "print",
-      "tooltip": "Prints a message to the console",
+      "type": "log",
+      "tooltip": "Logs a message to the console",
       "helpUrl": "",
-      "message0": "Print %1",
+      "message0": "Log %1 %2",
       "args0": [
+        { "type": "field_dropdown", "name": "TYPE", "options": [["Info", "info"], ["Warning", "warn"], ["Error", "error"]] },
         { "type": "input_value", "name": "MESSAGE" }
       ],
       "previousStatement": null,

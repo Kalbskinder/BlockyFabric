@@ -805,9 +805,10 @@ translations["return_of_function"] = (block) => {
    Other
    ===================== */
 
-translations["print"] = (block) => {
+translations["log"] = (block) => {
     const value = block.inputs?.MESSAGE?.block ? handleBlock(block.inputs.MESSAGE.block) : '""';
-    return `LOGGER.info(${value});`;
+    const type = block.fields?.TYPE || "info";
+    return `LOGGER.${type}(${value});`;
 }
 
 translations["comment"] = (block) => {
