@@ -14,8 +14,9 @@
     flex-direction: column;
     padding: 50px 140px;
     border-radius: 8px;
-    background-color: #00000088;
-    border: 2px solid #dbdbdb53;
+    background-color: #151517;
+    border: 2px solid #272727e4;
+    box-shadow: 1px 1px 12px 0px rgba(190, 190, 190, 0.178);
 }
 
 .content h1 {
