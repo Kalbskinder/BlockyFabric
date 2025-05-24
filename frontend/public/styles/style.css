@@ -21,15 +21,15 @@ a.navbar-brand img {
 }
 
 .nav-item .signup {
-    background-color: white;
+    border: 1px solid #0275d8;
     color: #0275d8;
     border-radius: 8px;
     margin-left: 5px;
 }
 
 .nav-item .signup:hover {
-    background-color: #e9e9e9;
-    color: #0275d8;
+    background-color: #0275d8;
+    color: #fff;
     text-decoration: none;
 }
 
