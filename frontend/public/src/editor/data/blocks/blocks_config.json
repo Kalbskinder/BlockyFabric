@@ -927,19 +927,6 @@
         "tooltip": "Returns the amount of experience levels a player has. (Returns as a String)"
       },
       {
-        "type": "player_biome",
-        "message0": "%1 Player Biome",
-        "args0": [
-          { "type": "field_image", "src": "/images/icons/blocks/biome.png", "alt": "Block icon",
-          "width": 24,
-          "height": 24
-          }
-        ],
-        "output": "String",
-        "colour": "#03a366",
-        "tooltip": "Returns the biome the player's currently in"
-      },
-      {
         "type": "player_gamemode",
         "message0": "%1 Player gamemode",
         "args0": [
