@@ -467,6 +467,12 @@ translations["math_pi"] = () => {
     return "Math.PI";
 }
 
+translations["evaluate"] = (block) => {
+    usedImports.add("net.modwizard.utils.Eval");
+    const expression = block.inputs?.EXPRESSION?.block ? handleBlock(block.inputs.EXPRESSION.block) : '"0"';
+    return `Eval.eval(${expression})`;
+}
+
 /* =====================
    Strings
    ===================== */
@@ -1276,7 +1282,7 @@ translations["player_clipboard_get"] = () => {
 
 translations["player_clipboard_set"] = (block) => {
     usedImports.add("net.modwizard.ModWizardAPI");
-    return `ModWizardAPI.playerClipboard(${handleBlock(block.inputs?.TEXT?.block) || '"Hello World!"'}, "copy")`;
+    return `ModWizardAPI.playerClipboard(${handleBlock(block.inputs?.TEXT?.block) || '"Hello World!"'}, "copy");`;
 }
 
 // Player drop held item

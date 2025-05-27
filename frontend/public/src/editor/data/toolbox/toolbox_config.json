@@ -44,7 +44,9 @@
             { "kind": "BLOCK", "type": "math_random_int" },
             { "kind": "BLOCK", "type": "parse_int" },
             { "kind": "BLOCK", "type": "parse_double" },
-            { "kind": "BLOCK", "type": "math_pi" }
+            { "kind": "BLOCK", "type": "math_pi" },
+            { "kind": "BLOCK", "type": "evaluate" }
+
         ]
       },
       {

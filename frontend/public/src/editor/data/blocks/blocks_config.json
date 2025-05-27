@@ -168,6 +168,20 @@
     "colour": 230,
     "tooltip": "Returns the value of Pi"
   },
+  {
+    "type": "evaluate",
+    "message0": "evaluate %1",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "EXPRESSION",
+        "check": "String"
+      }
+    ],
+    "output": "Number",
+    "colour": 230,
+    "tooltip": "Evaluates an expression"
+  },
 
 
     

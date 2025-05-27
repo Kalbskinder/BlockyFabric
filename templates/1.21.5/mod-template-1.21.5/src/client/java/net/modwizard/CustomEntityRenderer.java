@@ -1,4 +1,4 @@
-package com.example;
+package net.modwizard;
 
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.block.BlockState;
