@@ -1,4 +1,4 @@
-package com.example.utils;
+package net.modwizard.utils;
 
 import java.util.ArrayList;
 import java.util.List;

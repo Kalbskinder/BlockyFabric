@@ -1,4 +1,4 @@
-package com.example.extras.glowingplayer;
+package net.modwizard.extras.glowingplayer;
 
 public class GlowingPlayer {
     private static boolean shouldGlow = false;

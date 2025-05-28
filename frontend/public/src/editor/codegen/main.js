@@ -127,11 +127,26 @@ function buildArgumentChain(args, finalExecutesBlockLines) {
 
     let typeExpr;
     switch (type) {
-        case "int": typeExpr = "IntegerArgumentType.integer()"; break;
-        case "float": typeExpr = "FloatArgumentType.floatArg()"; break;
-        case "string": typeExpr = "StringArgumentType.string()"; break;
-        case "boolean": typeExpr = "BoolArgumentType.bool()"; break;
-        default: typeExpr = "StringArgumentType.word()"; break;
+        case "int":
+            typeExpr = "IntegerArgumentType.integer()";
+            usedImports.add("com.mojang.brigadier.arguments.IntegerArgumentType");
+            break;
+        case "float":
+            typeExpr = "FloatArgumentType.floatArg()";
+            usedImports.add("com.mojang.brigadier.arguments.FloatArgumentType");
+            break;
+        case "string":
+            typeExpr = "StringArgumentType.string()";
+            usedImports.add("com.mojang.brigadier.arguments.StringArgumentType");
+            break;
+        case "boolean":
+            typeExpr = "BoolArgumentType.bool()";
+            usedImports.add("com.mojang.brigadier.arguments.BoolArgumentType");
+            break;
+        default:
+            typeExpr = "StringArgumentType.word()";
+            usedImports.add("com.mojang.brigadier.arguments.StringArgumentType");
+            break;
     }
 
     const argumentLine = `ClientCommandManager.argument("${name}", ${typeExpr})`;
@@ -470,7 +485,7 @@ translations["math_pi"] = () => {
 translations["evaluate"] = (block) => {
     usedImports.add("net.modwizard.utils.Eval");
     const expression = block.inputs?.EXPRESSION?.block ? handleBlock(block.inputs.EXPRESSION.block) : '"0"';
-    return `Eval.eval(${expression})`;
+    return `String.valueOf(Eval.eval(${expression})`;
 }
 
 /* =====================

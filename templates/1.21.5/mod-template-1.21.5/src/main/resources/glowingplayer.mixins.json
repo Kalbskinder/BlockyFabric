@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.example.secrets.glowingplayer.mixin",
+  "package": "net.modwizard.extras.glowingplayer.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
   ],

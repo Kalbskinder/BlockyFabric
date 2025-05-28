@@ -1,6 +1,6 @@
-package com.example.extras.glowingplayer.mixin;
+package net.modwizard.extras.glowingplayer.mixin;
 
-import com.example.extras.glowingplayer.GlowingPlayer;
+import net.modwizard.extras.glowingplayer.GlowingPlayer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
