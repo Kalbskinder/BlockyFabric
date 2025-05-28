@@ -485,7 +485,7 @@ translations["math_pi"] = () => {
 translations["evaluate"] = (block) => {
     usedImports.add("net.modwizard.utils.Eval");
     const expression = block.inputs?.EXPRESSION?.block ? handleBlock(block.inputs.EXPRESSION.block) : '"0"';
-    return `String.valueOf(Eval.eval(${expression})`;
+    return `String.valueOf(Eval.eval(${expression}))`;
 }
 
 /* =====================
@@ -1152,10 +1152,10 @@ translations["new_command"] = (block) => {
     });
 
     const fullExecBody = [...variableLines, "", ...execBodyLines].join('\n');
-    const finalExecutes = `\n.executes(context -> {\n${indent(fullExecBody, 4)}\nreturn 1;\n    })`;
+    const finalExecutes = `.executes(context -> {\n${indent(fullExecBody, 4)}\n    return 1;\n})`;
 
     const argumentChain = argBlocks.length > 0
-    ? `\n    .then(${buildArgumentChain(argBlocks, [finalExecutes])})`
+    ? `    .then(${buildArgumentChain(argBlocks, [finalExecutes])})`
     : `${finalExecutes}`;
 
     const subcommands = subcommandsBlock ? handleCommandStatements(subcommandsBlock).subcommands : "";
